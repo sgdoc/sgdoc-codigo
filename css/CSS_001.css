@@ -1,0 +1,1149 @@
+
+/*
+ * Copyright 2008 ICMBio
+ * Este arquivo é parte do programa SISICMBio
+ * O SISICMBio é um software livre; você pode redistribuíção e/ou modifição dentro dos termos
+ * da Licença Pública Geral GNU como publicada pela Fundação do Software Livre (FSF); na versão
+ * 2 da Licença.
+ *
+ * Este programa é distribuíção na esperança que possa ser útil, mas SEM NENHUMA GARANTIA; sem
+ * uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
+ * Licença Pública Geral GNU/GPL em português para maiores detalhes.
+ * Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título "LICENCA.txt",
+ * junto com este programa, se não, acesse o Portal do Software Público Brasileiro no endereço
+ * www.softwarepublico.gov.br ou escreva para a Fundação do Software Livre(FSF)
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301, USA
+ * */
+
+
+p {
+    margin-left: 0.2cm;
+    margin-right: 0.2cm;
+    color: #ffffff;
+    font-family: "Tahoma", "Arial", "Helvetica", sans-serif;
+    font-size: 8pt
+}
+
+th p {
+    margin-left: 0.2cm;
+    margin-right: 0.2cm;
+    color: #ffffff;
+    font-family: "Tahoma", "Arial", "Helvetica", sans-serif;
+    font-size: 8pt
+}
+
+a:link {
+    font-size: 9px;
+    color: #FFFFFF;
+    font-family: Tahoma;
+    text-decoration: none
+}
+
+a:visited {
+    font-size: 9px;
+    color: #FFFFFF;
+    font-family: Tahoma;
+    text-decoration: none
+}
+
+a:hover {
+    font-size: 9px;
+    color: #99FF00;
+    font-family: Tahoma;
+    text-decoration: underline
+}
+
+a:active {
+    font-size: 9px;
+    color: #FFFFFF;
+    font-family: Tahoma;
+    text-decoration: underline
+}
+
+body {
+    margin-top: 5px;
+    margin-right: 0px;
+    margin-left: 0px;
+    background-attachment: fixed;
+}
+
+#preloader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 100;
+    background-color: rgba(0,0,0,0.9);
+}
+
+#visualizador {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 100;
+    background-color: rgba(0,0,0,0.9);
+}
+
+#visualizador_imagem {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    width: auto;
+    height : auto;
+    z-index: 100;
+    border: 0px;
+    background-color: rgba(0,0,0,0.9);
+}
+
+#visualizador_imagem_processo,#visualizador_popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999999;
+    background-color: rgba(0,0,0,0.9);
+}
+
+#comunicado {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 100;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.style1 {
+    color: #FFFFFF;
+    font-family: Tahoma;
+    font-size: 24px;
+}
+
+.style2 {
+    font-family: Tahoma;
+    font-size: 16px;
+}
+
+.style3 {
+    font-size: 12px;
+    color: #FFFFFF;
+    font-family: Tahoma;
+}
+
+.style4 {
+    color: #FFFFFF;
+    font-family: Tahoma;
+}
+
+.style5 {
+    font-size: 16px;
+    font-family: Tahoma;
+}
+
+.style6 {
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.style7 {
+    font-size: 24px;
+    font-family: Tahoma;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.style8 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.style9 {
+    font-size: 10px;
+    color: #FFFFFF;
+    font-family: Tahoma;
+}
+
+.style10 {
+    font-size: 12px;
+    color: #FFFFFF;
+    font-family: Tahoma;
+}
+
+.style11 {
+    font-size: 12px;
+    font-family: Tahoma;
+}
+
+.style12 {
+    font-size: 12px;
+    color: #FFFFFF;
+    font-family: Tahoma;
+}
+
+.style13 {
+    font-size: 11px;
+    color: #FFFFFF;
+    font-family: Tahoma;
+    font-weight: bold;
+}
+
+.style14 {
+    font-size: 12px;
+    color: #FFFFFF;
+    font-family: Tahoma;
+}
+
+.style15 {
+    font-size: 14px;
+    color: #FFFFFF;
+    font-family: Tahoma;
+}
+
+.style16 {
+    font-size: 12px;
+    color: #FFFFFF;
+    font-family: Tahoma;
+}
+
+.style17 {
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: tahoma;
+}
+
+.style18 {
+    font-family: Tahoma;
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.style19 {
+    font-size: 24px;
+    font-family: tahoma;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.style20 {
+    background: transparent;
+    font-family: tahoma;
+    color: #FFFFFF;
+}
+
+.style21 {
+    color: #00000;
+    font-size: 12px;
+    font-family: tahoma;
+}
+
+.style22 {
+    font-size: 30px;
+    color: #FFFFFF;
+    font-family: Tahoma;
+}
+
+.style23 {
+    font-family: Tahoma;
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none
+}
+
+.style24 {
+    background: transparent;
+    font-weight: bold;
+    font-family: tahoma;
+}
+
+.style25 {
+    font-family: Tahoma;
+    font-size: 9px;
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none
+}
+
+.style26 {
+    font-family: Tahoma;
+    font-size: 7px;
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none
+}
+
+.botao48 {
+    width: 48px;
+    height: 48px;
+    border: transparent;
+    cursor: pointer;
+}
+
+.botao32:hover{
+    width: 32px;
+    height: 32px;
+}
+
+.botao30 {
+    width: 30px;
+    height: 30px;
+    border: transparent;
+    cursor: pointer;
+}
+
+.botao32 {
+    width: 32px;
+    height: 32px;
+    border: transparent;
+    cursor: pointer;
+}
+
+.botao20 {
+    width: 20px;
+    height: 20px;
+    border: transparent;
+    cursor: pointer;
+}
+
+.botao10 {
+    width: 10px;
+    height: 10px;
+    border: transparent;
+    cursor: pointer;
+}
+
+.tabela {
+    background-color: #799936;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    padding: 2px;
+    text-align: center;
+}
+
+.tabela_detalhar_processos {
+    background-color: #799936;
+    /*width: 100%;
+    height: 100%;*/
+    border: 1px solid #9AC619;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    padding: 2px;
+    text-align: center;
+}
+
+.tabela_autuar_processos {
+    background-color: #799936;
+    width: 60%;
+    height: 60%;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    padding: 2px;
+    text-align: center;
+}
+
+.tabela_arredondada {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: auto;
+    background-color: #799936;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    padding: 2px;
+    text-align: center;
+}
+
+.tabela_arredondada_erro {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: auto;
+    background-color: #F00;
+    border: 1px solid #FFFFFF;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    padding: 2px;
+    text-align: center;
+}
+
+.tabela_detalhar_documentos {
+    background-color: #799936;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    padding: 2px;
+    text-align: center;
+}
+
+.etiqueta_processo {
+    font-size: 9px;
+    font-family: Tahoma;
+    color: #000;
+    border-top: medium #000;
+    border: 1px solid #000;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    padding: 6px;
+}
+
+.FUNDOCAIXA1 {
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 2px;
+}
+
+.FUNDOCAIXA2 {
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 2px;
+    width:200px
+}
+
+.FUNDOCAIXA3 {
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 2px;
+    width:350px
+}
+
+
+.listagem { /*text-shadow: 1px -1px 9px #000;*/
+    background-color: #799936;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 2px;
+    text-align: center;
+}
+
+
+.listagem_pesquisa { /*text-shadow: 1px -1px 9px #000;*/
+    background-color: #799936;
+    border: 2px dashed #9AC619;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 2px;
+    text-align: center;
+}
+
+.FUNDOCAIXA1:focus {
+    border: 1px solid #9AC619;
+    background-color: #EFFFBA;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 2px;
+}
+
+.FUNDOCAIXA3:focus {
+    background-color: #EFFFBA;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 2px;
+}
+
+.FUNDOCAIXA2 {
+    border: 1px solid #DBE7F9;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 2px;
+}
+
+.FUNDOCAIXA2:focus {
+    border-color: #000000;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 2px;
+}
+
+textarea {
+    border: 1px solid #FFFFFF;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 2px;
+}
+
+iframe {
+    border: 0px solid #FFFFFF;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 3px;
+}
+
+/* css input file */
+#div-input-file {
+    background: url(../imagens/search.png) no-repeat 100% 1px;
+    height: 32px;
+    width: 200px;
+    margin: 0px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 2px;
+}
+
+#div-input-file #file-original {
+    opacity: 0.0;
+    -moz-opacity: 0.0;
+    filter: alpha(opacity:0.2);
+    font-size: 18px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 2px;
+}
+
+#div-input-falso {
+    margin-top: -28px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 2px;
+}
+
+#div-input-falso #file-falso {
+    width: 170px;
+    height: 29px;
+    font-size: 15px;
+    font-family: Verdana;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 2px;
+}
+
+.erro_debug {
+    color: #FF0000;
+    font-weight: bold;
+}
+
+.tabelaViewPort {
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    width: auto;
+    height : auto;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+}
+
+#visualizador_imagem {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    width: auto;
+    height : auto;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+}
+
+#frame_visualizador_imagem{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    width: 99%;
+    height : 99%;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+}
+
+
+#frame_visualizador_popup{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 100px;
+    left: 100px;
+    width: 85%;
+    height : 99%;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+}
+
+
+#visualizador_imagem_processo,#visualizador_popup{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    width: auto;
+    height : auto;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+}
+
+#frame_visualizador_imagem_processo{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    width: 99%;
+    height : 99%;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    z-index: 999999;
+}
+
+.exitButton {
+    position: absolute;
+    border: none;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+}
+
+.exitButtonProcesso,#btnClosePopup {
+    position: absolute;
+    border: none;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    top: 10px;
+    right: 10px;
+    z-index: 9999999;
+}
+
+.statusButton {
+    display: none;
+    position:   absolute;
+    border:     none;
+    cursor:     pointer;
+    width:      48px;
+    height:     48px;
+    background: url(../imagens/status.png) no-repeat left top;
+    top:        60px;
+    right:      10px;
+    z-index:    13;
+}
+
+.sortButton {
+    display: none;
+    position:   absolute;
+    border:     none;
+    cursor:     pointer;
+    width:      48px;
+    height:     48px;
+    background: url(../imagens/sort.png) no-repeat left top;
+    top:        60px;
+    right:      10px;
+    z-index:    13;
+}
+
+.pesquisa_informacoes_p {
+    font-family: Tahoma;
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.titulo_pesquisa { /*text-shadow: 1px -1px 9px #000;*/
+    background-color: #799936;
+    border: 2px solid #363;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 2px;
+    text-align: center;
+}
+
+.tabela_menu_principal{
+    width: 500px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    margin-top: -200px;
+    margin-left: -250px;
+    position: absolute;
+}
+
+.tabela_centralizada{
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    margin-top: -200px;
+    margin-left: -250px;
+    position: absolute;
+}
+
+.rodape{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: -999;
+    font-size: 11px;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.nome-usuario{
+    top: 10px;
+    left: 10px;
+    font-size: 11px;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.tabela_cabecalho_caixas{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.tabela_mensagem_erro{
+    background-color: #952E29;
+    border: 1px solid #A63D37;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    padding: 2px;
+    text-align: center;
+}
+
+.tabela_mensagem_sucesso{
+    background-color: #799936;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    padding: 2px;
+    text-align: center;
+}
+
+.espaco_superior{
+    margin-top: 10%;
+}
+
+/*novos*/
+
+.borda-superior-central {
+    height: 65px;
+    width:250px;
+    text-align: center;
+    background-color: #799936;
+}
+
+.borda-superior-esquerda{
+    height: 65px;
+    width:50px;
+    -moz-border-radius-topleft: 40px;
+    background-color: #799936;
+    border: 1px solid #9AC619;
+}
+
+.borda-superior-direita{
+    height: 65px;
+    width:50px;
+    -moz-border-radius-topright: 40px;
+    background-color: #799936;
+    border: 1px solid #9AC619;
+}
+
+.tabela-caixas-cabecalho{
+    width: 100%;
+}
+
+.fundo-tabela-verde{
+    background-color: #799936;
+}
+
+.borda-auxiliar-central{
+    height: 45px;
+}
+
+#faixa-fundo{
+}
+
+#logo-fundo{
+}
+
+/* form cadastrar documentos - inicio */
+
+.tabela_cadastrar_documentos input[type=text],.tabela_cadastrar_documentos select{
+    width: 350px;
+    height: 25px;
+}
+
+#div-form-cadastrar-documentos-remover{
+    width: 400px;
+    padding-right: 40px;
+    padding-top: 10px;
+    text-align: right;
+    color: #FFFFFF;
+    font-family: Tahoma;
+    font-weight: bold;
+}
+
+
+#div-form-cadastrar-documentos-remover input[type=text],#div-form-cadastrar-documentos-remover select {
+    width: 400px;
+    padding: 5px;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-left: 10px;
+}
+
+#div-form-cadastrar-documentos-remover input:focus{
+    background-color: #EFFFBA;
+}
+
+#div-form-cadastrar-documentos-remover select:focus{
+    background-color: #EFFFBA;
+    padding: 5px;
+}
+
+#div-form-cadastrar-documentos-remover label{
+    margin-top: 5px;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    width: 100px;
+    left: 11px;
+    width: 133px;
+
+}
+
+#div-form-cadastrar-documentos-remover div{
+    display: block;
+    margin-top: 1px;
+}
+
+#div-form-cadastrar-documentos-remover .botao-auxiliar{
+    vertical-align: middle;
+    margin-left: -20px;
+    position: absolute;
+    margin-top: 6px;
+
+}
+
+#div-form-cadastrar-documentos-remover .botao-auxiliar-fix-combobox{
+    vertical-align: middle;
+    margin-left: -20px;
+    position: absolute;
+    margin-top: 7px;
+
+}
+
+#div-form-cadastrar-documentos-remover .label-titulo-div{
+    font-size: 30px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 30px;
+    display: block;
+}
+
+#div-form-cadastrar-documentos-remover .botao-salvar{
+    text-align: right;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    margin-right: -60px;
+}
+
+/* form cadastrar documentos - final */
+
+/*-------------------------------------------------------------------------*/
+
+/* form cadastrar processos - inicio */
+
+#div-form-cadastrar-processos-remover{
+    width: 400px;
+    /*    background-color: #799936;
+        border: 1px solid #9AC619;
+    margin: 0 auto;
+     margin-top: 10px;
+     margin-bottom: 40px;*/
+    padding-right: 40px;
+    /*    padding-left: 5px;*/
+    padding-top: 10px;
+    text-align: right;
+    color: #FFFFFF;
+    font-family: Tahoma;
+    font-weight: bold;
+}
+
+
+#div-form-cadastrar-processos-remover input[type=text],#div-form-cadastrar-processos-remover select {
+    width: 400px;
+    padding: 5px;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-left: 10px;
+}
+
+#div-form-cadastrar-processos-remover input:focus{
+    background-color: #EFFFBA;
+}
+
+#div-form-cadastrar-processos-remover select:focus{
+    background-color: #EFFFBA;
+    padding: 5px;
+}
+
+#div-form-cadastrar-processos-remover label{
+    margin-top: 5px;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    width: 100px;
+    left: 11px;
+    width: 133px;
+
+}
+
+#div-form-cadastrar-processos-remover div{
+    display: block;
+    margin-top: 1px;
+}
+
+#div-form-cadastrar-processos-remover .botao-auxiliar{
+    vertical-align: middle;
+    margin-left: -20px;
+    position: absolute;
+    margin-top: 6px;
+
+}
+
+#div-form-cadastrar-processos-remover .botao-auxiliar-fix-combobox{
+    vertical-align: middle;
+    margin-left: -20px;
+    position: absolute;
+    margin-top: 7px;
+
+}
+
+#div-form-cadastrar-processos-remover .label-titulo-div{
+    font-size: 30px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 30px;
+    display: block;
+}
+
+#div-form-cadastrar-processos-remover .botao-salvar{
+    text-align: right;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    margin-right: -60px;
+}
+
+/* form cadastrar processos - final */
+
+
+/*-------------------------------------------------------------------------*/
+
+/* form autuar processos - inicio */
+
+.tabela_cadastrar_documentos input[type=text],.tabela_cadastrar_documentos select{
+    width: 350px;
+    height: 25px;
+}
+
+#div-form-autuar-processos{
+    width: 400px;
+    /*    background-color: #799936;
+        border: 1px solid #9AC619;
+    margin: 0 auto;
+     margin-top: 10px;
+     margin-bottom: 40px;*/
+    padding-right: 40px;
+    /*    padding-left: 5px;*/
+    padding-top: 10px;
+    text-align: right;
+    color: #FFFFFF;
+    font-family: Tahoma;
+    font-weight: bold;
+}
+
+
+#div-form-autuar-processos input,#div-form-autuar-processos select {
+    width: 400px;
+    padding: 5px;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-left: 10px;
+}
+
+#div-form-autuar-processos input:focus{
+    background-color: #EFFFBA;
+}
+
+#div-form-autuar-processos select:focus{
+    background-color: #EFFFBA;
+    padding: 5px;
+}
+
+#div-form-autuar-processos label{
+    margin-top: 5px;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    width: 100px;
+    left: 11px;
+    width: 133px;
+
+}
+
+#div-form-autuar-processos div{
+    display: block;
+    margin-top: 1px;
+}
+
+#div-form-autuar-processos .botao-auxiliar{
+    vertical-align: middle;
+    margin-left: -20px;
+    position: absolute;
+    margin-top: 6px;
+
+}
+
+#div-form-autuar-processos .botao-auxiliar-fix-combobox{
+    vertical-align: middle;
+    margin-left: -20px;
+    position: absolute;
+    margin-top: 7px;
+
+}
+
+#div-form-autuar-processos .label-titulo-div{
+    font-size: 30px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 30px;
+    display: block;
+}
+
+#div-form-autuar-processos .botao-salvar{
+    text-align: right;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    margin-right: -60px;
+}
+
+/* form cadastrar processos - inicio */
+
+.div-form-dialog{
+    width: 600px;
+    display: none;
+    padding-right: 40px;
+    padding-top: 10px;
+    text-align: right;
+    color: #FFFFFF;
+    font-family: Tahoma;
+    font-weight: bold;
+    margin: 0 auto;
+}
+
+
+.div-form-dialog input[type=text],.div-form-dialog select {
+    width: 400px;
+    padding: 5px;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-right: 0px;
+    height: 28px;
+}
+
+.div-form-dialog input:focus{
+    background-color: #EFFFBA;
+}
+
+.div-form-dialog select:focus{
+    background-color: #EFFFBA;
+    padding: 5px;
+}
+
+.div-form-dialog label{
+    margin-top: 5px;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    width: 100px;
+    left: 11px;
+    width: 133px;
+
+}
+
+.div-form-dialog div{
+    display: block;
+    margin-top: 1px;
+}
+
+.div-form-dialog .botao-auxiliar{
+    vertical-align: middle;
+    margin-left: -20px;
+    position: absolute;
+    margin-top: 6px;
+
+}
+
+.div-form-dialog .botao-auxiliar-fix-combobox{
+    vertical-align: middle;
+    margin-left: -20px;
+    position: absolute;
+    margin-top: 7px;
+
+}
+
+.div-form-dialog .label-titulo-div{
+    font-size: 30px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 30px;
+    display: block;
+}
+
+.div-form-dialog .botao-salvar{
+    text-align: right;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    margin-right: -60px;
+}
+
+
+.div-form-pesquisa-dialog{
+    padding-right: 20px;
+    padding-top: 10px;
+    text-align: right;
+    color: #FFFFFF;
+    font-family: Tahoma;
+    font-weight: bold;
+}
+
+.div-sistemas-dialog{
+    padding-left: 20px;
+    padding-top: 10px;
+    text-align: left;
+    color: #FFFFFF;
+    font-family: Tahoma;
+    font-weight: bold;
+}
+
+#supersgdocbody {
+    background-color: #0E1800;
+    background-position: bottom right;
+    background-repeat: no-repeat;
+}

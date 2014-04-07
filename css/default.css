@@ -1,0 +1,129 @@
+/*
+ * Copyright 2008 ICMBio
+ * Este arquivo é parte do programa SISICMBio
+ * O SISICMBio é um software livre; você pode redistribuíção e/ou modifição dentro dos termos
+ * da Licença Pública Geral GNU como publicada pela Fundação do Software Livre (FSF); na versão
+ * 2 da Licença.
+ *
+ * Este programa é distribuíção na esperança que possa ser útil, mas SEM NENHUMA GARANTIA; sem
+ * uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
+ * Licença Pública Geral GNU/GPL em português para maiores detalhes.
+ * Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título "LICENCA.txt",
+ * junto com este programa, se não, acesse o Portal do Software Público Brasileiro no endereço
+ * www.softwarepublico.gov.br ou escreva para a Fundação do Software Livre(FSF)
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301, USA
+ * */
+
+/* Página do Calendário */
+div.container {
+    width: 1000px;
+    margin: 10px auto;
+}
+
+h1.titulo {
+    font: bold 16px Tahoma;
+    color: #222;
+}
+
+div.container {
+    width: 700px;
+    margin: 10px auto;
+}
+
+div.container h1 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+div.container p {
+    margin: 10px 0;
+    font: 13px Arial;
+}
+
+div.exemplo,div.bloco {
+    background: #f1f1f1;
+    margin: 20px 0;
+    padding: 10px;
+}
+
+div.exemplo div.accordion {
+    padding-bottom: 140px;
+}
+
+div.exemplo pre,div.bloco pre {
+    background: #ffa;
+    padding: 10px;
+    font: 14px Trebushet MS;
+    overflow: auto;
+}
+
+div.bloco h2,div.exemplo h2 {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+div.bloco table {
+    width: 100%;
+    margin-top: 10px;
+}
+
+div.bloco table thead tr th {
+    padding: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+div.bloco table tbody tr td {
+    padding: 5px;
+    color: #333;
+}
+
+table.opcoes tr td,table.opcoes tr th {
+    border-right: 1px solid #000;
+    border-top: 1px solid #000;
+}
+
+table.opcoes {
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* css : jquery-controle-prazos */
+
+#div{
+    position:absolute;
+    background:transparent;
+    /*display: none;*/
+    /*background-color: #ffffff;*/
+    /*opacity: 0.5;*/
+    bottom: 10px;
+    right: 10px;
+    z-index:120;
+    moz-border-radius: 5px;
+
+}
+
+#div fieldset{
+    /*background:transparent;*/
+    /*display: none;*/
+    /*background-color: #ffffff;*/
+    /*background-color: #ffffff;*/
+    /* opacity: 0.5;*/
+    /*background: url(../imagens/loading.gif) no-repeat center center;*/
+    moz-border-radius: 5px;
+}
+
+#div fieldset legend{
+    color: #ffffff;
+    moz-border-radius: 5px;
+}

@@ -1,0 +1,26 @@
+*system:    SGDOCF
+*version:   4.1.5
+*iteration: N/A
+*deliver:   $Date: 2013-08-05 17:31:57 -0300 (seg, 05 ago 2013) $
+
+*objective:
+  - Tag para corrigir bugs críticos no sistema, bem com adicionar a funcionalidade de Full Text Search nos grids do sistema
+  - Corrigindo erros na tela de manter usuários, ao tentar pesquisar usuário por CPF, nenhum resultado era retornado
+  - Corrigido bug causado por refactor da classe AdapterPgsql do Grid, que fez com que qualquer pesquisa na tela de manter permissões de usuário causasse erro na aplicação
+  - Corrigido bug em pesquisas no sistema, em alguns casos específicos
+  - Desenvolvida demanda para atualizar o campo ultimo_tramite do documento com informações como autuação de processos, apensação em outros documentos etc
+  - Correção em Despacho, relativa ao campo Data de Entrada
+  - Correção de bug em pesquisa de documentos envolvendo data_inicial e data_final em branco
+  - Correção de bug no ícone de upload de imagens, que não aparece a menos que possua a permissão
+  - Corrigida a passagem de parâmetros pro sistema em diversas queries, que utilizava PDO::PARAM_STR para parâmetros que eram integer ou smallint no banco
+  - Corrigida e equalizada a criação de diretórios de upload de imagens para utilizar chmod 777 em todos os arquivos
+
+*products:
+CODIGO-FONTE
+
+*new_functionality:
+Full Text Search
+Correção em volumes de processos
+
+*changed_funcionality:
+N/A

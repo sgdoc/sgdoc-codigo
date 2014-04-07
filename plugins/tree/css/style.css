@@ -1,0 +1,407 @@
+/* CSS Document */
+/*Documentos*/
+.arvoreDocumentos{
+    margin:0px;
+    padding:2px;
+}
+
+.arvoreDocumentos li{
+    list-style: none;
+    margin:0px;
+    padding:0px 0px 0px 34px;
+    line-height: 16px;
+}
+.arvoreDocumentos li span{
+    display:inline;
+    clear: left;
+    white-space: nowrap;
+}
+.arvoreDocumentos ul{
+    margin:0px;
+    padding:1px;
+}
+.arvoreDocumentos .root{
+    font-size: 14px;
+    color: green;
+    position: absolute; /* important for Safari Browser on windows */
+    margin-left:-16px;
+    background: url(images/documentos/root.png) no-repeat 16px 0 transparent;
+}
+.arvoreDocumentos .root-ausente{
+    font-size: 14px;
+    position: absolute; /* important for Safari Browser on windows */
+    margin-left:-16px;
+    background: url(images/documentos/root.png) no-repeat 16px 0 transparent;
+    color: red;
+}
+.arvoreDocumentos .root-processo{
+    position: absolute; /* important for Safari Browser on windows */
+    margin-left:-16px;
+    background: url(images/processos/root.png) no-repeat 16px 0 transparent;
+}
+.arvoreDocumentos .line{
+    margin:0 0 0 -16px;
+    padding:0;
+    line-height: 3px;
+    height:3px;
+    font-size:3px;
+    background: url(images/documentos/line_bg.png) 0 0 no-repeat transparent;
+}
+.arvoreDocumentos .line-last{
+    margin:0 0 0 -16px;
+    padding:0;
+    line-height: 3px;
+    height:3px;
+    font-size:3px;
+    background: url(images/documentos/spacer.png) 0 0 no-repeat transparent;
+}
+.arvoreDocumentos .line-over{
+    margin:0 0 0 -16px;
+    padding:0;
+    line-height: 3px;
+    height:3px;
+    font-size:3px;
+    background: url(images/documentos/line_bg_over.png) 0 0 no-repeat transparent;
+}
+.arvoreDocumentos .line-over-last{
+    margin:0 0 0 -16px;
+    padding:0;
+    line-height: 3px;
+    height:3px;
+    font-size:3px;
+    background: url(images/documentos/line_bg_over_last.png) 0 0 no-repeat transparent;
+}
+.arvoreDocumentos .folder-open{
+    margin-left:-16px;
+    background: url(images/documentos/collapsable.png) 0 -2px no-repeat transparent;
+}
+.arvoreDocumentos .folder-open-last{
+    margin-left:-16px;
+    background: url(images/documentos/collapsable-last.png) 0 -2px no-repeat transparent;
+}
+.arvoreDocumentos .folder-close{
+    margin-left:-16px;
+    background: url(images/documentos/expandable.png) 0 -2px no-repeat transparent;
+}
+.arvoreDocumentos .folder-close-last{
+    margin-left:-16px;
+    background: url(images/documentos/expandable-last.png) 0 -2px no-repeat transparent;
+}
+.arvoreDocumentos .doc{
+    margin-left:-16px;
+    background: url(images/documentos/leaf.png) 0 -1px no-repeat transparent;
+}
+.arvoreDocumentos .doc-last{
+    margin-left:-16px;
+    background: url(images/documentos/leaf-last.png) 0 -1px no-repeat transparent;
+}
+.arvoreDocumentos .ajax{
+    background: url(images/documentos/spinner.gif) no-repeat 0 0 transparent;
+    height: 16px;
+    display:none;
+}
+.arvoreDocumentos .ajax li{
+    display:none;
+    margin:0;
+    padding:0;
+}
+.arvoreDocumentos .trigger{
+    display:inline;
+    margin-left:-32px;
+    width: 28px;
+    height: 11px;
+    cursor:pointer;
+}
+.arvoreDocumentos .text{
+    cursor: default;
+}
+.arvoreDocumentos .active{
+    cursor: default;
+    padding:0px 0px;
+    color: #000;
+}
+.arvoreDocumentos .folder-close-target{
+    margin-left:-16px;
+    background: url(images/documentos/expandable-target.png) 0 -2px no-repeat transparent;
+}
+
+.arvoreDocumentos .folder-open-target{
+    margin-left:-16px;
+    background: url(images/documentos/collapsable-target.png) 0 -2px no-repeat transparent;
+}
+
+.arvoreDocumentos .folder-open-ausente{
+    margin-left:-16px;
+    background: url(images/documentos/collapsable-ausente.png) 0 -2px no-repeat transparent;
+}
+
+.arvoreDocumentos .folder-close-ausente{
+    margin-left:-16px;
+    background: url(images/documentos/expandable-ausente.png) 0 -2px no-repeat transparent;
+}
+
+/*Processos*/
+.arvoreProcessos{
+    margin:0px;
+    padding:2px;
+}
+
+.arvoreProcessos li{
+    list-style: none;
+    margin:0px;
+    padding:0px 0px 0px 34px;
+    line-height: 16px;
+}
+.arvoreProcessos li span{
+    display:inline;
+    clear: left;
+    white-space: nowrap;
+}
+.arvoreProcessos ul{
+    margin:0px;
+    padding:1px;
+}
+.arvoreProcessos .root{
+    font-size: 14px;
+    color: #008000;
+    position: absolute; /* important for Safari Browser on windows */
+    margin-left:-16px;
+    background: url(images/processos/root.png) no-repeat 16px 0 transparent;
+}
+.arvoreProcessos .root-ausente{
+    font-size: 14px;
+    color: red;
+    position: absolute; /* important for Safari Browser on windows */
+    margin-left:-16px;
+    background: url(images/processos/root.png) no-repeat 16px 0 transparent;
+}
+.arvoreProcessos .line{
+    margin:0 0 0 -16px;
+    padding:0;
+    line-height: 3px;
+    height:3px;
+    font-size:3px;
+    background: url(images/processos/line_bg.png) 0 0 no-repeat transparent;
+}
+.arvoreProcessos .line-last{
+    margin:0 0 0 -16px;
+    padding:0;
+    line-height: 3px;
+    height:3px;
+    font-size:3px;
+    background: url(images/processos/spacer.png) 0 0 no-repeat transparent;
+}
+.arvoreProcessos .line-over{
+    margin:0 0 0 -16px;
+    padding:0;
+    line-height: 3px;
+    height:3px;
+    font-size:3px;
+    background: url(images/processos/line_bg_over.png) 0 0 no-repeat transparent;
+}
+.arvoreProcessos .line-over-last{
+    margin:0 0 0 -16px;
+    padding:0;
+    line-height: 3px;
+    height:3px;
+    font-size:3px;
+    background: url(images/processos/line_bg_over_last.png) 0 0 no-repeat transparent;
+}
+.arvoreProcessos .folder-open{
+    margin-left:-16px;
+    background: url(images/processos/collapsable.png) 0 -2px no-repeat transparent;
+}
+.arvoreProcessos .folder-open-last{
+    margin-left:-16px;
+    background: url(images/processos/collapsable-last.png) 0 -2px no-repeat transparent;
+}
+.arvoreProcessos .folder-close{
+    margin-left:-16px;
+    background: url(images/processos/expandable.png) 0 -2px no-repeat transparent;
+}
+.arvoreProcessos .folder-close-last{
+    margin-left:-16px;
+    background: url(images/processos/expandable-last.png) 0 -2px no-repeat transparent;
+}
+.arvoreProcessos .doc{
+    margin-left:-16px;
+    background: url(images/processos/leaf.png) 0 -1px no-repeat transparent;
+}
+.arvoreProcessos .doc-last{
+    margin-left:-16px;
+    background: url(images/processos/leaf-last.png) 0 -1px no-repeat transparent;
+}
+.arvoreProcessos .ajax{
+    background: url(images/processos/spinner.gif) no-repeat 0 0 transparent;
+    height: 16px;
+    display:none;
+}
+.arvoreProcessos .ajax li{
+    display:none;
+    margin:0;
+    padding:0;
+}
+.arvoreProcessos .trigger{
+    display:inline;
+    margin-left:-32px;
+    width: 28px;
+    height: 11px;
+    cursor:pointer;
+}
+.arvoreProcessos .text{
+    cursor: default;
+}
+.arvoreProcessos .active{
+    cursor: default;
+    padding:0px 0px;
+    color: #000;
+}
+
+
+.arvoreProcessos .folder-close-target{
+    margin-left:-16px;
+    background: url(images/processos/expandable-target.png) 0 -2px no-repeat transparent;
+}
+
+.arvoreProcessos .folder-open-target{
+    margin-left:-16px;
+    background: url(images/processos/collapsable-target.png) 0 -2px no-repeat transparent;
+}
+
+.arvoreProcessos .folder-open-ausente{
+    margin-left:-16px;
+    background: url(images/processos/collapsable-ausente.png) 0 -2px no-repeat transparent;
+}
+
+.arvoreProcessos .folder-close-ausente{
+    margin-left:-16px;
+    background: url(images/processos/expandable-ausente.png) 0 -2px no-repeat transparent;
+}
+
+
+/*Globais*/
+#drag_container{
+    background:transparent;
+    color:#000;
+    font: normal 11px arial, tahoma, helvetica, sans-serif;
+    border: 1px dashed #767676; 
+
+}
+#drag_container ul{
+    list-style: none;
+    padding:0;
+    margin:0;
+}
+
+#drag_container li{
+    list-style: none;
+    background-color:transparent;
+    line-height:18px;
+    white-space: nowrap;
+    padding:1px 1px 0px 16px;
+    margin:0;
+}
+/*
+#drag_container li span{
+    padding:0;
+}
+
+#drag_container li.doc, #drag_container li.doc-last{
+    background: url(images/documentos/leaf.png) no-repeat -17px 0 transparent;
+}
+
+#drag_container .folder-close, #drag_container .folder-close-last{
+    background: url(images/documentos/expandable.png) no-repeat -17px 0 transparent;
+}
+
+#drag_container .folder-open, #drag_container .folder-open-last{
+    background: url(images/documentos/collapsable.png) no-repeat -17px 0 transparent;
+}*/
+
+.contextMenu
+{
+    /*display:none;
+    */
+}
+/*.arvoreDocumentos #inputText
+{
+    width:100px;
+        height:12px;
+        font-size:12px;	
+
+}*/
+
+
+
+
+
+/*************************/
+
+
+/* CSS Document */
+
+#processing {
+    position:fixed;
+    bottom:0;
+    width:0px;
+
+
+    display:none;
+    visibility: hidden;
+    opacity:0.9;
+    padding:8px;
+
+}
+.contextMenu {
+    color: #000000;
+    display:none;
+    position:absolute;
+    background:#fff;
+    border:#999 1px solid;
+    width:auto;
+    height:auto;
+    z-index:499;
+    opacity:0.9;
+}
+.contextMenu li {
+    list-style-type:none;
+    text-align:left;
+    padding:5px;
+}
+
+/* to much space in Internet Explorer 7 */
+*+ html .contextMenu li {
+    padding-bottom: 0;
+}
+
+.contextMenu li:Hover {
+    background-color:#0066CC;
+    color:#FFFFFF;
+    cursor:pointer;
+}
+
+#header{
+    height:75px;
+}
+.ajaxInfo, .info{
+    text-align:center;
+    background-color:#FF5511; /*3366CC;*/
+    font-size:16px;
+    font-weight:bold;
+    color:#FFFFFF;
+}
+#activeElement {
+    text-align:center;
+    padding-top:4px;
+    min-width:250px;
+    width:25%;
+    left:37%;
+    font-size:14px;
+    height:20px;
+    margin-bottom:15px;
+    margin-top:15px;
+}
+#wrap{
+    width:100%;
+    clear:both;
+}
