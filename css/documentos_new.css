@@ -1,0 +1,89 @@
+/* 
+    Document   : documentos_new
+    Created on : 17/09/2013, 17:28:02
+    Author     : emmanuel
+    Description:
+        Purpose of the stylesheet follows.
+*/
+body {
+    margin: 10px;
+}
+h2 {
+    color: #FFF;
+    font-family: arial;
+}
+.page {
+    clear: both;
+    display: inline-block;
+    background-color: #FFF;
+    margin: 5px;
+    text-decoration: none;
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 3px;
+}
+.page a {
+    text-decoration: none;
+}
+.page img {
+    margin-left: 5px;
+}
+span.page-num {
+    color: #000;
+    font-weight: bold;
+    border: 1px solid #FFF;
+    border-right: 0px;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 8px 1px 1px 8px;
+    background-color: yellowgreen;
+    position: absolute;
+    right: 0px;
+    width: 30px;
+    opacity: 0.7;
+}
+span.page-num.denied {
+    background-color: tomato;
+}
+div.all-pages-admin {
+    color: #000;
+    background-color: #FEFEFE;
+    padding: 10px;
+    width: 369px;
+    margin: 20px 5px;
+    border: 1px solid #ccc;
+}
+div.all-pages-admin ul{
+    border-top: 1px dotted #ccc;
+    padding: 10px 2px 2px 0px;
+    margin: 0px;
+    list-style: none;
+}
+ul.page-admin {
+    border-top: 1px dotted #ccc;
+    padding: 2px 2px 2px 0px;
+    margin: 0px;
+    list-style: none;
+    position: absolute;
+    top: 45px;
+    opacity: 0.8;
+    background-color: #FEFEFE;
+    display: none;
+}
+ul.page-admin li {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul.page-admin li input {
+    margin-left: 2px;
+    padding: 0px;
+}
+.page-admin span {
+    color: #000;
+    font-weight: bold;
+    font-size: 10.5px;
+    font-family: arial;
+    position: relative;
+    vertical-align: middle;
+}

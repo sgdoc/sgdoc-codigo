@@ -1,0 +1,4 @@
+<filesMatch "\.(htm|html|css|js)$">
+AddDefaultCharset UTF-8
+DefaultLanguage pt-BR
+</filesMatch>

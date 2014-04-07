@@ -1,0 +1,88 @@
+/*
+ * Copyright 2008 ICMBio
+ * Este arquivo é parte do programa SISICMBio
+ * O SISICMBio é um software livre; você pode redistribuíção e/ou modifição dentro dos termos
+ * da Licença Pública Geral GNU como publicada pela Fundação do Software Livre (FSF); na versão
+ * 2 da Licença.
+ *
+ * Este programa é distribuíção na esperança que possa ser útil, mas SEM NENHUMA GARANTIA; sem
+ * uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
+ * Licença Pública Geral GNU/GPL em português para maiores detalhes.
+ * Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título "LICENCA.txt",
+ * junto com este programa, se não, acesse o Portal do Software Público Brasileiro no endereço
+ * www.softwarepublico.gov.br ou escreva para a Fundação do Software Livre(FSF)
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301, USA
+ * */
+
+img.autocompleter-loading
+{
+    vertical-align: top;
+}
+
+.demo-info
+{
+    position: absolute;
+    top: 0;
+    right: 4px;
+    padding: 1px 2px;
+    font-size: 0.9em;
+    color: #888;
+}
+
+input.autocompleter-loading
+{
+    background-image: url(../imagens/spinner_auto_complete.gif);
+    background-repeat: no-repeat;
+    background-position: right 50%;
+}
+
+ul.autocompleter-choices
+{
+    position: absolute;
+    margin: 	0;
+    padding: 0;
+    list-style: none;
+    border: 	1px solid #7c7c7c;
+    border-left-color:#c3c3c3;
+    border-right-color:	#c3c3c3;
+    border-bottom-color:#ddd;
+    background-color:#fff;
+    text-align: left;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    z-index: 50;
+    background-color:#fff;
+}
+
+ul.autocompleter-choices li
+{
+    position: relative;
+    margin: -2px 0 0 0;
+    padding: 0.2em 1.5em 0.2em 1em;
+    display: block;
+    float: none !important;
+    cursor: pointer;
+    font-weight: normal;
+    white-space: nowrap;
+    font-size: 1em;
+    line-height: 1.5em;
+}
+
+ul.autocompleter-choices li.autocompleter-selected
+{
+    background-color:#444;
+    color: #fff;
+}
+
+ul.autocompleter-choices span.autocompleter-queried
+{
+    display: inline;
+    float: none;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried
+{
+    color: #9FCFFF;
+}

@@ -1,0 +1,302 @@
+/*
+ * Copyright 2008 ICMBio
+ * Este arquivo é parte do programa SISICMBio
+ * O SISICMBio é um software livre; você pode redistribuíção e/ou modifição dentro dos termos
+ * da Licença Pública Geral GNU como publicada pela Fundação do Software Livre (FSF); na versão
+ * 2 da Licença.
+ *
+ * Este programa é distribuíção na esperança que possa ser útil, mas SEM NENHUMA GARANTIA; sem
+ * uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
+ * Licença Pública Geral GNU/GPL em português para maiores detalhes.
+ * Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título "LICENCA.txt",
+ * junto com este programa, se não, acesse o Portal do Software Público Brasileiro no endereço
+ * www.softwarepublico.gov.br ou escreva para a Fundação do Software Livre(FSF)
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301, USA
+ * */
+
+#div-form-apensar p, #div-form-abertura p, #div-form-desentrenhar p, #div-form-desmembrar p, #div-form-desapensar p {
+    font-size: 11px;
+    margin: 3px 30px 2px 0px;
+}
+
+#div-form-apensar input, #div-form-abertura input, #div-form-desentrenhar input, #div-form-desmembrar input, #div-form-desapensar input {
+    padding: 5px;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height: 28px;
+    width:350px;
+    min-width: 350px;
+}
+
+#div-form-apensar select, #div-form-abertura select, #div-form-desentrenhar select, #div-form-desmembrar select, #div-form-desapensar select {
+    padding: 5px;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height: 28px;
+    width:350px;
+    min-width: 350px;
+}
+
+#div-form-apensar textarea, #div-form-abertura textarea, #div-form-desentrenhar textarea, #div-form-desmembrar textarea, #div-form-desapensar textarea {
+    padding: 5px;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height: 100px;
+    width:350px;
+
+}
+
+#div-form-apensar .button-help, #div-form-abertura .button-help, #div-form-desentrenhar .button-help, #div-form-desmembrar .button-help, #div-form-desapensar .button-help {
+    margin-left: -21px;
+    margin-top: 6px;
+    position: absolute;
+}
+
+#div-form-apensar .error-input-value, #div-form-abertura .error-input-value, #div-form-desentrenhar .error-input-value, #div-form-desmembrar .error-input-value, #div-form-desapensar .error-input-value {
+    border: 1px solid red;
+    background-color: #FFE1E2;
+}
+/****************           FIM - LISTAR MODELOS TERMOS        ****************/
+
+
+/**********************  CSS - TERMO ABERTURA DE VOLUME ***********************/
+#div-form-abertura {
+    width: auto;
+    height: 290px;
+}
+
+#button-abertura {
+    margin-top: 20px;
+    padding: 5px;
+    width: auto;
+    height: 30px;
+    border-top: 1px solid #9ac619;
+}
+
+#button-abertura .button-cadastrar-abertura, .button-cancelar-abertura, .button-cadastrar-encerrar{
+    float: right;
+}
+
+/**********************  FIM - TERMO ABERTURA DE VOLUME ***********************/
+
+
+/**********************  CSS - TERMO ENCERRAMENTO DE VOLUME ***********************/
+#div-form-encerramento {
+    width: auto;
+    height: 290px;
+}
+
+#button-encerramento {
+    margin-top: 240px;
+    padding: 5px;
+    width: auto;
+    height: 30px;
+    border-top: 1px solid #9ac619;
+}
+
+#button-encerramento .button-cadastrar-encerramento, .button-cancelar-encerramento {
+    float: right;
+}
+
+/**********************  FIM - TERMO ENCERRAMENTO DE VOLUME ***********************/
+
+/**********************  CSS - TERMO JUNTADA DE APENSAÇÃO ***********************/
+#div-form-apensar {
+    width: auto;
+    height: 290px;
+}
+
+#div-form-apensar .button-editar-apensar, .button-adicionar-apensar {
+    margin-left: -21px;
+    margin-top: 6px;
+    position: absolute;
+}
+
+#button-apensar {
+    padding: 5px;
+    height: 30px;
+    border-top: 1px solid #9ac619;
+}
+
+#button-desanexar {
+    float: right;
+    padding: 5px;
+    height: 30px;
+    border-top: 1px solid #9ac619;
+}
+
+#filtro-diretoria-apensar {
+    padding: 5px;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height: 28px;
+    width:350px;
+}
+
+
+#div-form-apensar .button-deletar-processo {
+    margin-left: -21px;
+    margin-top: 6px;
+    position: absolute;
+}
+
+#button-apensar .button-cadastrar-apensar, .button-cancelar-apensar {
+    float: right;
+}
+
+#button-desanexar .button-cadastrar-desanexar, .button-cancelar-desanexar {
+    float: right;
+}
+
+/**********************  FIM - TERMO JUNTADA DE APENSAÇÃO ***********************/
+
+
+/**********************  CSS - TERMO JUNTADA DE DESAPENSAÇÃO ***********************/
+#div-form-desapensar {
+    width: auto;
+    height: 290px;
+}
+
+#div-form-desapensar .button-editar-desapensar {
+    margin-left: -21px;
+    margin-top: 6px;
+    position: absolute;
+}
+#filtro-diretoria-desapensar{
+    padding: 5px;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height: 28px;
+    width:350px;
+}
+
+#div-form-desapensar .button-delete-desapensar {
+    margin-left: -21px;
+    margin-top: 6px;
+    position: absolute;
+}
+#button-desapensar {
+    padding: 5px;
+    width: auto;
+    height: 30px;
+    border-top: 1px solid #9ac619;
+}
+
+#button-desapensar .button-cadastrar-desapensar, .button-cancelar-desapensar {
+    float: right;
+}
+
+/**********************  FIM - TERMO JUNTADA DE DESAPENSAÇÃO ***********************/
+
+
+/**********************  CSS - TERMO DESENTRANHAMENTO ***********************/
+#div-form-desentrenhar {
+    width: auto;
+    height: 290px;
+}
+
+#div-form-desentrenhar .button-editar-desentrenhar {
+    margin-left: -21px;
+    margin-top: 6px;
+    position: absolute;
+}
+
+#filtro-diretoria-desetrenhar  {
+    padding: 5px;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height: 28px;
+    width:350px;
+}
+
+#button-desentrenhar {
+    padding: 5px;
+    width: auto;
+    height: 30px;
+    border-top: 1px solid #9ac619;
+}
+
+#button-desentrenhar .button-cadastrar-desentrenhar, .button-cancelar-desentrenhar {
+    float: right;
+}
+
+#div-form-desentrenhar .label-justificativa {
+    float: left;
+    padding: 4px;
+}
+/**********************  FIM - TERMO DESENTRANHAMENTO ***********************/
+
+/**********************  CSS - TERMO DESESMEMBRAMENTO  ***********************/
+#div-form-desmembrar{
+    width: auto;
+    height: 290px;
+}
+
+#div-form-desmembrar .button-editar-desmembrar {
+    margin-left: -21px;
+    margin-top: 6px;
+    position: absolute;
+}
+
+#filtro-diretoria-desmembrar {
+    padding: 5px;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height: 28px;
+    width:350px;
+}
+
+#button-desmembrar {
+    padding: 5px;
+    width: auto;
+    height: 30px;
+    border-top: 1px solid #9ac619;
+}
+
+#button-desmembrar .button-cadastrar-desmembrar, .button-cancelar-desmembrar {
+    float: right;
+}
+
+/**********************  FIM - TERMO DESESMEMBRAMENTO ***********************/
+
+
+/**********************  CSS - COMENTAR VOLUME  *****************************/
+.volume-lista {
+    width: 320px;
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #9ac619;
+    cursor: pointer;
+}
+
+.comentar-volume  .button-editar-comentar {
+    margin-left: -21px;
+    margin-top: 6px;
+    position: absolute;
+}
+
+#filtro-diretoria-comentar {
+    padding: 5px;
+    border: 1px solid #9AC619;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height: 28px;
+}
+
+.volume-lista-hover {
+    background: #D8E5AE;
+    color: #9ac619;
+}
+
+#label-volume {
+    font-size: 11px;
+}
+
+/**********************  FIM - COMENTAR VOLUME  *****************************/
