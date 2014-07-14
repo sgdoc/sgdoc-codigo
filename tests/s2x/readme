@@ -1,0 +1,4 @@
+Conversor de arquivos selenium para Xebium PHPUnit/Selenium
+
+1 - efeturar as configuracoes necessarias no arquivo config/configuration.ini
+2 - efetuar checkout do diretorio onde esta arquivos do .selenium
