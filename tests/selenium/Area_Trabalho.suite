@@ -8,7 +8,7 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
-<tr><td><a href="Area_Trabalho/1_Lista_Documentos/CT001_Nenhum_Documento_Encontrado.selenium">CT001_Nenhum_Documento_Encontrado</a></td></tr>
+<tr><td><a href="Area_Trabalho/1_Lista_Documentos/Caso_Teste_001_Nenhum_Documento_Encontrado.selenium">Caso_Teste_001_Nenhum_Documento_Encontrado</a></td></tr>
 </tbody></table>
 </body>
 </html>

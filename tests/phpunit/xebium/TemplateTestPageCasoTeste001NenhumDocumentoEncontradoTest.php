@@ -3,7 +3,7 @@
 /**
  * @author Michael Fernandes <cerberosnash@gmail.com>
  */
-class AreaTrabalhoSuite1ListaDocumentosCT001NenhumDocumentoEncontrado extends PHPUnit_Extensions_SeleniumTestCase {
+class AreaTrabalhoSuite1ListaDocumentosCasoTeste001NenhumDocumentoEncontrado extends PHPUnit_Extensions_SeleniumTestCase {
 
     protected function setUp() {
         $this->setBrowser(PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BROWSER);
@@ -17,7 +17,7 @@ class AreaTrabalhoSuite1ListaDocumentosCT001NenhumDocumentoEncontrado extends PH
         $this->click("link=Add");
         $this->click("link=Test page");
         $this->waitForPageToLoad("30000");
-        $this->type("id=pagename", "CT001NenhumDocumentoEncontrado");
+        $this->type("id=pagename", "CasoTeste001NenhumDocumentoEncontrado");
         $this->type("id=pageContent", "!contents -R2 -g -p -f -h\n" . '| script | selenium driver fixture |
 | start browser | firefox | on url | http://dsvm.sgdoc.sisicmbio.icmbio.gov.br/ |
 | save screenshot after | every step | in folder | http://files/ProjectSgdoc/testResults/screenshots/${PAGE_NAME}_on_action |
