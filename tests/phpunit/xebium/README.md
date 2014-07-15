@@ -1,0 +1,1 @@
+Pasta destinada aos scripts de teste gerados pelo "s2x" (output registrado no config do s2x) a serem executados no servidor xebium

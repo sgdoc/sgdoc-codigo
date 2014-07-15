@@ -1,0 +1,1 @@
+Arquivos do tipo doc utilizados em eventuais uploads

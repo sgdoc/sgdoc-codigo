@@ -1,0 +1,1 @@
+Arquivos do tipo pdf utilizados em eventuais uploads
