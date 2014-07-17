@@ -202,17 +202,11 @@ function loadInput(message) {
 
     for (var j = 0; j <= indice; j++) {
         if ($("#processo_" + j).val()) {/*previnir referencia invalida para javacritp puro!*/
-            if (validar_digito_verificador_processo(document.getElementById("processo_" + j))) {
-                if ($("#processo_" + j).val() != $('#processo_apensar').val()) {
-                    temp.push($("#processo_" + j).val());
-                    $("#processo_" + j).removeClass("error-input-value");
-                } else {
-                    error = 'Você nao pode apensar um processo a ele mesmo!';
-                    bool = true;
-                    $("#processo_" + j).addClass("error-input-value");
-                }
+            if ($("#processo_" + j).val() != $('#processo_apensar').val()) {
+                temp.push($("#processo_" + j).val());
+                $("#processo_" + j).removeClass("error-input-value");
             } else {
-                error = 'Numero invalido';
+                error = 'Você nao pode apensar um processo a ele mesmo!';
                 bool = true;
                 $("#processo_" + j).addClass("error-input-value");
             }
@@ -246,81 +240,3 @@ function clearFields() {
     }
     indice = 0;
 }
-
-//function formatar_numero_processo(e) {
-//    var s = FiltraCampo(e.value);
-//    var tam =  s.length;
-//    var ano_dig;
-//
-//    if (tam>15){
-//        ano_dig = 4;
-//    }else{
-//        ano_dig = 2;
-//    }
-//
-//    var r = s.substring(0,5) + "." + s.substring(5,11) + "/";
-//    r+= s.substring(11,11+ano_dig)  + "-" + s.substring(11+ano_dig,13+ano_dig);
-//
-//    if (tam<6){
-//        s = r.substring(0,tam);
-//    }else if ( tam < 12 ){
-//        s = r.substring(0,tam+1);
-//    }else if ( tam < 12 + ano_dig ){
-//        s = r.substring(0,tam+2);
-//    }else{
-//        s = r.substring(0,tam+3);
-//    }
-//    e.value = s;
-//    return s;
-//}
-//
-//function validar_digito_verificador_processo(e) {
-//    var s = FiltraCampo(e);
-//    var tam = s.length;
-//
-//    if ( tam == 15 ) {
-//        var num = s.substring(0,tam-2);
-//        for ( i = 0; i < 2; i++ ) {
-//            var soma = 0;
-//            var mult = num.length + 1;
-//            //            for ( k = 0; k < num.length ; k++ )
-//            soma += num.substring(k,k+1)*(mult-k);
-//            var mod11 = 11 - (soma % 11);
-//            if ( mod11 < 10 )  dv_proc="0"+mod11;
-//            else  dv_proc = mod11 + "";
-//            var dv_proc = dv_proc.substring(1,2);
-//            num+= dv_proc;
-//        }
-//
-//        if (num==s){
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-//
-//    if (tam==17) {
-//        num = s.substring(0,tam-2);
-//        for ( i = 0; i < 2; i++ ) {
-//            soma = 0;
-//            mult = num.length + 1;
-//            for ( k = 0; k < num.length ; k++ ){
-//                soma += num.substring(k,k+1)*(mult-k);
-//                mod11 = 11 - (soma % 11);
-//                if ( mod11 < 10 ){
-//                    dv_proc="0"+mod11;
-//                }else{
-//                    dv_proc = mod11 + "";
-//                }
-//            }
-//            dv_proc = dv_proc.substring(1,2);
-//            num+= dv_proc;
-//        }
-//        //var dig_v = num.substr(13,16);
-//
-//        if (num == s){
-//            return true;
-//        }
-//    }
-//    return false;
-//}
