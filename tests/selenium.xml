@@ -7,11 +7,11 @@
 
     <php>
         <const name="PHPUNIT_TESTSUITE" value="true"/>
-        <const name="PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_HOST" value="10.197.42.34"/> 
+        <const name="PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_HOST" value="192.168.43.87"/> 
         <const name="PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_PORT" value="4445"/>
         <const name="PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_BROWSER" value="*firefox"/>
         <const name="PHPUNIT_TESTSUITE_EXTENSION_SELENIUM2_BROWSER" value="firefox"/>
-        <const name="PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_TESTS_URL" value="http://10.197.42.34:8000/"/>
+        <const name="PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_TESTS_URL" value="http://192.168.43.87:8000/"/>
         <const name="PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_PATH" value="/tmp"/>
     </php>
 
