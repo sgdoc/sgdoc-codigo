@@ -77,7 +77,6 @@ $controller = Controlador::getInstance();
                     fnRowCallback: function(nRow, aData, iDisplayIndex) {
                         /* Contador */
                         $('td:eq(0)', nRow).html(iDisplayIndex + 1);
-                        $('td:eq(6)', nRow).html(convertDateToString(aData[6]));
                         /*Retorna a linha modificada*/
                         return nRow;
                     }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SGDoc" default="build" basedir=".">
+    <property name="source_code_app"  value="${basedir}" />
+    <property name="build_dir" value="${basedir}/build" />
+    <property name="resources" value="${build_dir}/scripts/resources" />
+    <property name="phpunit_dir" value="${basedir}/tests/vendor/phpunit/phpunit/composer/bin" />
+
+    <target name="clean" description="Clean up and create artifact directories">
+        <delete dir="${build_dir}/code-browser" />
+        <delete dir="${build_dir}/logs" />
+        <delete dir="${build_dir}/pdepend" />
+        <delete dir="${build_dir}/coverage" />
+        <delete dir="${build_dir}/api" />
+	<delete dir="${build_dir}/xebium" />
+
+        <mkdir dir="${build_dir}/code-browser" />
+        <mkdir dir="${build_dir}/logs" />
+        <mkdir dir="${build_dir}/pdepend" />
+        <mkdir dir="${build_dir}/coverage" />
+        <mkdir dir="${build_dir}/api" />
+	<mkdir dir="${build_dir}/xebium" />
+		
+        <chmod dir="${build_dir}/logs" perm="0777" />
+        <chmod dir="${build_dir}/code-browser" perm="0777" />
+        <chmod dir="${build_dir}/pdepend" perm="0777" />
+        <chmod dir="${build_dir}/coverage" perm="0777" />
+        <chmod dir="${build_dir}/api" perm="0777" />
+	<chmod dir="${build_dir}/xebium" perm="0777" />
+    </target>
+	
+    <target name="selenium"
+            description="Run unit tests using PHPUnit_Selenium and generates junit.xml and clover.xml">
+        <exec executable="${phpunit_dir}/phpunit" failonerror="false">
+            <arg line="--configuration ${basedir}/tests/selenium.xml"/>
+        </exec>
+    </target>
+	
+    <target name="build" depends="clean,selenium" />
+</project>

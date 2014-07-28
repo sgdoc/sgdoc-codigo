@@ -20,16 +20,16 @@ try {
 
     $out = array();
 
-    switch ($_POST['acao']) {
+    switch ($_REQUEST['acao']) {
         case 'carregar-passiveis':
-            $digitais = Vinculacao::getDocumentosPassiveisVinculacao($_POST['digital']);
+            $digitais = Vinculacao::getDocumentosPassiveisVinculacao($_REQUEST['digital']);
             foreach ($digitais as $key => $value) {
                 $out[] = array($value['DIGITAL'] => $value['DIGITAL']);
             }
             break;
 
         case 'carregar-vinculados':
-            $digitais = Vinculacao::getDocumentosVinculados($_POST['pai'], $_POST['vinculacao']);
+            $digitais = Vinculacao::getDocumentosVinculados($_REQUEST['pai'], $_REQUEST['vinculacao']);
             foreach ($digitais as $key => $value) {
                 $out[] = array($value['FILHO'] => $value['FILHO']);
             }
@@ -37,12 +37,12 @@ try {
 
         case 'vincular':
             $vinculacao = new Vinculacao();
-            $out = $vinculacao->vincularDocumento($_POST['pai'], $_POST['filho'], $_POST['vinculacao'])->toArray();
+            $out = $vinculacao->vincularDocumento($_REQUEST['pai'], $_REQUEST['filho'], $_REQUEST['vinculacao'])->toArray();
             break;
 
         case 'desvincular':
             $vinculacao = new Vinculacao();
-            $out = $vinculacao->desvincularDocumento($_POST['pai'], $_POST['filho'], $_POST['vinculacao'])->toArray();
+            $out = $vinculacao->desvincularDocumento($_REQUEST['pai'], $_REQUEST['filho'], $_REQUEST['vinculacao'])->toArray();
             break;
 
         default:

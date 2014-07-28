@@ -380,17 +380,19 @@ class AutoComplete extends Base {
     }
 
     /**
-     * 
+     * @param string $digital
+     * @param integer $caixa
+     * @return array
      */
-    public static function filterDocumentosDigital($query, $caixa = null) {
+    public static function filterDocumentosDigital($digital, $caixa = null) {
         try {
-            $query = "{$query}%";
 
             if ($caixa) {
                 // Foi passada uma caixa, pegar classificacoes permitidas
                 $stmt0 = Controlador::getInstance()->getConnection()->connection->prepare("
                     SELECT ID_CLASSIFICACAO FROM TB_CAIXAS WHERE ID = ? LIMIT 1
                 ");
+
                 $stmt0->bindParam(1, $caixa, PDO::PARAM_INT);
                 $stmt0->execute();
                 $out = $stmt0->fetch(PDO::FETCH_ASSOC);
@@ -398,16 +400,13 @@ class AutoComplete extends Base {
                 $classificacao = $out['ID_CLASSIFICACAO'];
 
                 $stmt = Controlador::getInstance()->getConnection()->connection->prepare("
-                    SELECT VW_DOC_ARQ.ID, VW_DOC_ARQ.DIGITAL, VW_DOC_ARQ.ASSUNTO 
-                    FROM VW_DOCUMENTOS_ARQUIVO VW_DOC_ARQ 
-                        JOIN TB_CLASSIFICACAO cla on VW_DOC_ARQ.ID_CLASSIFICACAO = cla.ID
-                    WHERE 
-                        ? IN (cla.ID_CLASSIFICACAO_PAI, cla.ID) 
-                        AND VW_DOC_ARQ.DIGITAL ILIKE ? 
-                    ORDER BY VW_DOC_ARQ.DIGITAL ASC
+                    SELECT D.ID_CLASSIFICACAO, D.ID,D.DIGITAL,D.ASSUNTO FROM SGDOC.VW_DOCUMENTOS_ARQUIVO D
+                        INNER JOIN SGDOC.TB_CLASSIFICACAO C ON D.ID_CLASSIFICACAO = C.ID
+                            WHERE D.DIGITAL = ? AND D.ID_CLASSIFICACAO IN (
+                                SELECT ID FROM SGDOC.TB_CLASSIFICACAO WHERE {$classificacao} IN (id_classificacao_pai,ID))
                 ");
-                $stmt->bindParam(1, $classificacao, PDO::PARAM_STR);
-                $stmt->bindParam(2, $query, PDO::PARAM_STR);
+
+                $stmt->bindParam(1, $digital, PDO::PARAM_STR);
             } else {
                 // Não foi definida, pegar tudo
                 $stmt = Controlador::getInstance()->getConnection()->connection->prepare("
@@ -418,15 +417,10 @@ class AutoComplete extends Base {
                 ");
                 $stmt->bindParam(1, $query, PDO::PARAM_STR);
             }
+
             $stmt->execute();
 
-            $uppers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            foreach ($uppers as $upper) {
-                $lowers[] = array_change_key_case($upper, CASE_LOWER);
-            }
-
-            return $lowers;
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             print($e->getMessage());
             return null;
