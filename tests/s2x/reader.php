@@ -38,7 +38,7 @@ $script = "
                                                    %s
                     testCase.setCommands(commands);
                     
-              transport.xebium = format(testCase, '%s');
+              transport.xebium = format(testCase, '%s','" . Bootstrap::factory()->config('config.app.url.base') . "');
               transport.url    = '%s';
               transport.name   = '%s';
               transport.path   = '%s';

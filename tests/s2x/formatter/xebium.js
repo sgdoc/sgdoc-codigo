@@ -22,8 +22,9 @@
  * @param testCase TestCase to format
  * @param name The name of the test case, if any. It may be used to embed title into the source.
  */
-function format(testCase, name) {
-    var baseUrl = testCase.getBaseURL();
+function format(testCase, name, CONFIG_APP_URL_BASE) {
+
+    var baseUrl = CONFIG_APP_URL_BASE;
 
     var commandsText = '| script' + ('true' == options.libraryMode ? '' : ' | selenium driver fixture') + ' |\n';
     if ('true' == options.noStartStop) {
