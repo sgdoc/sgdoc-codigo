@@ -1,0 +1,1 @@
+Arquivos do tipo png utilizados em eventuais uploads

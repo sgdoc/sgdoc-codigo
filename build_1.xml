@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SGDoc" default="build" basedir=".">
+    <property name="source_code_app"  value="${basedir}" />
+    <property name="build_dir" value="${basedir}/build" />
+    <property name="resources" value="${build_dir}/scripts/resources" />
+	<property name="phpunit_dir" value="${basedir}/tests/vendor/bin" />
+
+    <target name="clean" description="Clean up and create artifact directories">
+        <delete dir="${build_dir}/code-browser" />
+        <delete dir="${build_dir}/logs" />
+        <delete dir="${build_dir}/pdepend" />
+        <delete dir="${build_dir}/coverage" />
+        <delete dir="${build_dir}/api" />
+		<delete dir="${build_dir}/xebium" />
+
+        <mkdir dir="${build_dir}/code-browser" />
+        <mkdir dir="${build_dir}/logs" />
+        <mkdir dir="${build_dir}/pdepend" />
+        <mkdir dir="${build_dir}/coverage" />
+        <mkdir dir="${build_dir}/api" />
+		<mkdir dir="${build_dir}/xebium" />
+		
+        <chmod dir="${build_dir}/logs" perm="0777" />
+        <chmod dir="${build_dir}/code-browser" perm="0777" />
+        <chmod dir="${build_dir}/pdepend" perm="0777" />
+        <chmod dir="${build_dir}/coverage" perm="0777" />
+		<chmod dir="${build_dir}/coverage_selenium" perm="0777" />
+        <chmod dir="${build_dir}/api" perm="0777" />
+		<chmod dir="${build_dir}/xebium" perm="0777" />
+    </target>
+<!--   
+    <target name="phpunit"
+            description="Run unit tests using PHPUnit and generates junit.xml and clover.xml">
+        <exec executable="${phpunit_dir}/phpunit" failonerror="false">
+            <arg line="--configuration ${basedir}/tests/phpunit.xml"/>
+        </exec>
+    </target>
+-->	
+	<target name="selenium"
+            description="Run unit tests using PHPUnit_Selenium and generates junit.xml and clover.xml">
+        <exec executable="${phpunit_dir}/phpunit" failonerror="false">
+            <arg line="--configuration ${basedir}/tests/selenium.xml"/>
+        </exec>
+    </target>
+<!--
+    <target name="parallelTasks" description="Run the phploc tasks in parallel using a maximum of 2 threads.">
+        <parallel threadCount="2">
+            <sequential>
+                <antcall target="pdepend" />
+			    <antcall target="phpmd" />
+                <antcall target="phpcpd" />
+                <antcall target="phpcs" />
+                <antcall target="phploc" />
+                <antcall target="phpcb" />
+            </sequential>
+        </parallel>
+    </target>
+    
+	<target name="pdepend"
+            description="Generate jdepend.xml and software metrics charts using PHP_Depend">
+        <exec executable="pdepend">
+            <arg line="--ignore=build,library/,tests,docs,data,application/models/entity/
+                      --jdepend-xml=${build_dir}/logs/jdepend.xml
+                      --jdepend-chart=${build_dir}/pdepend/dependencies.svg
+                      --overview-pyramid=${build_dir}/pdepend/overview-pyramid.svg ${basedir}" />
+        </exec>
+    </target>
+	
+	<target name="phpmd" description="Generate pmd.xml using PHPMD">
+        <exec executable="phpmd">
+            <arg line="${basedir} xml ${resources}/phpmd.xml
+                --reportfile ${build_dir}/logs/pmd.xml
+                --exclude build,library/,tests,docs,data,application/models/entity/
+				--suffixes php" />
+        </exec>
+    </target>
+
+	<target name="phpcpd" description="Generate pmd-cpd.xml using PHPCPD">
+        <exec executable="phpcpd">
+            <arg line="--log-pmd ${build_dir}/logs/pmd-cpd.xml
+                       --min-lines 5
+                       --min-tokens 70
+                       --exclude build/
+					   --exclude library/
+					   --exclude tests/
+					   --exclude docs/
+					   --exclude data/
+					   --exclude application/models/entity/
+					   ${basedir}" />
+        </exec>
+    </target>
+
+	<target name="phpcs" description="Generate checkstyle.xml using PHP_CodeSniffer">
+        <exec executable="phpcs" output="${build_dir}/logs/checkstyle.xml">
+            <arg line="--report=checkstyle
+                       --extensions=php
+                       --ignore=build,library,tests,docs,data,application/models/entity
+                       --standard=${resources}/phpcs-0.0.2.xml
+                       ${basedir}" />
+        </exec>
+    </target>
+    
+    <target name="phploc" description="Generate phploc.csv">
+        <exec executable="phploc">
+            <arg line="--log-csv ${build_dir}/logs/phploc.csv ${basedir}" />
+        </exec>
+    </target>
+   
+    <target name="phpcb"
+            description="Aggregate tool output with PHP_CodeBrowser">
+        <exec executable="phpcb">
+            <arg line="--log ${build_dir}/logs
+                    --ignore build,library/,tests,docs,data,application/models/entity/
+                    --source ${basedir}
+                    --output ${build_dir}/code-browser" />
+        </exec>
+    </target>
+
+	<target name="phpdoc" description="Generate API documentation using PHPDocumentor 2">
+        <exec executable="phpdoc" failonerror="false">
+            <arg line=" -d ${basedir}/application
+                        -t ${build_dir}/api
+                        --title 'SGDOCE'
+						--template 'responsive-twig'
+                        -i '*.phtml'" />
+        </exec>
+    </target>
+	
+    <target name="build" depends="clean,phpunit,selenium,parallelTasks,phpdoc" />
+-->	
+    <target name="build" depends="clean,selenium" />
+</project>
