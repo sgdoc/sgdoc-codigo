@@ -345,7 +345,7 @@ $controller = Controlador::getInstance();
                 $("#FILTRO_DIGITAL_ADICIONAR_DOCUMENTO").autocompleteonline({
                     url: 'modelos/combos/autocomplete.php',
                     idComboBox: 'ID_DIGITAL_DOCUMENTO',
-                    delay: 2500,
+                    delay: 1000,
                     minChars: 7,
                     extraParams: {
                         action: 'caixas-digital',

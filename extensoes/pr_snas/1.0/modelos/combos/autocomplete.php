@@ -18,18 +18,18 @@
 
 include_once(__BASE_PATH__ . '/extensoes/pr_snas/1.0/classes/AutoCompleteDemanda.php');
 
-if ($_GET) {
+if ($_REQUEST) {
 
     $array = array();
 
-    switch ($_GET['action']) {
+    switch ($_REQUEST['action']) {
 
         case 'processos-assuntos':
-            $array = AutoComplete::filterAssuntosProcessosFullText($_GET['query']);
+            $array = AutoComplete::filterAssuntosProcessosFullText($_REQUEST['query']);
             break;
 
         case 'documentos-assuntos':
-            $list = AutoComplete::filterAssuntosDocumentosFullText($_GET['query']);
+            $list = AutoComplete::filterAssuntosDocumentosFullText($_REQUEST['query']);
 
             if (is_null($list)) {
                 $list = array();
@@ -44,7 +44,7 @@ if ($_GET) {
         case 'documentos-recebido-por':
 
             $auth = Zend_Auth::getInstance()->getStorage()->read();
-            $list = AutoComplete::filterRecebidoPorFullText($_GET['query'], $auth->ID_UNIDADE);
+            $list = AutoComplete::filterRecebidoPorFullText($_REQUEST['query'], $auth->ID_UNIDADE);
 
             if (is_null($list)) {
                 $list = array();
@@ -57,12 +57,12 @@ if ($_GET) {
             break;
 
         case 'caixas-digital':
-            $list = AutoComplete::filterDocumentosDigital($_GET['query'], $_GET['caixa']);
+
+            $list = AutoComplete::filterDocumentosDigital($_REQUEST['query'], $_REQUEST['caixa']);
 
             if (is_null($list)) {
                 $list = array();
             }
-
             if (count($list) == 0) {
                 $array[] = array('id' => '0', 'value' => ('Nenhum documento com o filtro utilizado'));
             } else {
@@ -76,74 +76,74 @@ if ($_GET) {
 
         case 'documentos-origens':
 
-            switch ($_GET['type']) {
+            switch ($_REQUEST['type']) {
                 case 'IN':
-                    $array = AutoComplete::filterUnidadesInternasFullText($_GET['query'], true);
+                    $array = AutoComplete::filterUnidadesInternasFullText($_REQUEST['query'], true);
                     break;
 
                 case 'PR':
-                    $array = AutoComplete::filterUnidadesGenericasFullText($_GET['query'], $_GET['type'], true);
+                    $array = AutoComplete::filterUnidadesGenericasFullText($_REQUEST['query'], $_REQUEST['type'], true);
                     break;
 
                 case 'PF':
-                    $array = AutoComplete::filterPessoaFisicaFullText($_GET['query'], true);
+                    $array = AutoComplete::filterPessoaFisicaFullText($_REQUEST['query'], true);
                     break;
 
                 case 'PJ':
-                    $array = AutoComplete::filterPessoaJuridicaFullText($_GET['query'], true);
+                    $array = AutoComplete::filterPessoaJuridicaFullText($_REQUEST['query'], true);
                     break;
 
                 case 'OF':
-                    $array = AutoComplete::filterUnidadesGenericasFullText($_GET['query'], $_GET['type'], true);
+                    $array = AutoComplete::filterUnidadesGenericasFullText($_REQUEST['query'], $_REQUEST['type'], true);
                     break;
             }
 
             break;
 
         case 'processos-interessados':
-            $array = AutoComplete::filterInteressadosProcessosFullText($_GET['query']);
+            $array = AutoComplete::filterInteressadosProcessosFullText($_REQUEST['query']);
             break;
 
         case 'processos-origens':
 
-            switch ($_GET['type']) {
+            switch ($_REQUEST['type']) {
                 case 'IN':
-                    $array = AutoComplete::filterUnidadesInternasFullText($_GET['query']);
+                    $array = AutoComplete::filterUnidadesInternasFullText($_REQUEST['query']);
                     break;
 
                 case 'EX':
-                    $array = AutoComplete::filterProcessosOrigensExternasFullText($_GET['query']);
+                    $array = AutoComplete::filterProcessosOrigensExternasFullText($_REQUEST['query']);
                     break;
             }
             break;
 
         case 'unidades-internas':
 
-            switch ($_GET['type']) {
+            switch ($_REQUEST['type']) {
                 case 'IN':
-                    $array = AutoComplete::filterUnidadesInternasFullText($_GET['query']);
+                    $array = AutoComplete::filterUnidadesInternasFullText($_REQUEST['query']);
                     break;
                 case 'DIR':
-                    $array = AutoComplete::filterUnidadesByTipoFullText($_GET['query'], 4);
+                    $array = AutoComplete::filterUnidadesByTipoFullText($_REQUEST['query'], 4);
                     break;
                 case 'CR':
-                    $array = AutoComplete::filterUnidadesByTipoFullText($_GET['query'], 6);
+                    $array = AutoComplete::filterUnidadesByTipoFullText($_REQUEST['query'], 6);
                     break;
                 case 'UAAF':
-                    $array = AutoComplete::filterUnidadesByTipoFullText($_GET['query'], 7);
+                    $array = AutoComplete::filterUnidadesByTipoFullText($_REQUEST['query'], 7);
                     break;
             }
             break;
 
         case 'tramite-sic':
 
-            $array = AutoComplete::filterUnidadesTramiteSIC($_GET['query']);
+            $array = AutoComplete::filterUnidadesTramiteSIC($_REQUEST['query']);
             break;
         case 'prioridades-demanda' :
-            $array = AutoCompleteDemanda::filterPrioridadesDemandaFullText($_GET['query']);
+            $array = AutoCompleteDemanda::filterPrioridadesDemandaFullText($_REQUEST['query']);
             break;
         case 'participante' :
-            $array = AutoCompleteDemanda::filterParticipanteFullText($_GET['query']);
+            $array = AutoCompleteDemanda::filterParticipanteFullText($_REQUEST['query']);
             break;
         default:
             break;

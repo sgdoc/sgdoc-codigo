@@ -70,7 +70,7 @@ switch ($_GET['usercase']) {
         break;
 
     case 'historico-tramite-documentos':
-        $aColumns = array('ID', 'USUARIO', 'DIRETORIA', 'ACAO', 'ORIGEM', 'DESTINO', 'DT_TRAMITE');
+        $aColumns = array('ID', 'USUARIO', 'DIRETORIA', 'ACAO', 'ORIGEM', 'DESTINO', 'DATA');
         $aColumnsFTS = array(
             'USUARIO', 
             'DIRETORIA', 
@@ -111,7 +111,7 @@ switch ($_GET['usercase']) {
         break;
 
     case 'historico-tramite-processos':
-        $aColumns = array('ID', 'USUARIO', 'DIRETORIA', 'ACAO', 'ORIGEM', 'DESTINO', 'DT_TRAMITE');
+        $aColumns = array('ID', 'USUARIO', 'DIRETORIA', 'ACAO', 'ORIGEM', 'DESTINO', 'DATA');
         $aColumnsFTS = array(
             'USUARIO', 
             'DIRETORIA', 
