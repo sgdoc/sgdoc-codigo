@@ -1,4 +1,4 @@
 /nbproject/
 .settings/
 .project
-/cfg/
+/cfg/*.ini
