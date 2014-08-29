@@ -35,7 +35,8 @@ class Config extends CFConfig {
         'prd-presidencia' => '',        //Produção Presidência
         'hmg' => ' - homologação',      //Homologação
         'dsv' => ' - desenvolvimento',  //Desenvolvimento
-        'trn' => ' - treinamento'       //Treinamento
+        'trn' => ' - treinamento',       //Treinamento
+    	'tes' => ' - teste'             //Teste
     );
     public $xml;
 
