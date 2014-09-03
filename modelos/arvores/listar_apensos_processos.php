@@ -25,7 +25,7 @@ switch ($_GET['action']) {
             } else {
                 $ownerEl = 0;
             }
-            $out = $arvore->getVinculacaoDocumento($ownerEl,  'modelos/arvores/listar_apensos_processos.php', 2/* Apensos */);
+            $out = $arvore->getVinculacaoProcesso($ownerEl,  'modelos/arvores/listar_apensos_processos.php', 2/* Apensos */);
         }
         break;
     default:
