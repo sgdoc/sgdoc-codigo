@@ -6,6 +6,9 @@ ALTER TABLE sgdoc.ext__snas__tb_controle_prazos ALTER COLUMN legislacao_situacao
 
 ALTER TABLE sgdoc.ext__snas__tb_controle_prazos ADD COLUMN legislacao_descricao text;
 
+CREATE SCHEMA snas AUTHORIZATION usr_pr_sgdoc4;
+GRANT ALL ON SCHEMA snas TO usr_pr_sgdoc4;
+
 CREATE TABLE snas.tb_prazo_anexos
 (
   id serial NOT NULL,
