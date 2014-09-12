@@ -1,9 +1,9 @@
 <?php
 /*  INICIALIZAÇÃO DAS CONFIGURAÇÕES DO SISTEMA   */
 
-include('../../../../classes/CFUtils.php');
-include('../../../../classes/CFConfig.php');
-include('../../../../classes/Config.php');
+include_once(dirname(__FILE__) . '/../../../../classes/CFUtils.php');
+include_once(dirname(__FILE__) . '/../../../../classes/CFConfig.php');
+include_once(dirname(__FILE__) . '/../../../../classes/Config.php');
 
 class ConfigWs extends Config {
 	
