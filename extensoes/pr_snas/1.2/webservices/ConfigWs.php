@@ -41,4 +41,13 @@ class ConfigWs extends Config {
 		);
 	}
 	
+	public function getSiopProxyConfig() {
+		return array(
+			'server'	=> ($this->_params['ws.siop.proxy.server'] === '') ? false : $this->_params['ws.siop.proxy.server'],
+			'port'		=> ($this->_params['ws.siop.proxy.port'] === '') ? false : $this->_params['ws.siop.proxy.port'],
+			'username'	=> ($this->_params['ws.siop.proxy.username'] === '') ? false : $this->_params['ws.siop.proxy.username'],
+			'password'	=> ($this->_params['ws.siop.proxy.password'] === '') ? false : $this->_params['ws.siop.proxy.password']
+		);
+	}
+	
 }
