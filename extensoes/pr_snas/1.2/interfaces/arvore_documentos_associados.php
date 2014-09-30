@@ -20,6 +20,7 @@
  */
 $DONT_RENDER_BACKGROUND = TRUE;
 
+include(__BASE_PATH__ . '/extensoes/pr_snas/1.2/classes/Arvore.php');
 include_once("function/auto_load_statics.php");
 include(__BASE_PATH__ . '/extensoes/pr_snas/1.2/interfaces/detalhar_documentos.php');
 
@@ -137,7 +138,14 @@ $elementos = $arvore->getVinculacaoDocumento($root, $urlManager, 3/* Anexos */);
             <li class="collapseAll"><img alt="" src="plugins/tree/css/images/collapse.png"/></li>
         </div>
         <ul id="tree-documentos-associados" class="arvoreDocumentos">
-            <li class='<?php print(Documento::validarDocumentoAreaDeTrabalho($root) ? 'root' : 'root root-ausente') ?>' id='<?php print($arvore->getRootId()); ?>'><span title="Documento mais relevante da arvore"><?php print($root); ?></span>
+			<?php
+				$documento = current(CFModelDocumento::factory()->findByParam(array('DIGITAL' => $root)));
+				$classe = Documento::validarDocumentoAreaDeTrabalho($root) ? 'root' : 'root root-ausente';
+				$rootId = $arvore->getRootId();
+			?>        
+            <li class='<?php print(Documento::validarDocumentoAreaDeTrabalho($root) ? 'root' : 'root root-ausente') ?>' id='<?php print($arvore->getRootId()); ?>'>
+            	<span title="Documento mais relevante da arvore"><?php print($root); ?></span>
+                [ <?php print($documento->ASSUNTO); ?> - <?php print(Util::formatDate($documento->DT_DOCUMENTO) ? Util::formatDate($documento->DT_DOCUMENTO) : "Data Não informada"); ?> ]
                 <ul><?php print($elementos); ?></ul>
             </li>
         </ul>

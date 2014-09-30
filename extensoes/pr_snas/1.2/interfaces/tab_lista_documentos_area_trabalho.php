@@ -70,8 +70,6 @@
                 total_documentos = (iDisplayIndex + 1);
 
                 $('td:eq(0)', nRow).html('<input type="checkbox" id="DIGITAL[' + iDisplayIndex + ']" value="' + aData[3] + '">');
-                var $line = $('td:eq(10)', nRow);
-                $line.html('<div title="">');
 
                 /* Flags de Prazo e Vinculacao - Inicio */
                 if (aData[1] != '') {
@@ -101,23 +99,28 @@
                 }
 
                 /* Converter formato Date para String (dd/mm/aaaa) */
-                $('td:eq(4)', nRow).html(convertDateToString(aData[4]));
+                $('td:eq(4)', nRow).html(convertDateToString(aData[4])); /*DT_CADASTRO*/
+                $('td:eq(5)', nRow).html(convertDateToString(aData[5])); /*DT_DOCUMENTO*/
+                
+                $('td:eq(6)', nRow).html(aData[6]);
 
-                $('td:eq(5)', nRow).html(aData[5]);
-
-                if (aData[7] == '') {
-                    $('td:eq(7)', nRow).html('<div title=""></div>');
-                }
-
-                if (aData[8] != '') {
-                    $('td:eq(8)', nRow).html(aData[8]);
-                } else {
+                if (aData[8] == '') {
                     $('td:eq(8)', nRow).html('<div title=""></div>');
                 }
 
-                if (aData[9] == '') {
+                if (aData[9] != '') {
+                    $('td:eq(9)', nRow).html(aData[9]);
+                } else {
                     $('td:eq(9)', nRow).html('<div title=""></div>');
                 }
+
+                if (aData[10] == '') {
+                    $('td:eq(10)', nRow).html('<div title=""></div>');
+                }
+
+                var $line = $('td:eq(11)', nRow);
+                $line.html('<div title="">');
+                
 <?php
 // verifica a existencia da permissao para autuar processos
 if (array_key_exists('309', Controlador::getInstance()->recurso->dependencias)) {
@@ -136,7 +139,7 @@ if (array_key_exists('309', Controlador::getInstance()->recurso->dependencias)) 
 // verifica a existencia da permissao para tramitar documentos
 if (AclFactory::checaPermissao(Controlador::getInstance()->acl, Controlador::getInstance()->usuario, DaoRecurso::getRecursoById(307))) {
     ?>
-    			if (aData[11] == 'S') {
+    			if (aData[12] == 'S') {
                     // Tramitar
                     $("<img/>", {
                         src: 'imagens/tramitar.png',
@@ -171,7 +174,7 @@ if (array_key_exists('3102', Controlador::getInstance()->recurso->dependencias))
                         title: 'Detalhar',
                         'class': 'botao30'
                     }).bind("click", function() {
-                        jquery_detalhar_documento(aData[3], aData[11]);
+                        jquery_detalhar_documento(aData[3], aData[12]);
                     }).appendTo($line);
 
     <?php
@@ -201,8 +204,8 @@ if (array_key_exists('3102', Controlador::getInstance()->recurso->dependencias))
             fnDrawCallback: function(oSettings, nRow) {
             },
             aoColumnDefs: [
-                {bSortable: false, aTargets: [0, 9, 10]},
-            	{bVisible: false, aTargets: [11] }
+                {bSortable: false, aTargets: [0, 11, 12]},
+            	{bVisible: false, aTargets: [12] }
             ]
 
         });
@@ -220,11 +223,12 @@ if (array_key_exists('3102', Controlador::getInstance()->recurso->dependencias))
             <th title="Prazos" class="style13 column-checkbox"></th>
             <th class="style13 column-digital">Digital</th>
             <th class="style13 column-numero">Cadastro</th>
+            <th class="style13 column-numero">Data Documento</th>
             <th class="style13 column-assunto">Assunto</th>
             <th class="style13 column-numero">Número</th>
             <th class="style13 column-tipo">Tipo</th>
             <th class="style13 column-origem">Origem</th>
-            <th class="style13 column-movimentacao">Movimentação</th>
+            <th class="style13 column-movimentacao">Interessado</th>
             <th class="style13 column-opcao-5">Opções</th>
             <th></th>
         </tr>

@@ -21,11 +21,12 @@ $aColumns = array(
     'DIAS_RESTANTES',
     'DIGITAL',
     'DT_CADASTRO',
+	'DT_DOCUMENTO',
     'ASSUNTO',
     'NUMERO',
     'TIPO',
     'ORIGEM',
-    'ULTIMO_TRAMITE',
+    'INTERESSADO',
     'ID_UNID_AREA_TRABALHO',
 	'PERMITE_ACAO'
 );
@@ -37,7 +38,7 @@ $aColumnsFTS = array(
     'NUMERO',
     'TIPO',
     'ORIGEM',
-    'ULTIMO_TRAMITE',
+    'INTERESSADO',
 );
 
 
