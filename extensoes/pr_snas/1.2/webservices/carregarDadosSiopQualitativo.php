@@ -10,10 +10,10 @@ echo "Qualitativo\n";
  */
 $baixar = array(
 		'orgaos' => TRUE,
-		'programas' => FALSE,
-		'acoes' => FALSE,
-		'objetivos' => FALSE,
-		'metas' => FALSE
+		'programas' => TRUE,
+		'acoes' => TRUE,
+		'objetivos' => TRUE,
+		'metas' => TRUE
 );
 
 if($baixar['orgaos']) {
