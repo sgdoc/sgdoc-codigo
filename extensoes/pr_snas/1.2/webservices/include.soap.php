@@ -3,7 +3,7 @@ require_once(dirname(__FILE__) . '/../bibliotecas/nusoap/lib/nusoap.php');
 
 function acessarWebServiceSOF($metodo, $parametros = array(), $configuracao = array(), $dto = 'registros' ) {
 	$proxy = ConfigWs::factory()->getSiopProxyConfig();	
-	$client = new nusoap_client($configuracao['wsdl_url'], $proxy['server'], $proxy['port'], $proxy['username'], $proxy['password'], 0, 3000 );
+	$client = new nusoap_client($configuracao['wsdl_url'], false, $proxy['server'], $proxy['port'], $proxy['username'], $proxy['password'], 0, 3000 );
 	$client->setUseCURL(true);
 	$err = $client->getError();
 	if ($err) {

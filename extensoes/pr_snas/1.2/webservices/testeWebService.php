@@ -31,8 +31,8 @@ try {
 	// MDA - Ministério do Desenvolvimento Agrário - MDA
 	//$codigoSiorg = '17125';
 	//29260
-	$arrCodSiorg = array('17125', '17125', '29260', '29260');
-	//$arrCodSiorg = array('17125');
+	//$arrCodSiorg = array('17125', '17125', '29260', '29260');
+	$arrCodSiorg = array('17125');
 	$exercicio = '2014';
 	
 	$configWs = array(
@@ -44,8 +44,8 @@ try {
 	);
 	
 	$proxy = array(
-		'server'	=> false,
-		'port'		=> false,
+		'server'	=> false, //'10.32.80.192', //PROXY ELIO
+		'port'		=> false, //'9090',
 		'username'	=> false,
 		'password'	=> false
 	);
@@ -62,7 +62,9 @@ try {
 		
 		echo "\n\nBuscando o orgao: $codigoSiorg, ".($bolUtf ? 'com' : 'sem')." UTF8\n\n";	
 		echo "Criando cliente para o WebService {$configWs['wsdl_url']}.....";
-		$client = new nusoap_client($configWs['wsdl_url'], $proxy['server'], $proxy['port'], $proxy['username'], $proxy['password'], 0, 3000 );
+		$client = new nusoap_client($configWs['wsdl_url'], false, $proxy['server'], $proxy['port'], $proxy['username'], $proxy['password'], 0, 3000 );
+		//$client = new nusoap_client($configWs['wsdl_url'], 0, 3000 );
+		//$client->setHTTPProxy($proxy['server'], $proxy['port']);
 		$client->setDebugLevel(9);
 		$client->setUseCURL(true);
 		$client->decode_utf8 = $bolUtf;
@@ -96,7 +98,7 @@ try {
 		} else {
 			echo "[ ATENCAO - Não existem registros deste orgao ]\n";
 		}
-		imprimir($client->getDebug(), $codigoSiorg, $bolUtf);
+		//imprimir($client->getDebug(), $codigoSiorg, $bolUtf);
 	}
 } catch (Exception $e) {
 	echo "ERRO na linha {$e->getLine()}: " . $e->getMessage() . "\n";
