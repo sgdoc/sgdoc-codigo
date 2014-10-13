@@ -296,7 +296,8 @@ class DaoPrazoDemanda extends DaoPrazo {
 				UPDATE sgdoc.ext__snas__tb_controle_prazos
 					SET ha_vinculo = :happa,
 						legislacao_situacao = :legsit,
-						legislacao_descricao = :legdsc
+						legislacao_descricao = :legdsc,
+    					dt_minuta_resposta = current_date
 					WHERE id = :prazo;
             ");
     	$stmtExt->bindParam('happa', $prazo->prazo->ha_ppa, PDO::PARAM_BOOL);
@@ -315,6 +316,18 @@ class DaoPrazoDemanda extends DaoPrazo {
     	
     	new Log('TB_CONTROLE_PRAZOS', $prazo->prazo->sq_prazo, Zend_Auth::getInstance()->getIdentity()->ID, 'salvar resposta');
     	 
+    }
+    
+    private function salvarMinuta(Connection $cnn, $sqPrazo) {
+    	
+    	$stmtExt = $cnn->connection->prepare("
+				UPDATE sgdoc.ext__snas__tb_controle_prazos
+				SET dt_minuta_resposta = current_date
+				WHERE id = :prazo;
+            ");
+    	$stmtExt->bindParam('prazo', $sqPrazo, PDO::PARAM_INT);
+    	$stmtExt->execute();
+    	
     }
     
     public static function salvarRespostaPrazo(Prazo $prazo) {
@@ -356,6 +369,8 @@ class DaoPrazoDemanda extends DaoPrazo {
 	        	$stmt->bindParam('meta', $meta, PDO::PARAM_STR);
 	       		$stmt->execute();
         	}
+        	
+        	self::salvarMinuta(Controlador::getInstance()->getConnection(), $prazo->prazo->sq_prazo);
         	
 			Controlador::getInstance()->getConnection()->connection->commit();
         
@@ -410,7 +425,9 @@ class DaoPrazoDemanda extends DaoPrazo {
     		$stmt->bindParam('usuario', Controlador::getInstance()->usuario->ID, PDO::PARAM_INT);
     		
     		$stmt->execute();
-    		 
+    		
+    		self::salvarMinuta(Controlador::getInstance()->getConnection(), $upload->idPrazo);
+    		
     		Controlador::getInstance()->getConnection()->connection->commit();
     
     		return new Output(array('success' => 'true', 'message' => 'Arquivo salvo com sucesso!'));
@@ -436,7 +453,7 @@ class DaoPrazoDemanda extends DaoPrazo {
     		$stmt->bindParam(1, $idAnexo, PDO::PARAM_INT);
     		
    			$stmt->execute();
-    		 
+   			
     		Controlador::getInstance()->getConnection()->connection->commit();
     
     		return new Output(array('success' => 'true', 'message' => 'Metas selecionadas com sucesso!'));

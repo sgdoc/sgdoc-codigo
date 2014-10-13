@@ -9,11 +9,11 @@ echo "Qualitativo\n";
  * Utilizar quando precisar pegar apenas um tipo de dado específico.
  */
 $baixar = array(
-		'orgaos' => true,
-		'programas' => true,
-		'acoes' => true,
-		'objetivos' => true,
-		'metas' => true
+		'orgaos' => TRUE,
+		'programas' => TRUE,
+		'acoes' => TRUE,
+		'objetivos' => TRUE,
+		'metas' => TRUE
 );
 
 if($baixar['orgaos']) {
@@ -22,19 +22,38 @@ if($baixar['orgaos']) {
 	 * Obtendo a base de dados de órgãos para o ano de exercício repassado
 	 * 
 	*/
+	echo "Limpando base de dados dos programas para o ano de {$exercicio}.\n";
+	//limparDadosSiop('orgaos', "exercicio = '{$exercicio}'");
 	echo "Obtendo órgãos.\n";
-	$orgaos = obterTodosOrgaosPorAnoExercicio($exercicio);
-	if(!$orgaos['sucesso']) {
-		echo "\tNão foi possível obter os dados dos órgãos.\n";
-		die;
+	$orgaosSiorg = obterOrgaosSgbio();
+	$totalRegistros = 0;
+	foreach($orgaosSiorg as $k => $j) {
+		$repescagem = array();
+		//$codigoSiorg['CODIGOSIORG'] = 26;
+		$codigoSiorg = $j['CODIGOSIORG'];			
+		do {
+			echo "Obtendo dados do orgão {$codigoSiorg}. ";
+			$orgaosAux = obterOrgaosPorCodigoSiorgAnoExercicio($codigoSiorg, $exercicio);
+			if(!$orgaosAux['sucesso']) {		
+				echo "Houve um problema:\n\n";
+				echo str_replace("<br>", "\n", $orgaosAux['mensagensErro']);
+				echo "\n";
+			} else {
+				$numRegistros = 0;
+				foreach($orgaosAux['registros'] as $orgao) {
+					if(isset($orgao['tipoOrgao'])) {
+						$orgao['orgaoSiorg'] = $codigoSiorg;
+						//print_r($orgao);
+						salvarDadosSiop('orgaos', $orgao);
+						$numRegistros++;
+						$totalRegistros++;
+					}						
+				}
+				echo "Registros salvos: {$numRegistros}.\n";
+			}
+		} while (!$orgaosAux['sucesso']);
 	}
-	echo "Órgaos obtidos. Limpando base de dados dos programas para o ano de {$exercicio}.\n";
-	limparDadosSiop('orgaos', "exercicio = '{$exercicio}'");
-	foreach($orgaos['registros'] as $orgao) {
-		salvarDadosSiop('orgaos', $orgao);			
-	}
-	echo "Dados dos orgãos salvados.\n";
-	reset($orgaos);
+	echo "Total de órgãos registrados: {$totalRegistros}. \n";
 }
 
 if($baixar['programas']) {
@@ -46,8 +65,9 @@ if($baixar['programas']) {
 	echo "Obtendo programas.\n";
 	$programas = obterTodosProgramasPorAnoExercicio($exercicio);
 	if(!$programas['sucesso']) {
-		echo "\tNão foi possível obter os dados dos programas.\n";
+		echo "\tNão foi possível obter os dados dos programas:\n\n";
 		echo str_replace("<br>", "\n", $programas['mensagensErro']);
+		echo "\n";
 		die;
 	}
 	echo "Programas obtidos. Limpando base de dados dos programas para o ano de {$exercicio}.\n";
@@ -71,8 +91,9 @@ if($baixar['acoes']) {
 		echo "Obtendo ações do programa '{$programa['codigoPrograma']}'.\n";
 		$acoesDoPrograma = obterAcoesPorPrograma($programa, $exercicio);
 		if( !$acoesDoPrograma['sucesso'] ) {
-			echo "\tNão foi possível obter os dados das ações do programa '{$programa['codigoPrograma']}'.\n";
+			echo "\tNão foi possível obter os dados das ações do programa '{$programa['codigoPrograma']}:'.\n\n";
 			echo str_replace("<br>", "\n", $acoesDoPrograma['mensagensErro']);
+			echo "\n\n";
 		} else {
 			foreach($acoesDoPrograma['registros'] as $acaoDoPrograma) {
 				salvarDadosSiop('acoes', $acaoDoPrograma);					
@@ -92,10 +113,10 @@ if($baixar["objetivos"]) {
 	 */
 	echo "Obtendo objetivos.\n";
 	$objetivos = obterTodosObjetivosPorAnoExercicio($exercicio);
-	print_r($objetivos);
 	if(!$objetivos['sucesso']) {
-		echo "\tNão foi possível obter os dados dos objetivos:\n";
+		echo "\tNão foi possível obter os dados dos objetivos:\n\n";
 		echo str_replace("<br>", "\n", $objetivos['mensagensErro']);
+		echo "\n\n";
 	} else {
 		echo "Objetivos obtidos. Limpando base de dados dos objetivos para o ano de {$exercicio}.\n";
 		limparDadosSiop('objetivos', "exercicio = '{$exercicio}'");
@@ -116,8 +137,9 @@ if($baixar['metas']) {
 	echo "Obtendo metas.\n";
 	$metas = obterTodasMetasPorAnoExercicio($exercicio);
 	if(!$metas['sucesso']) {
-		echo "\tNão foi possível obter os dados das metas.\n";
+		echo "\tNão foi possível obter os dados das metas:\n\n";
 		echo str_replace("<br>", "\n", $metas['mensagensErro']);
+		echo "\n\n";
 	} else {
 		echo "Metas obtidas. Limpando base de dados das metas para o ano de {$exercicio}.\n";
 		limparDadosSiop('metas', "exercicio = '{$exercicio}'");

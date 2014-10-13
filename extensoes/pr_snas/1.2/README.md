@@ -4,9 +4,14 @@
 <br />
 2. carregar os dados do webservice:<br />
 <br />
-2.1. preencher os dados que constam no arquivo <b>cfg/configuration.ini</b> relativos a url, namespace, usuario, senha e perfil de cada um dos webservices (WSQualitativo e WSQuantitativo):<br />
+2.1. preencher os dados que constam no arquivo <b>cfg/configuration.ini</b> relativos a url, namespace, usuario, senha e perfil de cada um dos webservices (WSQualitativo e WSQuantitativo), assim como informações de proxy, caso seja utilizado um:<br />
 <pre>
 ws.siop.exercicio.inicial              =   '2004'
+
+ws.siop.proxy.server					=	''
+ws.siop.proxy.port						= 	''
+ws.siop.proxy.username					=	''
+ws.siop.proxy.password					= 	''
 
 ws.siop.qualitativo.wsdl_url            =   ''
 ws.siop.qualitativo.namespace           =   ''

@@ -26,6 +26,11 @@ $objeto = DaoDocumento::getDocumento($digital);
 $controller->setContexto($objeto);
 $controller->recurso->abas = null;
 $controller->botoes = Util::getMenus($auth, $controller->recurso, $controller->acl);
+
+$extensions = Config::factory()->getParam('extensions.active');
+foreach($extensions as $extensao) {}
+$interfaces = "/{$extensao}/interfaces/";
+
 ?>
 
 <html>

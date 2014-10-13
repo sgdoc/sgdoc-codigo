@@ -1,9 +1,9 @@
 <?php
 /*  INICIALIZAÇÃO DAS CONFIGURAÇÕES DO SISTEMA   */
 
-include('../../../../classes/CFUtils.php');
-include('../../../../classes/CFConfig.php');
-include('../../../../classes/Config.php');
+include_once(dirname(__FILE__) . '/../../../../classes/CFUtils.php');
+include_once(dirname(__FILE__) . '/../../../../classes/CFConfig.php');
+include_once(dirname(__FILE__) . '/../../../../classes/Config.php');
 
 class ConfigWs extends Config {
 	
@@ -38,6 +38,15 @@ class ConfigWs extends Config {
 			'usuario' 	=> $this->_params["ws.siop.{$origemDados}.usuario"],
 			'senha' 	=> $this->_params["ws.siop.{$origemDados}.senha"],
 			'perfil' 	=> $this->_params["ws.siop.{$origemDados}.perfil"]
+		);
+	}
+	
+	public function getSiopProxyConfig() {
+		return array(
+			'server'	=> ($this->_params['ws.siop.proxy.server'] === '') ? false : $this->_params['ws.siop.proxy.server'],
+			'port'		=> ($this->_params['ws.siop.proxy.port'] === '') ? false : $this->_params['ws.siop.proxy.port'],
+			'username'	=> ($this->_params['ws.siop.proxy.username'] === '') ? false : $this->_params['ws.siop.proxy.username'],
+			'password'	=> ($this->_params['ws.siop.proxy.password'] === '') ? false : $this->_params['ws.siop.proxy.password']
 		);
 	}
 	

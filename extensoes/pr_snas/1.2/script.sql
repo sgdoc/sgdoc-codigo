@@ -6,6 +6,8 @@ ALTER TABLE sgdoc.ext__snas__tb_controle_prazos ALTER COLUMN legislacao_situacao
 
 ALTER TABLE sgdoc.ext__snas__tb_controle_prazos ADD COLUMN legislacao_descricao text;
 
+ALTER TABLE sgdoc.ext__snas__tb_controle_prazos ADD COLUMN dt_minuta_resposta date;
+
 CREATE SCHEMA snas AUTHORIZATION usr_pr_sgdoc4;
 GRANT ALL ON SCHEMA snas TO usr_pr_sgdoc4;
 
@@ -213,6 +215,9 @@ WITH (
 );
 ALTER TABLE snas.tb_siop_programas
   OWNER TO usr_pr_sgdoc4;
+  
+COMMENT ON COLUMN snas.tb_siop_programas."codigoTipoPrograma" IS 'Exercício 2014, onde: 6 = Temático, 7 = Gestão e Manutenção e 9 = Operações Especiais';
+
 CREATE INDEX "ind_codigoPrograma_siop"
   ON snas.tb_siop_programas
   USING btree
@@ -224,7 +229,11 @@ CREATE OR REPLACE VIEW sgdoc.ext__snas__vw_vinculo_documentos AS
  SELECT prazo.sq_prazo, sem_vinculo.digital AS demanda, 
     docprincipal.digital AS documento_vinculo_pai, 
     prazo.tx_solicitacao AS solicitacao_demanda, 
-    prazo.tx_resposta AS resposta_demanda, uuu.nome AS orgao, 
+    case when (ext.dt_minuta_resposta is null) and (prazo.dt_resposta is null) then ''
+        when (ext.dt_minuta_resposta is not null) and (prazo.dt_resposta is null) then 'Minuta'
+        else prazo.tx_resposta 
+    end AS resposta_demanda,
+    uuu.nome AS orgao, 
     demanda.interessado, prazo.id_unid_destino AS unidade_destino, 
     prazo.dt_prazo AS prazo_demanda, 
     prazo.dt_resposta AS data_demanda_respondida, 
@@ -238,13 +247,60 @@ CREATE OR REPLACE VIEW sgdoc.ext__snas__vw_vinculo_documentos AS
    JOIN sgdoc.tb_documentos_cadastro docprincipal ON vinculo.id_documento_pai = docprincipal.id
    JOIN sgdoc.tb_documentos_cadastro sem_vinculo ON sem_vinculo.id = vinculo.id_documento_filho
   WHERE vinculo.fg_ativo = 1 AND vinculo.id_vinculacao = 3
-  GROUP BY prazo.sq_prazo, sem_vinculo.digital, docprincipal.digital, prazo.tx_solicitacao, prazo.tx_resposta, uuu.nome, demanda.interessado, demanda.tecnico_responsavel, prazo.id_unid_destino, prazo.dt_prazo, prazo.dt_resposta, ext.nu_proc_dig_ref_pai, prazo.nu_proc_dig_ref, vinculo.fg_ativo
+  GROUP BY prazo.sq_prazo, sem_vinculo.digital, docprincipal.digital, prazo.tx_solicitacao, ext.dt_minuta_resposta, prazo.tx_resposta, uuu.nome, demanda.interessado, demanda.tecnico_responsavel, prazo.id_unid_destino, prazo.dt_prazo, prazo.dt_resposta, ext.nu_proc_dig_ref_pai, prazo.nu_proc_dig_ref, vinculo.fg_ativo
   ORDER BY sem_vinculo.digital;
 
 ALTER TABLE sgdoc.ext__snas__vw_vinculo_documentos
   OWNER TO postgres;
 GRANT ALL ON TABLE sgdoc.ext__snas__vw_vinculo_documentos TO postgres;
 GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE sgdoc.ext__snas__vw_vinculo_documentos TO usr_pr_sgdoc4;
+
+DROP VIEW sgdoc.ext__snas__vw_area_trabalho_documentos;
+
+CREATE OR REPLACE VIEW sgdoc.ext__snas__vw_area_trabalho_documentos AS 
+  SELECT d.id_unid_area_trabalho AS area_busca, 
+    'S'::text AS permite_acao, d.id, d.dt_prazo, d.digital, 
+    d.dt_cadastro, d.dt_documento,
+    d.id_unid_area_trabalho, a.assunto, d.numero, d.tipo, 
+    d.origem,
+    d.interessado,
+    un.nome AS area_trabalho, 
+    dv.id_documento_pai AS pai, 
+    cp.dt_prazo - 'now'::text::date AS dias_restantes
+  FROM sgdoc.tb_documentos_cadastro d
+    LEFT JOIN sgdoc.tb_documentos_assunto a ON a.id = d.id_assunto
+    LEFT JOIN sgdoc.tb_unidades un ON un.id = d.id_unid_area_trabalho
+    LEFT JOIN sgdoc.tb_processos_documentos pd ON pd.id_documentos_cadastro = d.id
+    LEFT JOIN sgdoc.tb_documentos_vinculacao vi ON vi.id_documento_filho = d.id AND vi.fg_ativo = 1
+    LEFT JOIN sgdoc.tb_documentos_vinculacao dv ON dv.id_documento_pai = d.id AND dv.fg_ativo = 1 AND dv.st_ativo = 1
+    LEFT JOIN sgdoc.tb_controle_prazos cp ON cp.nu_proc_dig_ref::text = d.digital::text AND cp.fg_status = 'AR'::bpchar AND cp.id_unid_origem = d.id_unid_area_trabalho
+  WHERE vi.id_documento_filho IS NULL AND pd.id_documentos_cadastro IS NULL
+UNION 
+  SELECT prazo.id_unid_destino AS area_busca, 'N'::text AS permite_acao, 
+    d.id, prazo.data_prazo AS dt_prazo, d.digital, d.dt_cadastro, d.dt_documento,
+    d.id_unid_area_trabalho, a.assunto, d.numero, d.tipo, d.origem, 
+    d.interessado, un.nome AS area_trabalho, NULL::integer AS pai, 
+    prazo.data_prazo - 'now'::text::date AS dias_restantes
+  FROM (SELECT dv.id_documento_pai AS id, p.id_unid_destino, 
+          max(p.dt_prazo) AS data_prazo
+        FROM sgdoc.tb_controle_prazos p
+          JOIN sgdoc.tb_documentos_cadastro monit ON p.nu_proc_dig_ref::text = monit.digital::text
+          JOIN sgdoc.tb_documentos_vinculacao dv ON dv.id_documento_filho = monit.id AND dv.fg_ativo = 1
+        WHERE p.fg_status = 'AR'::bpchar
+        GROUP BY dv.id_documento_pai, p.id_unid_destino
+        ORDER BY dv.id_documento_pai) prazo
+    JOIN sgdoc.tb_documentos_cadastro d ON prazo.id = d.id
+    LEFT JOIN sgdoc.tb_documentos_assunto a ON a.id = d.id_assunto
+    LEFT JOIN sgdoc.tb_unidades un ON un.id = d.id_unid_area_trabalho
+ORDER BY 2 DESC;
+
+ALTER TABLE sgdoc.ext__snas__vw_area_trabalho_documentos
+  OWNER TO postgres;
+GRANT ALL ON TABLE sgdoc.ext__snas__vw_area_trabalho_documentos TO postgres;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE sgdoc.ext__snas__vw_area_trabalho_documentos TO usr_pr_sgdoc4;
+COMMENT ON VIEW sgdoc.ext__snas__vw_area_trabalho_documentos
+  IS 'permite visualizar documentos na área de trabalhos que estao 
+em outra area de trabalho (unidade) mas que possuem algum documento vinculado com prazo para esta unidade corrente';
 
 begin;
 

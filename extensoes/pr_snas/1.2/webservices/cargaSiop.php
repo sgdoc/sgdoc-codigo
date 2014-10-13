@@ -48,19 +48,19 @@ if (in_array('1', $obrigatorios)) {
 define('CF_APP_BASE_PATH', realpath(__DIR__) . '/../../../..');
 define('CF_APP_ENVIRONMENT', $ambiente);
 
-require_once('ConfigWs.php');
+include_once( dirname(__FILE__) . '/ConfigWs.php' );
 
 ConfigWs::factory()
 	->buildDBConfig()->buildAppConstants()
 	->buildAppDefines()->buildEnvironment();
 
 if($carga == 'ambas' || $carga == 'qualitativo') {
-	include("./carregarDadosSiopQualitativo.php");
+	include_once(dirname(__FILE__) . '/carregarDadosSiopQualitativo.php');
 }
 	
 
 if($carga == 'ambas' || $carga == 'quantitativo') {
-	include("./carregarDadosSiopQuantitativo.php");
+	include_once(dirname(__FILE__) . '/carregarDadosSiopQuantitativo.php');
 }
 
 /*

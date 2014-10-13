@@ -3117,7 +3117,10 @@ class soap_transport_http extends nusoap_base {
 		$this->debug('send and receive with cURL');
 		$this->incoming_payload = curl_exec($this->ch);
 		$data = $this->incoming_payload;
-
+		
+		$this->debug('raw data:');
+		$this->appendDebug($data);
+		
         $cErr = curl_error($this->ch);
 		if ($cErr != '') {
         	$err = 'cURL ERROR: '.curl_errno($this->ch).': '.$cErr.'<br>';

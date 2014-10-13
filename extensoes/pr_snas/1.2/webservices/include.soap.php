@@ -2,7 +2,8 @@
 require_once(dirname(__FILE__) . '/../bibliotecas/nusoap/lib/nusoap.php');
 
 function acessarWebServiceSOF($metodo, $parametros = array(), $configuracao = array(), $dto = 'registros' ) {
-	$client = new nusoap_client($configuracao['wsdl_url'], false);
+	$proxy = ConfigWs::factory()->getSiopProxyConfig();	
+	$client = new nusoap_client($configuracao['wsdl_url'], false, $proxy['server'], $proxy['port'], $proxy['username'], $proxy['password'], 0, 3000 );
 	$client->setUseCURL(true);
 	$err = $client->getError();
 	if ($err) {
@@ -208,6 +209,25 @@ function limparDadosSiop($destino, $condicao) {
 	return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+
+function obterOrgaosSgbio() {
+	$operacao = "
+		select 
+			distinct (stps.co_orgao::integer)::text as codigoSiorg
+		from 
+			sgdoc.tb_pessoa_siorg stps 
+	";
+	$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
+	$stmt->execute();
+	$out = array();
+	while($tuple = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		$out[] = $tuple;
+	}
+	return $out;
+}
+
+
+
 function obterTodosOrgaosPorAnoExercicio($anoExercicio) {
 	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
 	$orgaosParametros = array(
@@ -216,6 +236,17 @@ function obterTodosOrgaosPorAnoExercicio($anoExercicio) {
 			'retornarOrgaos'=> true
 	);
 	$orgaosDTO = acessarWebServiceSOF( 'obterProgramacaoCompleta', $orgaosParametros, $configuracao, 'orgaosDTO' );
+	return $orgaosDTO;
+}
+
+function obterOrgaosPorCodigoSiorgAnoExercicio($codigoSiorg, $anoExercicio) {
+	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
+	$orgaosParametros = array(
+			'credencial'	=> retornaCredenciais($configuracao),
+			'exercicio'		=> $anoExercicio,
+			'codigoSiorg'	=> $codigoSiorg
+	);
+	$orgaosDTO = acessarWebServiceSOF( 'obterOrgaoPorCodigoSiorg', $orgaosParametros, $configuracao );
 	return $orgaosDTO;
 }
 

@@ -1,7 +1,8 @@
 {
     "resources":
             {
-                "classes": [
+                "classes": [                
+                    "classes/Arvore.php",
                     "classes/CFModelDocumentoDemanda.php",
                     "classes/VinculacaoDemanda.php",
                     "classes/CFModelControlePrazosDemanda.php",
@@ -35,7 +36,9 @@
                     "lista_pesquisa_documentos_demanda.php",
                     "dialog_responder_prazo.php",
                     "tab_detalhes_programas_siop.php",
-                    "tab_detalhes_responder_prazo.php"
+                    "tab_detalhes_responder_prazo.php",
+                    "arvore_anexos_documentos.php",
+                    "arvore_apensos_documentos.php"
                 ],
                 "javascripts": [
                 	"javascripts/documentos.js"

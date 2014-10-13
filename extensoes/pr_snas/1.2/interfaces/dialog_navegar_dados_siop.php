@@ -16,24 +16,32 @@
 			try {
 				if (data) {
 					$('#tdProgramas').empty();
+					$('#tdUnidade').empty();
+					
+					var spanUnid = $('<span>');
+					spanUnid.html('Unidade: ' + data[0].NOME_UNIDADE);
+					$('#tdUnidade').append(spanUnid);
+					
 					$.each(data, function(i) {
-						var span = $('<span>');
+						var spanPrg = $('<span>');
 						var txt = 'Programa (' + (i+1) + '/' + data.length + '): ';
-						span.html(txt + data[i].COD_PROGRAMA + ' - ' + data[i].TIT_PROGRAMA);
-						span.attr('id', 'spnProg' + data[i].COD_PROGRAMA);
-						span.attr('idProg', data[i].COD_PROGRAMA);
+						spanPrg.html(txt + data[i].COD_PROGRAMA + ' - ' + data[i].TIT_PROGRAMA);
+						spanPrg.attr('id', 'spnProg' + data[i].COD_PROGRAMA);
+						spanPrg.attr('idProg', data[i].COD_PROGRAMA);
 						if (i != 0) {
-							span.addClass('spnOculto');
+							spanPrg.addClass('spnOculto');
 						}
-						$('#tdProgramas').append(span);
+						$('#tdProgramas').append(spanPrg);
 					});
 					$('#hdnTotalProg').val(data.length);
 					$('#hdnProgAtual').val(0);
 					$('#hdnAno').val(ano);
 					$('#hdnUnidade').val(unidade);
+					$('#hdnUnidadeBusca').val(data[0].ID_UNIDADE);
 					$('#hdnIdMetasSelecionadas').val('');
 					
 	            	$('#divDadosSiop').dialog('open');
+
 	            	$('#btnSelecionar').show();
 	            	$('.imgNavegacao').show();
 	            	
@@ -110,7 +118,7 @@
 			}
 		});
 		$('#divTabObjetivos').load('tab_detalhes_programas_siop.php?aba=obj&prog=' + idProg + '&ano=' + $('#hdnAno').val() + '&unid=' + $('#hdnUnidade').val()).show();
-		$('#divTabAcoes').load('tab_detalhes_programas_siop.php?aba=acoes&prog=' + idProg + '&ano=' + $('#hdnAno').val() + '&unid=' + $('#hdnUnidade').val()).show(); 
+		$('#divTabAcoes').load('tab_detalhes_programas_siop.php?aba=acoes&prog=' + idProg + '&ano=' + $('#hdnAno').val() + '&unid=' + $('#hdnUnidadeBusca').val()).show(); 
 		$('#tabsDetalhes').tabs({ active: 0 });
 	}
 
@@ -196,6 +204,14 @@
 		vertical-align: middle;
 	}
 	
+	#tdUnidade {
+		width: 100%;
+		font-size: 1.2em;
+		font-weight: bold;
+		text-align: center;
+		vertical-align: middle;
+	}
+	
 	#tdProgramas {
 		font-size: 1.2em;
 		padding-left: 5px;
@@ -216,6 +232,7 @@
 <div id="divDadosSiop" title="Dados SIOP">
 	<input type="hidden" id="hdnAno"/>
 	<input type="hidden" id="hdnUnidade"/>
+	<input type="hidden" id="hdnUnidadeBusca"/>
 	<input type="hidden" id="hdnTotalProg"/>
 	<input type="hidden" id="hdnProgAtual"/>
 	
@@ -223,6 +240,11 @@
 
 	<div id="divPrograma" class="wdt100">
 		<table class="wdt100 tblLayout">
+			<tr>
+				<td id="tdUnidade" colspan="5">
+				
+				</td>
+			</tr>
 			<tr style="height: 50px;">
 				<td class="tdNavegacao">
 					<img id="imgPrimeiroProg" class="imgBotao imgNavegacao" src="imagens/icones/32/Gnome-Go-First-32.png" alt="Primeiro Programa" title="Primeiro Programa" />

@@ -322,6 +322,7 @@ print(Util::autoLoadJavascripts(array('javascripts/jquery.form.js')));
 				},
 				Cancelar: function() {
 					limpar();
+					carregarListaPrazos();
 					$(this).dialog("close");
 				}
 			}
@@ -489,10 +490,10 @@ print(Util::autoLoadJavascripts(array('javascripts/jquery.form.js')));
 		width: 40px;
 		height: 40px;
 		overflow: hidden;
-	}
-	
-	#divUpload img {
-		position: absolute;
+		background-image: url('imagens/upload.png');
+		background-size: 32px 32px;
+    	background-repeat: no-repeat;
+    	background-position: center;
 	}
 	
 	#divUpload input {
@@ -501,6 +502,7 @@ print(Util::autoLoadJavascripts(array('javascripts/jquery.form.js')));
 		font-size: 30px;
 		opacity: 0;
 		filter: alpha(opacity=0);
+		cursor: pointer;
 	}
 		
 </style>
@@ -579,7 +581,6 @@ print(Util::autoLoadJavascripts(array('javascripts/jquery.form.js')));
 						<input type="hidden" name="acao" value="incluir-anexo-resposta" />
 						<input type="hidden" id="hdnUploadDigital" name="hdnUploadDigital" />
 						<input type="hidden" id="hdnUploadPrazo" name="hdnUploadPrazo" />
-						<img id="imgUpload" class="botao32" title="Upload" src="imagens/upload.png" />
 						<input type="file" id="inpFileUpload" name="inpFileUpload" />
 					</form>
 				</div>
