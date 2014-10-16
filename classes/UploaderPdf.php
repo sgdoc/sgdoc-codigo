@@ -49,7 +49,7 @@ class UploaderPdf {
      */
 
     private function _isPdf($type) {
-        if (!strpos(strtolower($type), 'pdf')) {
+        if (strpos(strtolower($type), 'pdf') === false) {
             throw new Exception('Tipo de arquivo inválido!' . $type);
         }
     }
