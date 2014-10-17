@@ -71,6 +71,11 @@ $attempts = new Zend_Session_Namespace('attempts');
 </style>
 <p align='left' class="style13">Sistema Gerenciador de Documentos (v. <?php print(__APPVERSAO__); ?>)</p>
 <div id="div-form-autenticacao">
+    <?php if (__CONFIG_ICPBRASIL_CERTIFICADO_CAMINHO__ != ''): ?>
+    <div class="certificado-info">
+        Caso seu navegador apresente algum problema relativo à certificação digital: <a href="<?php echo __CONFIG_ICPBRASIL_CERTIFICADO_CAMINHO__ ?>" target="_blank">clique aqui.</a>
+    </div>
+    <?php endif; ?>
     <div class="login-logo"></div>
     <div class="login-campos">
         <form action="" method="post" id="IDENTIFICACAO">
@@ -90,6 +95,7 @@ $attempts = new Zend_Session_Namespace('attempts');
         </div>
     <?php endif; ?>
     <div class="login-botoes">
+         
         <?php if (__ADAPTER_AUTENTICACAO__ == ''): ?>
             <a href="#" id="botaoSenha">
                 <img alt="Esqueceu sua senha?" title="Esqueceu sua senha?" class="botao33" src="imagens/login.png" />
@@ -99,6 +105,9 @@ $attempts = new Zend_Session_Namespace('attempts');
             <img alt="Entrar" title="Entrar" tabindex="4" class="botao48" src="imagens/logar.png" />
         </a>
     </div>
+
+<!--    <span>
+    </span>-->
 </div>
 <div id="dialog-form" title="Esqueceu sua senha?">
     <p class="validateTips">Um email será encaminhado com orientação para recuperaçãoo de sua senha, digite seu CPF: </p>
@@ -117,7 +126,7 @@ $attempts = new Zend_Session_Namespace('attempts');
             resizable: false,
             modal: false,
             width: 335,
-            height: 240
+            height: 280
         });
         /*Remover o botao fechar*/
         $('.ui-dialog-titlebar-close').hide();
