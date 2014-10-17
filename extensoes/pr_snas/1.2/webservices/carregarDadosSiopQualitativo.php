@@ -8,6 +8,7 @@ echo "Qualitativo\n";
  * Define que dados serão buscados no webservice. 
  * Utilizar quando precisar pegar apenas um tipo de dado específico.
  */
+
 $baixar = array(
 		'orgaos' => TRUE,
 		'programas' => TRUE,
@@ -15,6 +16,12 @@ $baixar = array(
 		'objetivos' => TRUE,
 		'metas' => TRUE
 );
+		
+if(isset($qualitativo) && $qualitativo !== '') {
+	foreach($baixar as $area => $valor) {
+		$baixar[$area] = ($area == $qualitativo);		
+	}
+}
 
 if($baixar['orgaos']) {
 	/**
@@ -28,8 +35,6 @@ if($baixar['orgaos']) {
 	$orgaosSiorg = obterOrgaosSgbio();
 	$totalRegistros = 0;
 	foreach($orgaosSiorg as $k => $j) {
-		$repescagem = array();
-		//$codigoSiorg['CODIGOSIORG'] = 26;
 		$codigoSiorg = $j['CODIGOSIORG'];			
 		do {
 			echo "Obtendo dados do orgão {$codigoSiorg}. ";
@@ -63,16 +68,41 @@ if($baixar['programas']) {
 	 * 
 	*/
 	echo "Obtendo programas.\n";
-	$programas = obterTodosProgramasPorAnoExercicio($exercicio);
-	if(!$programas['sucesso']) {
-		echo "\tNão foi possível obter os dados dos programas:\n\n";
-		echo str_replace("<br>", "\n", $programas['mensagensErro']);
-		echo "\n";
-		die;
-	}
+	$orgaosSiop = obterOrgaosSiopPorExercicio($exercicio);
+	$programas = array();
+	$camposPrograma = obterCampos('programas');	
+	$totalRegistros = 0;
+	foreach($orgaosSiop as $k => $j) {
+		$codigoSiop = $j['CODIGOSIOP'];
+		do {
+			echo "Obtendo programas do orgão {$codigoSiop}.\n";
+			$programasAux = obterProgramasPorOrgaoAnoExercicio($codigoSiop, $exercicio);
+			if(!$programasAux['sucesso']) {
+				echo "\tNão foi possível obter os dados dos programas:\n\n";
+				echo str_replace("<br>", "\n", $programasAux['mensagensErro']);
+				echo "\n";
+			} else {
+				foreach($programasAux['registros'] as $programa) {
+					$programa['codigoOrgao'] = $codigoSiop;
+					$chvPrograma = $programa['codigoPrograma'];
+					foreach($camposPrograma as $chave => $tipo) {
+						$default = '';
+						if($tipo == \PDO::PARAM_INT) {
+							$default = 0;
+						}
+						if($tipo == \PDO::PARAM_BOOL) {
+							$default = false;
+						}
+						$programas["{$chvPrograma}:{$codigoSiop}"][$chave] = retornaValorValido($programa, $chave, $default);  
+					}
+					reset($camposPrograma);	
+				}
+			}
+		} while(!$programasAux['sucesso']); 
+	}		
 	echo "Programas obtidos. Limpando base de dados dos programas para o ano de {$exercicio}.\n";
 	limparDadosSiop('programas', "exercicio = '{$exercicio}'");
-	foreach($programas['registros'] as $programa) {
+	foreach($programas as $programa) {
 		salvarDadosSiop('programas', $programa);			
 	}	
 	echo "Dados dos programas salvados.\n";
@@ -87,18 +117,19 @@ if($baixar['acoes']) {
 	*/
 	echo "Limpando base de dados das ações para o ano de {$exercicio}.\n";
 	limparDadosSiop('acoes', " exercicio = '{$exercicio}' ");
-	foreach($programas['registros'] as $programa) {
-		echo "Obtendo ações do programa '{$programa['codigoPrograma']}'.\n";
-		$acoesDoPrograma = obterAcoesPorPrograma($programa, $exercicio);
+	$programas = obterProgramasSiopPorExercicio($exercicio);
+	foreach($programas as $programa) {
+		echo "Obtendo ações do programa '{$programa['CODIGOPROGRAMA']}'.\n";
+		$acoesDoPrograma = obterAcoesPorPrograma($programa['CODIGOPROGRAMA'], $exercicio);
 		if( !$acoesDoPrograma['sucesso'] ) {
-			echo "\tNão foi possível obter os dados das ações do programa '{$programa['codigoPrograma']}:'.\n\n";
+			echo "\tNão foi possível obter os dados das ações do programa '{$programa['CODIGOPROGRAMA']}:'.\n\n";
 			echo str_replace("<br>", "\n", $acoesDoPrograma['mensagensErro']);
 			echo "\n\n";
 		} else {
 			foreach($acoesDoPrograma['registros'] as $acaoDoPrograma) {
 				salvarDadosSiop('acoes', $acaoDoPrograma);					
 			}
-			echo "\tDados das ações do programa '{$programa['codigoPrograma']}' salvado.\n";
+			echo "\tDados das ações do programa '{$programa['CODIGOPROGRAMA']}' salvado.\n";
 			reset($acoesDoPrograma);
 		}
 	}

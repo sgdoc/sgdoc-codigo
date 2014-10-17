@@ -50,4 +50,12 @@ class ConfigWs extends Config {
 		);
 	}
 	
+	public function getSiopCertificateConfig() {
+		return array(
+			'crt'	=> ($this->_params['ws.siop.crt.caminho'] === '') ? false : $this->_params['ws.siop.crt.caminho'],
+			'key'	=> ($this->_params['ws.siop.key.caminho'] === '') ? false : $this->_params['ws.siop.key.caminho'],
+			'pem'	=> ($this->_params['ws.siop.pem.caminho'] === '') ? false : $this->_params['ws.siop.pem.caminho']
+		);		
+	}
+	
 }

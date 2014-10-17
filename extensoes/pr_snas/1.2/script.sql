@@ -1,5 +1,5 @@
 ALTER TABLE sgdoc.ext__snas__tb_controle_prazos ADD COLUMN ha_vinculo boolean;
-ALTER TABLE sgdoc.ext__snas__tb_controle_prazos ALTER COLUMN ha_vinculo SET DEFAULT false;
+ALTER TABLE sgdoc.ext__snas__tb_controle_prazos ALTER COLUMN ha_vinculo SET DEFAULT true;
 
 ALTER TABLE sgdoc.ext__snas__tb_controle_prazos ADD COLUMN legislacao_situacao integer;
 ALTER TABLE sgdoc.ext__snas__tb_controle_prazos ALTER COLUMN legislacao_situacao SET DEFAULT 0;

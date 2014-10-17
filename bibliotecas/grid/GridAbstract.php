@@ -337,9 +337,9 @@ abstract class GridAbstract {
         if (isset($this->_params['iSortCol_0'])) {
             for ($i = 0; $i < intval($this->_params['iSortingCols']); $i++) {
                 if ($this->_params['bSortable_' . intval($this->_params['iSortCol_' . $i])] == "true") {
-                    $columnIndex = $i+1;
-//                    $this->_order .= "{$this->getColumns(intval($this->_params['iSortCol_' . $i]))} {$this->_params['sSortDir_' . $i]} , ";
-                    $this->_order .= "{$columnIndex} {$this->_params['sSortDir_' . $i]} , ";
+                    //$columnIndex = $i+1;
+                    //$this->_order .= "{$columnIndex} {$this->_params['sSortDir_' . $i]} , ";
+					$this->_order .= "{$this->getColumns(intval($this->_params['iSortCol_' . $i]))} {$this->_params['sSortDir_' . $i]} , ";
                 }
             }
             //se não houver ordenação, remove a mesma

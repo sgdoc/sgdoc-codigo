@@ -1,10 +1,29 @@
 <?php
 require_once(dirname(__FILE__) . '/../bibliotecas/nusoap/lib/nusoap.php');
 
-function acessarWebServiceSOF($metodo, $parametros = array(), $configuracao = array(), $dto = 'registros' ) {
-	$proxy = ConfigWs::factory()->getSiopProxyConfig();	
+function inicializarWebServiceSOF($configuracao) {
+	$proxy = ConfigWs::factory()->getSiopProxyConfig();
 	$client = new nusoap_client($configuracao['wsdl_url'], false, $proxy['server'], $proxy['port'], $proxy['username'], $proxy['password'], 0, 3000 );
+	$client->setDebugLevel(9);
 	$client->setUseCURL(true);
+	
+	$certificado = ConfigWs::factory()->getSiopCertificateConfig();
+	if(!($certificado['crt'] == '')) {
+		$client->certRequest['sslcertfile'] = $certificado['crt']; # file containing the user's certificate
+	}
+	if(!($certificado['key'] == '')) {
+		$client->certRequest['sslkeyfile']  = $certificado['key']; # file containing the private key
+	}
+	if(!($certificado['pem'] == '')) {
+		$client->certRequest['cainfofile']  = $certificado['pem'];  # file containing the root certificate
+	} 
+	return $client;
+}
+
+function acessarWebServiceSOF($metodo, $parametros = array(), $configuracao = array(), $dto = 'registros' ) {
+
+	$client = inicializarWebServiceSOF($configuracao);
+	
 	$err = $client->getError();
 	if ($err) {
 		return array('sucesso' => false, 'mensagensErro' => $err);
@@ -226,7 +245,48 @@ function obterOrgaosSgbio() {
 	return $out;
 }
 
+function obterOrgaosSiopPorExercicio($exercicio) {
+	$operacao = "
+		select 
+			distinct \"codigoOrgao\" as codigoSiop
+		from 
+			snas.tb_siop_orgaos 
+		where 
+			exercicio = :exercicio
+		order by
+			\"codigoOrgao\"
+	";
+	
+	$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
+	$stmt->bindValue(':exercicio',$exercicio,\PDO::PARAM_INT);
+	$stmt->execute();
+	$out = array();
+	while($tuple = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		$out[] = $tuple;
+	}
+	return $out;
+}
 
+function obterProgramasSiopPorExercicio($exercicio) {
+	$operacao = "
+		SELECT DISTINCT 
+			\"codigoPrograma\"
+		FROM 
+			snas.tb_siop_programas
+		WHERE 
+			exercicio = :exercicio
+		 ORDER BY \"codigoPrograma\"
+	";
+
+	$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
+	$stmt->bindValue(':exercicio',$exercicio,\PDO::PARAM_INT);
+	$stmt->execute();
+	$out = array();
+	while($tuple = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		$out[] = $tuple;
+	}
+	return $out;
+}
 
 function obterTodosOrgaosPorAnoExercicio($anoExercicio) {
 	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
@@ -258,6 +318,18 @@ function obterTodosProgramasPorAnoExercicio($anoExercicio) {
 			'retornarProgramas' => true
 	);
 	$DTO = acessarWebServiceSOF( 'obterProgramacaoCompleta', $parametros, $configuracao, 'programasDTO' );
+	return $DTO;
+}
+
+function obterProgramasPorOrgaoAnoExercicio($codigoOrgao, $anoExercicio) {
+	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
+	$parametros = array(
+			'credencial'		=> retornaCredenciais($configuracao),
+			'exercicio'			=> $anoExercicio,
+			'codigoOrgao'		=> $codigoOrgao,
+			'retornarProgramas' => true
+	);
+	$DTO = acessarWebServiceSOF( 'obterProgramasPorOrgao', $parametros, $configuracao );
 	return $DTO;
 }
 
@@ -353,4 +425,8 @@ function obterExecucaoOrcamentaria($programa, $exercicio) {
 	);
 	$programasDTO = acessarWebServiceSOF( 'consultarExecucaoOrcamentaria', $programaParametros, $configuracao, 'execucoesOrcamentarias' );
 	return $programasDTO;
+}
+
+function retornaValorValido($entrada, $chave, $default) {
+	return isset($entrada[$chave]) ? $entrada[$chave] : $default;
 }

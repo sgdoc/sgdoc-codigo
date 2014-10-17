@@ -76,6 +76,7 @@ include(__BASE_PATH__ . '/interfaces/detalhar_processos.php');
             autoHeight: true,
             open: function(event, ui) {
             	$('#txaDemanda').val('');
+            	$('#tx_solicitacao').val('');
                 $.post("extensoes/pr_snas/1.2/modelos/prazos/prazos.php", {
                     acao: 'carregar-demanda',
                     nu_proc_dig_ref: $('#nu_proc_dig_ref').val(),
@@ -83,6 +84,7 @@ include(__BASE_PATH__ . '/interfaces/detalhar_processos.php');
                 function(data) {
                     try {
 						$('#txaDemanda').val(data.tx_solicitacao);
+		            	$('#tx_solicitacao').val(data.tx_solicitacao);
                     } catch (e) {
                         alert('Ocorreu um erro ao inserir um novo prazo:\n[' + e + ']');
                     }
