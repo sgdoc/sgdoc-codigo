@@ -170,9 +170,9 @@
 		});
 
 		$('#imgPrimeiroProg').click(function() { navegar(0); });
-		$('#imgAnteriorProg').click(function() { navegar($('#hdnProgAtual').val() - 1); });
-		$('#imgPosteriorProg').click(function() { navegar($('#hdnProgAtual').val() + 1); });
-		$('#imgUltimoProg').click(function() { navegar($('#hdnTotalProg').val() - 1); });
+		$('#imgAnteriorProg').click(function() { navegar(parseInt($('#hdnProgAtual').val()) - 1); });
+		$('#imgPosteriorProg').click(function() { navegar(parseInt($('#hdnProgAtual').val()) + 1); });
+		$('#imgUltimoProg').click(function() { navegar(parseInt($('#hdnTotalProg').val()) - 1); });
 
 	});
         
@@ -216,6 +216,7 @@
 		font-size: 1.2em;
 		padding-left: 5px;
 		padding-right: 5px;
+		width: 100%;
 	}
 	
 	.spnOculto {

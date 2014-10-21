@@ -102,7 +102,7 @@ class DaoPrazoDemanda extends DaoPrazo {
   						uso.nome AS nm_usuario_origem, uno.nome AS nm_unidade_origem, 
   						to_char(cp.dt_prazo::timestamp with time zone, 'dd/mm/yyyy'::text) AS dt_prazo,
     					doc.tipo, cp.tx_solicitacao, doc.assunto, doc.assunto_complementar,
-    					cp.fg_status, cp.tx_resposta, coalesce(ext.ha_vinculo, false) as ha_vinculo,
+    					cp.fg_status, cp.tx_resposta, coalesce(ext.ha_vinculo, true) as ha_vinculo,
     					coalesce(ext.legislacao_situacao, 0) as legislacao_situacao, ext.legislacao_descricao
 					FROM sgdoc.tb_controle_prazos cp
 					  	LEFT JOIN sgdoc.ext__snas__tb_controle_prazos ext ON ext.id = cp.sq_prazo

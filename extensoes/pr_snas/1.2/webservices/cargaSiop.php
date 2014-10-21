@@ -22,6 +22,13 @@ $variaveis = array(
 		'nome' => 'exercicio',
 		'obrigatorio' => true,
 		'tipo' => 'ano'
+	),
+	array(
+		'letra' => 'q',
+		'nome' => 'qualitativo',
+		'obrigatorio' => false,
+		'tipo' => 'lista',
+		'valores' => array( 'orgaos', 'programas', 'acoes', 'objetivos', 'metas' )
 	)
 );
 
@@ -78,6 +85,7 @@ var_dump($out);
 function obtemValorVariavel($opcoes, $opcoesVariavel) {
 	$nome = $opcoesVariavel['nome'];
 	$letra = $opcoesVariavel['letra'];
+	$obrigatorio = $opcoesVariavel['obrigatorio'];
 	$valor = '';
 	if (array_key_exists($nome, $opcoes)) {
 		$valor = strtolower($opcoes[$nome]);
@@ -89,7 +97,9 @@ function obtemValorVariavel($opcoes, $opcoesVariavel) {
 		case 'lista': 
 			$argumentos = implode(' | ', $opcoesVariavel['valores']);
 			if ($valor == '') { 
-				$mensagem = "Argumento obrigatório: -{$letra} ou --{$nome} [ {$argumentos} ]";
+				if ($obrigatorio) {
+					$mensagem = "Argumento obrigatório: -{$letra} ou --{$nome} [ {$argumentos} ]";
+				}
 			} else if (in_array($valor, $opcoesVariavel['valores']) === false) {
 				$mensagem = "Argumento inválido para o parâmetro '{$nome}', informe [ {$argumentos} ]";
 				$valor = '';
@@ -98,7 +108,9 @@ function obtemValorVariavel($opcoes, $opcoesVariavel) {
 		case 'ano':
 			$valor = (int) $valor;
 			if ($valor == '') {
-				$mensagem = "Argumento obrigatório: -{$letra} ou --{$nome} [ ano no formato 9999 ]";
+				if($obrigatorio) {
+					$mensagem = "Argumento obrigatório: -{$letra} ou --{$nome} [ ano no formato 9999 ]";
+				}
 			} else if ( $valor < 1900 || $valor > 9999) {
 				$mensagem = "Argumento inválido para o parâmetro '{$nome}', informe [ ano no formato 9999 ]";
 				$valor = '';
