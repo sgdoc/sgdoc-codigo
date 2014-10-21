@@ -7,15 +7,19 @@ function inicializarWebServiceSOF($configuracao) {
 	$client->setDebugLevel(9);
 	$client->setUseCURL(true);
 	
+	// Verifica se há algum dado de configuração para certificado. Caso houver define o tipo de autenticação para certificate
 	$certificado = ConfigWs::factory()->getSiopCertificateConfig();
-	if(!($certificado['crt'] == '')) {
-		$client->certRequest['sslcertfile'] = $certificado['crt']; # file containing the user's certificate
-	}
-	if(!($certificado['key'] == '')) {
-		$client->certRequest['sslkeyfile']  = $certificado['key']; # file containing the private key
-	}
-	if(!($certificado['pem'] == '')) {
-		$client->certRequest['cainfofile']  = $certificado['pem'];  # file containing the root certificate
+	if( strlen( $certificado['crt'] . $certificado['key'] . $certificado['pem'] ) > 0 ) {
+		$client->authtype = 'certificate';
+		if( strlen($certificado['crt']) > 0) {
+			$client->certRequest['sslcertfile'] = $certificado['crt']; # file containing the user's certificate
+		}
+		if( strlen($certificado['key']) > 0 ) {
+			$client->certRequest['sslkeyfile']  = $certificado['key']; # file containing the private key
+		}
+		if( strlen($certificado['pem']) > 0 ) {
+			$client->certRequest['cainfofile']  = $certificado['pem'];  # file containing the root certificate
+		}
 	} 
 	return $client;
 }
