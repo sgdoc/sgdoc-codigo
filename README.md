@@ -56,6 +56,10 @@ Iniciando o banco de dados posrgresql (caso não esteja rodando)
 Base da dados em PostgreSQL
 ---------------------------
 
+### Entrar no diretório da aplicação do sgdoc
+
+   cd /var/www/html/sgdoc
+
 ### Descompatar arquivo com o dump do banco 
 
     gzip -d instalacao/database/Sgdoc_New_20140410.dump.gz
