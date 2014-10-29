@@ -19,7 +19,11 @@ Pré requisitos
 Código fonte
 ------------
 
-### Realize o download da última versão em https://github.com/sgdoc/sgdoc-codigo/releases/latest
+### Verifique a ultima versão disponível:
+
+https://github.com/sgdoc/sgdoc-codigo/releases/latest
+
+### Download da versão disponível 
 
     wget https://github.com/sgdoc/sgdoc-codigo/archive/v4.2.29.zip
 
