@@ -135,7 +135,7 @@ Reinicie o servidor web
 
     service httpd restart
 
-Acessando o endereço do SGDOC atraves do navegador (A versão do sgdoc da comunidade garante o funcionamento apenas no firefox)
+Acessando o endereço do SGDOC através do navegador (A versão do sgdoc da comunidade está homologada para firefox)
 
     http://vm.sgdoc
 
@@ -144,18 +144,20 @@ Acessando o endereço do SGDOC atraves do navegador (A versão do sgdoc da comun
 
 OBS: O script initial.sql efetua a carga dos usuários e unidades padrões abaixo:
 
-* Unidades
-1. Protocolo
-1. Arquivo
-1. Setor de Gerência da Informações
-1. Setor Comum
+* Unidades:
+
+    1. Protocolo
+    1. Arquivo
+    1. Setor de Gerência da Informações
+    1. Setor Comum
 
 ***
-- Usuários
-* Protocolo (usuário: protocolo senha:protocolo)
-* Administrador (usuário: admin senha: admin)
-* Arquivo (usuário: arquivo senha: arquivo)
-* Comum (usuário: comum senha: comum)
+- Usuários:
+
+    * Protocolo (usuário: protocolo senha:protocolo)
+    * Administrador (usuário: admin senha: admin)
+    * Arquivo (usuário: arquivo senha: arquivo)
+    * Comum (usuário: comum senha: comum)
 
 Link da Licença Júridica Creative Commons\
 http://creativecommons.org/licenses/by-sa/2.5/br/legalcode
