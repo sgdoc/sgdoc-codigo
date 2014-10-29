@@ -16,8 +16,23 @@ Pré requisitos
 -   [Zend-server-ce](https://github.com/sgdoc/sgdoc-infra/wiki/Zend-server-ce)
 -   [ImageMagick](https://github.com/sgdoc/sgdoc-infra/wiki/ImageMagick)
 
+Código fonte
+------------
 
-Instalação do código fonte e banco de dados
+### Realize o download da última versão em https://github.com/sgdoc/sgdoc-codigo/releases/latest
+
+    wget https://github.com/sgdoc/sgdoc-codigo/archive/v4.2.29.zip
+
+### Descompacte o arquivo
+
+    unzip v4.2.29.zip
+
+### Publicação do sgdoc
+
+    mv sgdoc-codigo-4.2.29 /var/www/html/sgdoc
+
+
+Iniciando o banco de dados posrgresql (caso não esteja rodando)
 -------------------------------------------
 
 ### Alterando para o usuário postgresql
@@ -48,22 +63,7 @@ Base da dados em PostgreSQL
 ### Carregando com carga Inicial
 
     /usr/local/pgsql/bin/psql -U postgres < instalacao/database/initial.sql
-
-Código fonte
-------------
-
-### Realize o download da última versão em https://github.com/sgdoc/sgdoc-codigo/releases/latest
-
-    wget https://github.com/sgdoc/sgdoc-codigo/archive/v4.2.29.zip
-
-### Descompacte o arquivo
-
-    unzip v4.2.29.zip
-
-### Publicação do sgdoc
-
-    mv sgdoc-codigo-4.2.29 /var/www/html/sgdoc
-
+    
 Configuração do virtual host do sgdoc
 ------------------------------------
 
