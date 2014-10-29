@@ -62,15 +62,15 @@ Base da dados em PostgreSQL
 
 ### Descompatar arquivo com o dump do banco 
 
-    gzip -d instalacao/database/Sgdoc_New_20140410.dump.gz
+    gzip -d /var/www/html/sgdoc/instalacao/database/Sgdoc_New_20140410.dump
 
 ### Criando a base de dados
 
-    /usr/local/pgsql/bin/psql -U postgres -d db_sgdoc < instalacao/database/Sgdoc_New_20140401.dump
+    /usr/local/pgsql/bin/psql -U postgres -d db_sgdoc < /var/www/html/sgdoc/instalacao/database/Sgdoc_New_20140410.dump
 
 ### Carregando com carga Inicial
 
-    /usr/local/pgsql/bin/psql -U postgres < instalacao/database/initial.sql
+    /usr/local/pgsql/bin/psql -U postgres < /var/www/html/sgdoc/instalacao/database/initial.sql
     
 Configuração do virtual host do sgdoc
 ------------------------------------
