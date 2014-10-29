@@ -1,4 +1,4 @@
-Procedimento de instalação do SGDOC no servidor
+Instalação do SGDOC no servidor
 ===============================================
 
 Instrodução
@@ -24,7 +24,7 @@ Instalação do código fonte e banco de dados
 
     su postgres
 
-### Entrando na pasta do programa posgres
+### Entrando na pasta do programa postgres
 
     cd /usr/local/pgsql/bin/
 
@@ -52,11 +52,11 @@ Base da dados em PostgreSQL
 Código fonte
 ------------
 
-### Realize o download da ultima versão em https://github.com/sgdoc/sgdoc-codigo/releases/latest
+### Realize o download da última versão em https://github.com/sgdoc/sgdoc-codigo/releases/latest
 
     wget https://github.com/sgdoc/sgdoc-codigo/archive/v4.2.29.zip
 
-### Descompacte o arquivo baixado
+### Descompacte o arquivo
 
     unzip v4.2.29.zip
 
