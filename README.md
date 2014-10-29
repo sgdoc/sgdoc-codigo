@@ -37,13 +37,17 @@ Instalação do código fonte e banco de dados
 Base da dados em PostgreSQL
 ---------------------------
 
+### Descompatar arquivo com o dump do banco 
+
+    gzip -d instalacao/database/Sgdoc_New_20140410.dump.gz
+
 ### Criando a base de dados
 
-     /usr/local/pgsql/bin/psql -U postgres -d db_sgdoc < Sgdoc_New_20140401.dump
+    /usr/local/pgsql/bin/psql -U postgres -d db_sgdoc < instalacao/database/Sgdoc_New_20140401.dump
 
 ### Carregando com carga Inicial
 
-    /usr/local/pgsql/bin/psql -U postgres < initial.sql
+    /usr/local/pgsql/bin/psql -U postgres < instalacao/database/initial.sql
 
 Código fonte
 ------------
