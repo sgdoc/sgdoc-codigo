@@ -58,7 +58,7 @@ Base da dados em PostgreSQL
 
 ### Entrar no diretório da aplicação do sgdoc
 
-   cd /var/www/html/sgdoc
+    cd /var/www/html/sgdoc
 
 ### Descompatar arquivo com o dump do banco 
 
