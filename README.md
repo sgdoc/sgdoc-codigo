@@ -139,15 +139,19 @@ Configurando aplicação
     [dsv:prd]
 
     database.default.host       =   'localhost'
-    database.default.database   =   'db_sgdoc'
-    database.default.user       =   'root'
-    database.default.password   =   '123456'
+    database.default.database   =   'db_sgdoc4'
+    database.default.user       =   'usr_sgdoc4'
+    database.default.password   =   'usr_sgdoc4'
+    
 
-    config.url                  =   'https://vm.sgdoc'
+    config.url                  =   'https://local.sgdoc'
+    config.basepath             = '/var/www/html/sgdoc' 
+    config.appfiles             = '/var/www/html/sgdoc/documento_virtual'
+    config.safemode             = 'true' ;; Ocultar erros e continuar a execucao se possivel, Disponivel somente no dsv
 
-    config.emaildeveloper
-    config.emailsfatalerror
-    config.textoetiqueta 
+
+    ...
+
 
 Alterando permissão
 -------------------
@@ -169,7 +173,7 @@ Reinicie o servidor web
 
 Acessando o endereço do SGDOC através do navegador (A versão do sgdoc da comunidade está homologada para firefox)
 
-    http://vm.sgdoc
+    http://local.sgdoc
 
 ***
 
