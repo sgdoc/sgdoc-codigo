@@ -195,5 +195,11 @@ OBS: O script initial.sql efetua a carga dos usuários e unidades padrões abaix
     * Arquivo (usuário: arquivo senha: arquivo)
     * Comum (usuário: comum senha: comum)
 
+***
+
+### BPM - Processo do SGDoc
+
+http://sgdoc.github.io/sgdoc-processo/html/index.html#list
+
 Link da Licença Júridica Creative Commons\
 http://creativecommons.org/licenses/by-sa/2.5/br/legalcode
