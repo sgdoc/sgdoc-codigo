@@ -101,25 +101,29 @@ Configuração do virtual host do sgdoc
 
 ### Adicione o conteúdo
 
+    <VirtualHost *:80>
        ServerAdmin webmaster@icmbio.gov.br
        DocumentRoot /var/www/html/sgdoc
-       ServerName vm.sgdoc
-       ErrorLog logs/vm.sgdoc-error_log
-       CustomLog logs/vm.sgdoc-access_log common
-
-        SetEnv APPLICATION_ENV dsv
-        #SetEnv APPLICATION_ENV prd
-        #SetEnv APPLICATION_ENV hmg
-
+       ServerName localhost.sgdoc
+       ErrorLog logs/localhost.sgdoc-error_log
+       CustomLog logs/localhost.sgdoc-access_log common
        
-      php_value session.gc_maxlifetime 18050
-      php_value session.gc_probability 1
-      php_value session.gc_divisor 500
-      php_value session.save_path "/var/www/html/sgdoc/cache/sessions"
-      Options FollowSymLinks
-      AllowOverride All
-      Order allow,deny
-      Allow from all
+       SetEnv APPLICATION_ENV dsv
+       #SetEnv APPLICATION_ENV prd
+       #SetEnv APPLICATION_ENV hmg
+       
+        <Directory "/var/www/html/sgdoc">
+            php_value session.gc_maxlifetime 18050
+            php_value session.gc_probability 1
+            php_value session.gc_divisor 500
+            php_value session.save_path "/var/www/html/sgdoc/cache/sessions"
+            Options FollowSymLinks
+            AllowOverride All
+            Order allow,deny
+            Allow from all
+        </Directory>
+        
+    </VirtualHost>
   
 
 Configurando aplicação
