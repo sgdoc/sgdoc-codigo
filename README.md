@@ -52,25 +52,45 @@ Iniciando o banco de dados posrgresql (caso não esteja rodando)
     ./pg_ctl start -D ../data/ &
     exit;
     .
+    
+Criar Bando de dados e usuário de banco
+----------------------------------------
+#### Alterando para usuário root:
+
+    sudo -s
+    
+#### Alterando para usuário postgres: 
+
+    su postgres
+ALTER ROLE postgres ENCRYPTED PASSWORD 'md53175bce1d3201d16594cebf9d7eb3f9d'
+#### Entrar no terminal de comandos do banco: 
+
+    psql
+
+#### Digitar os comandos de criação do usuário e do banco
+
+    CREATE ROLE usr_sgdoc4 LOGIN ENCRYPTED PASSWORD 'usr_sgdoc4' SUPERUSER VALID UNTIL 'infinity';
+    CREATE DATABASE db_sgdoc4 WITH ENCODING='UTF8' OWNER=usr_sgdoc4;
+
+#### comando para sair do terminal
+
+    \q
+    exit
 
 Base da dados em PostgreSQL
 ---------------------------
 
 ### Entrar no diretório da aplicação do sgdoc
 
-    cd /var/www/html/sgdoc
+    cd /var/www/html/sgdoc/instalacao/database/
 
-### Descompatar arquivo com o dump do banco 
+### Criar estrutura da base de dados rodando o seguinte comando
 
-    gzip -d /var/www/html/sgdoc/instalacao/database/Sgdoc_New_20140410.dump
+    gunzip -c Sgdoc_New_20140410.dump.gz | psql -U postgres -d db_sgdoc4
+    
+### Popular tabelas com dados
 
-### Criando a base de dados
-
-    /usr/local/pgsql/bin/psql -U postgres -d db_sgdoc < /var/www/html/sgdoc/instalacao/database/Sgdoc_New_20140410.dump
-
-### Carregando com carga Inicial
-
-    /usr/local/pgsql/bin/psql -U postgres < /var/www/html/sgdoc/instalacao/database/initial.sql
+    psql -U postgres -d db_sgdoc4 < initial.sql
     
 Configuração do virtual host do sgdoc
 ------------------------------------
@@ -92,15 +112,15 @@ Configuração do virtual host do sgdoc
         #SetEnv APPLICATION_ENV hmg
 
        
-          php_value session.gc_maxlifetime 18050
-          php_value session.gc_probability 1
-          php_value session.gc_divisor 500
-          php_value session.save_path "/var/www/html/sgdoc/cache/sessions"
-          Options FollowSymLinks
-          AllowOverride All
-          Order allow,deny
-          Allow from all
-       
+      php_value session.gc_maxlifetime 18050
+      php_value session.gc_probability 1
+      php_value session.gc_divisor 500
+      php_value session.save_path "/var/www/html/sgdoc/cache/sessions"
+      Options FollowSymLinks
+      AllowOverride All
+      Order allow,deny
+      Allow from all
+  
 
 Configurando aplicação
 ----------------------
