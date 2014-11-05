@@ -1,17 +1,26 @@
 <?php
 require_once(dirname(__FILE__) . '/../bibliotecas/nusoap/lib/nusoap.php');
 
+define("TIPO_INTEIRO", 0);
+define("TIPO_NUMERAL", 1);
+define("TIPO_TEXTUAL", 2);
+define("TIPO_BOOLEAN", 3);
+
+
 function inicializarWebServiceSOF($configuracao) {
 	$proxy = ConfigWs::factory()->getSiopProxyConfig();
 	$client = new nusoap_client($configuracao['wsdl_url'], false, $proxy['server'], $proxy['port'], $proxy['username'], $proxy['password'], 0, 3000 );
 	$client->setDebugLevel(9);
 	$client->setUseCURL(true);
-	$client->setCurlOption(CURLOPT_SSL_VERIFYPEER, false);
-	$client->setCurlOption(CURLOPT_SSL_VERIFYHOST, 2);
 
-	// Verifica se há algum dado de configuração para certificado. Caso houver define o tipo de autenticação para certificate
+	// Verifica se há algum dado de configuração para certificado. 
+	// Caso houver define o tipo de autenticação para certificate.
 	$certificado = ConfigWs::factory()->getSiopCertificateConfig();
 	if( strlen( $certificado['crt'] . $certificado['key'] . $certificado['pem'] ) > 0 ) {
+		
+		$client->setCurlOption(CURLOPT_SSL_VERIFYPEER, false);
+		$client->setCurlOption(CURLOPT_SSL_VERIFYHOST, 2);
+		
 		$client->authtype = 'certificate';
 		if( strlen($certificado['crt']) > 0) {
 			$client->certRequest['sslcertfile'] = $certificado['crt']; # file containing the user's certificate
@@ -22,6 +31,7 @@ function inicializarWebServiceSOF($configuracao) {
 		if( strlen($certificado['pem']) > 0 ) {
 			$client->certRequest['cainfofile']  = $certificado['pem'];  # file containing the root certificate
 		}
+		
 	} 
 	return $client;
 }
@@ -69,84 +79,84 @@ function obterTabelaSiop($destino) {
 function obterCampos($destino) {
 	$campos = array(
 		"metas" => array(				
-					"identificadorUnico" => \PDO::PARAM_INT,
-					"codigoMomento" => \PDO::PARAM_INT,
-					"codigoMeta" => \PDO::PARAM_INT,
-					"exercicio" => \PDO::PARAM_INT,
-					"codigoObjetivo" => \PDO::PARAM_STR,
-					"codigoPrograma" => \PDO::PARAM_STR,
-				  	"descricao" => \PDO::PARAM_STR
+					"identificadorUnico" => TIPO_INTEIRO,
+					"codigoMomento" => TIPO_INTEIRO,
+					"codigoMeta" => TIPO_INTEIRO,
+					"exercicio" => TIPO_INTEIRO,
+					"codigoObjetivo" => TIPO_NUMERAL,
+					"codigoPrograma" => TIPO_NUMERAL,
+				  	"descricao" => TIPO_TEXTUAL
 				),
 		"orgaos" => array(
-					"codigoOrgao" => \PDO::PARAM_INT,
-					"exercicio" => \PDO::PARAM_INT,
-					"tipoOrgao" => \PDO::PARAM_STR,
-					"codigoOrgaoPai" => \PDO::PARAM_STR,
-					"descricao" => \PDO::PARAM_STR,
-					"descricaoAbreviada" => \PDO::PARAM_STR,
-					"orgaoId"  => \PDO::PARAM_INT,
-					"orgaoSiorg" => \PDO::PARAM_STR,
-					"snAtivo" => \PDO::PARAM_BOOL
+					"codigoOrgao" => TIPO_INTEIRO,
+					"exercicio" => TIPO_INTEIRO,
+					"tipoOrgao" => TIPO_TEXTUAL,
+					"codigoOrgaoPai" => TIPO_NUMERAL,
+					"descricao" => TIPO_TEXTUAL,
+					"descricaoAbreviada" => TIPO_TEXTUAL,
+					"orgaoId"  => TIPO_INTEIRO,
+					"orgaoSiorg" => TIPO_NUMERAL,
+					"snAtivo" => TIPO_BOOLEAN
 				),
 		"objetivos" => array(
-					"identificadorUnico" => \PDO::PARAM_INT,
-					"exercicio" => \PDO::PARAM_INT,
-					"codigoMomento" => \PDO::PARAM_INT,
-					"codigoObjetivo" => \PDO::PARAM_STR,
-					"codigoOrgao" => \PDO::PARAM_STR,
-					"codigoPrograma" => \PDO::PARAM_STR,
-					"enunciado" => \PDO::PARAM_STR,
-					"snExclusaoLogica" => \PDO::PARAM_BOOL
+					"identificadorUnico" => TIPO_INTEIRO,
+					"exercicio" => TIPO_INTEIRO,
+					"codigoMomento" => TIPO_INTEIRO,
+					"codigoObjetivo" => TIPO_NUMERAL,
+					"codigoOrgao" => TIPO_NUMERAL,
+					"codigoPrograma" => TIPO_NUMERAL,
+					"enunciado" => TIPO_TEXTUAL,
+					"snExclusaoLogica" => TIPO_BOOLEAN
 				),
 		"programas" => array(
-					"identificadorUnico" => \PDO::PARAM_INT,
-					"codigoMomento" => \PDO::PARAM_INT,
-					"codigoOrgao" => \PDO::PARAM_STR,
-					"codigoPrograma" => \PDO::PARAM_STR,
-					"codigoTipoPrograma" => \PDO::PARAM_STR,
-					"estrategiaImplementacao" => \PDO::PARAM_STR,
-					"exercicio" => \PDO::PARAM_INT,
-					"horizonteTemporalContinuo" => \PDO::PARAM_INT,
-					"justificativa" => \PDO::PARAM_STR,
-					"objetivo" => \PDO::PARAM_STR,
-					"problema" => \PDO::PARAM_STR,
-					"publicoAlvo" => \PDO::PARAM_STR,
-					"snExclusaoLogica" => \PDO::PARAM_BOOL,
-					"titulo" => \PDO::PARAM_STR
+					"identificadorUnico" => TIPO_INTEIRO,
+					"codigoMomento" => TIPO_INTEIRO,
+					"codigoOrgao" => TIPO_NUMERAL,
+					"codigoPrograma" => TIPO_NUMERAL,
+					"codigoTipoPrograma" => TIPO_NUMERAL,
+					"estrategiaImplementacao" => TIPO_TEXTUAL,
+					"exercicio" => TIPO_INTEIRO,
+					"horizonteTemporalContinuo" => TIPO_INTEIRO,
+					"justificativa" => TIPO_TEXTUAL,
+					"objetivo" => TIPO_TEXTUAL,
+					"problema" => TIPO_TEXTUAL,
+					"publicoAlvo" => TIPO_TEXTUAL,
+					"snExclusaoLogica" => TIPO_BOOLEAN,
+					"titulo" => TIPO_TEXTUAL
 				),
 		"acoes" => array(
-					"identificadorUnico" => \PDO::PARAM_INT,
-					"exercicio" => \PDO::PARAM_INT,
-					"codigoMomento" => \PDO::PARAM_INT,
-					"codigoTipoInclusaoAcao" => \PDO::PARAM_INT,
-					"titulo" => \PDO::PARAM_STR,
-					"baseLegal" => \PDO::PARAM_STR,
-					"descricao" => \PDO::PARAM_STR,
-					"codigoAcao" => \PDO::PARAM_STR,
-					"codigoPrograma" => \PDO::PARAM_STR,
-					"codigoFuncao" => \PDO::PARAM_STR,
-					"codigoSubFuncao" => \PDO::PARAM_STR,
-					"codigoOrgao" => \PDO::PARAM_STR,
-					"codigoEsfera" => \PDO::PARAM_STR,
-					"codigoTipoAcao" => \PDO::PARAM_STR,
-					"snDireta" => \PDO::PARAM_BOOL,
-					"snDescentralizada" => \PDO::PARAM_BOOL,
-					"snLinhaCredito" => \PDO::PARAM_BOOL,
-					"snTransferenciaObrigatoria" => \PDO::PARAM_BOOL,
-					"snTransferenciaVoluntaria" => \PDO::PARAM_BOOL,
-					"snExclusaoLogica" => \PDO::PARAM_BOOL,
-					"snRegionalizarNaExecucao" => \PDO::PARAM_BOOL,
-					"snAquisicaoInsumoEstrategico" => \PDO::PARAM_BOOL,
-					"snParticipacaoSocial" => \PDO::PARAM_BOOL
+					"identificadorUnico" => TIPO_INTEIRO,
+					"exercicio" => TIPO_INTEIRO,
+					"codigoMomento" => TIPO_INTEIRO,
+					"codigoTipoInclusaoAcao" => TIPO_INTEIRO,
+					"titulo" => TIPO_TEXTUAL,
+					"baseLegal" => TIPO_TEXTUAL,
+					"descricao" => TIPO_TEXTUAL,
+					"codigoAcao" => TIPO_NUMERAL,
+					"codigoPrograma" => TIPO_NUMERAL,
+					"codigoFuncao" => TIPO_NUMERAL,
+					"codigoSubFuncao" => TIPO_NUMERAL,
+					"codigoOrgao" => TIPO_NUMERAL,
+					"codigoEsfera" => TIPO_NUMERAL,
+					"codigoTipoAcao" => TIPO_NUMERAL,
+					"snDireta" => TIPO_BOOLEAN,
+					"snDescentralizada" => TIPO_BOOLEAN,
+					"snLinhaCredito" => TIPO_BOOLEAN,
+					"snTransferenciaObrigatoria" => TIPO_BOOLEAN,
+					"snTransferenciaVoluntaria" => TIPO_BOOLEAN,
+					"snExclusaoLogica" => TIPO_BOOLEAN,
+					"snRegionalizarNaExecucao" => TIPO_BOOLEAN,
+					"snAquisicaoInsumoEstrategico" => TIPO_BOOLEAN,
+					"snParticipacaoSocial" => TIPO_BOOLEAN
 				),
 		"execucao_orcamentaria" => array (
-					"codigoAcao" => \PDO::PARAM_STR,
-					"codigoPrograma" => \PDO::PARAM_STR,
-					"exercicio" => \PDO::PARAM_INT,
-					"dotacaoAtual" => \PDO::PARAM_STR,
-					"empenhado" => \PDO::PARAM_STR,
-					"liquidado" => \PDO::PARAM_STR,
-					"percentualLiquidadoEmpenhado" => \PDO::PARAM_STR
+					"codigoAcao" => TIPO_NUMERAL,
+					"codigoPrograma" => TIPO_NUMERAL,
+					"exercicio" => TIPO_INTEIRO,
+					"dotacaoAtual" => TIPO_NUMERAL,
+					"empenhado" => TIPO_NUMERAL,
+					"liquidado" => TIPO_NUMERAL,
+ 					"percentualLiquidadoEmpenhado" => TIPO_NUMERAL
 				)
 	);
 	return $campos[$destino];
@@ -165,17 +175,36 @@ function salvarDadosSiop($destino, $valores) {
 		if($chave == 'identificadorUnico' && $valores[$chave] == 0)
 			$gravar = false;
 		switch($tipo) {
-			case \PDO::PARAM_STR :
-				$valor = utf8_encode($valores[$chave]);
+			case TIPO_NUMERAL:
+				$valor = $valores[$chave];
+				$tipo_numeral = substr($valor, -3, 1); // Pega o separador de decimal se houver
+				switch($tipo_numeral) {
+					case ',':
+						$valor = str_replace('.', '', $valor);
+						$valor = str_replace(',', '.', $valor);
+						break;
+					case '.':
+						$valor = str_replace(',', '', $valor);
+						break;
+					default :
+						break;
+				}
+				$pdo = \PDO::PARAM_STR;
 				break;
-			case \PDO::PARAM_BOOL :
+			case TIPO_TEXTUAL :
+				$valor = utf8_encode($valores[$chave]);
+				$pdo = \PDO::PARAM_STR;
+				break;
+			case TIPO_BOOLEAN :
 				$valor = ($valores[$chave] == 'true') ? true : false;
+				$pdo = \PDO::PARAM_BOOL;
 				break;
 			default :
 				$valor = (INT) $valores[$chave];
+				$pdo = \PDO::PARAM_INT;
 		}
 		$bind = ":{$chave}";
-		$stmt->bindValue($bind,$valor, $tipo);
+		$stmt->bindValue($bind, $valor, $pdo);
 	}
 	if( $gravar ) {	
 		$stmt->execute();

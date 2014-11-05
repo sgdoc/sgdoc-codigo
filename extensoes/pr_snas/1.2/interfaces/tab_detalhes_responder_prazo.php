@@ -27,7 +27,7 @@ try {
 							<th class="'.$strClasseTh.'" style="width: 22%;">Objetivo</th>
 							<th class="'.$strClasseTh.'" style="width: 22%;">Meta</th>
 							<th class="'.$strClasseTh.'" style="width: 10%;">Exerc&iacute;cio</th>
-							<th class="'.$strClasseTh.'" style="width: 10%;">A&ccedil;&otilde;es</th>
+							<th class="'.$strClasseTh.'" style="width: 10%;">Op&ccedil;&otilde;es</th>
 						</tr></thead>';
 
 		$numTam = count($arrDados);
