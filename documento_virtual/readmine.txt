@@ -1,0 +1,1 @@
+Diretorio deve ter permissão de escrita pelo apache

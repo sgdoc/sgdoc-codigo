@@ -508,6 +508,20 @@
 
 /*LOGIN*/
 
+
+.certificado-info {
+    background-color: white;
+    border-radius: 5px;
+    color: red;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.certificado-info a {
+    color: black !important;
+    font-weight: bold;
+}
+
 .login-logo{
     position: absolute;
     top: 20px;
@@ -519,6 +533,7 @@
 .login-campos{
     position: absolute;
     left: 10px;
+    margin-top: 10px;
 }
 
 .login-campos input{
