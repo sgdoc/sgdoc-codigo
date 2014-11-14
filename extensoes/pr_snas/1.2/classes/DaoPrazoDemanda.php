@@ -475,12 +475,15 @@ class DaoPrazoDemanda extends DaoPrazo {
   						(v.codigo_objetivo || \' - \' || o.enunciado) as objetivo,
   						(v.codigo_meta || \' - \' || m.descricao) as meta
 					from snas.tb_prazo_vinculo_ppa v
-					  inner join snas.tb_siop_programas p on (p."codigoPrograma"=v.codigo_programa and p.exercicio=v.exercicio)
-					  inner join snas.tb_siop_objetivos o on (o."codigoObjetivo"=v.codigo_objetivo and o.exercicio=v.exercicio)
-					  inner join snas.tb_siop_metas m on (m."codigoMeta"::text=v.codigo_meta and m.exercicio=v.exercicio)
+					  inner join snas.tb_siop_programas p on 
+    					(p."codigoPrograma"=v.codigo_programa and p."codigoOrgao"=v.codigo_orgao and p.exercicio=v.exercicio)
+					  inner join snas.tb_siop_objetivos o on 
+    					(o."codigoPrograma"=v.codigo_programa and o."codigoOrgao"=v.codigo_orgao and o."codigoObjetivo"=v.codigo_objetivo and o.exercicio=v.exercicio)
+					  inner join snas.tb_siop_metas m on 
+    					(m."codigoObjetivo"=v.codigo_objetivo and m."codigoMeta"::text=v.codigo_meta and m.exercicio=v.exercicio)
 					where v.id_prazo = ? and v.st_ativo = 1
 					order by v.codigo_programa, v.codigo_objetivo, v.codigo_meta, v.exercicio;';
-    
+    		    
     		$stmt = Controlador::getInstance()->getConnection()->connection->prepare($sql);
     		$stmt->bindParam(1, $idPrazo, PDO::PARAM_INT);
     		$stmt->execute();
