@@ -73,7 +73,7 @@ $aColumns = array(
 //    'DIRETORIA',
     'SKYPE',
     'STATUS',
-    'ID');
+    'NULL');
 
 $aColumnsFTS = array(
     'CPF',

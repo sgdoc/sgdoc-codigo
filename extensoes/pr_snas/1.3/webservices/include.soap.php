@@ -449,10 +449,7 @@ function obterExecucaoOrcamentaria($programa, $exercicio) {
 					//),
 					'programas'	=> array(
 							'programa'	=> $programa,
-					),
-// 					'unidadesOrcamentarias' => array(
-// 							'unidadeOrcamentaria' => $unidadeOrcamentaria,
-// 					),
+					)
 			),
 			'selecaoRetorno' => array(
 					'acao'				=> true,

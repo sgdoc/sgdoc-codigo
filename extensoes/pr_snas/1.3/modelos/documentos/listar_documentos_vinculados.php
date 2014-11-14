@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2008 ICMBio
  * Este arquivo é parte do programa SISICMBio
@@ -16,47 +15,45 @@
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301, USA
  * */
 
+//$contexto = Controlador::getInstance()->getContexto();
+$usuario = Zend_Auth::getInstance()->getStorage()->read();
+$digital = current(CFModelDocumento::factory()->find($_REQUEST['DIGITAL_PAI']));
+$lista = $_REQUEST['lista'];
+
 $aColumns = array(
-    'ID', 
-    'NOME', 
-    'SIGLA', 
-    'TIPO', 
-    'UP', 
-    'CODIGO', 
-    'UF', 
-    'ST_ATIVO', 
-    'NOME_UOP', 
-    'NULL'
-    );
-
+	'NULL',
+    'DEMANDA',
+    'SOLICITACAO_DEMANDA',
+    'RESPOSTA_DEMANDA',
+    'INTERESSADO',
+    'ORGAO',
+    'PRAZO_DEMANDA',
+    'FG_ATIVO',
+    'PRAZO_PAI',
+	'UNIDADE_DESTINO',
+	'DATA_DEMANDA_RESPONDIDA',
+	'SQ_PRAZO'
+);
+/*
 $aColumnsFTS = array(
-    'NOME', 
-    'SIGLA', 
-    'TIPO',
-    'CODIGO', 
-    'UF', 
-    'NOME_UOP', 
-    );
+    'DIGITAL_FILHO',
+    'ID_VINCULO',
+    'RESPOSTA',
+    'ID_VINCULO',
+    'TEXTO_DEMANDA',
+    'NOME_USUARIO',
+    'FG_ATIVO'
+);
 
-$sIndexColumn = "ID";
-$sTable = "VW_UNIDADES";
+$sIndexColumn = "ID_VINCULO";
+*/
+$sTable = "EXT__SNAS__VW_VINCULO_DOCUMENTOS";
+$sExtraQuery = "DOCUMENTO_VINCULO_PAI = '{$digital->DIGITAL}'";
 
-if (isset($_SESSION['PESQUISAR_UNIDADES'])) {
-    foreach ($_SESSION['PESQUISAR_UNIDADES'] as $key => $value) {
-        if (strtolower($key) == 'id_tipo' || 
-            strtolower($key) == 'id_uf' || 
-            strtolower($key) == 'uaaf' || 
-            strtolower($key) == 'cr' || 
-            strtolower($key) == 'superior' || 
-            strtolower($key) == 'diretoria') {
-            if (strtolower($value) != 'null') {
-                $sExtraQuery .= " {$key} = {$value} AND ";
-            }
-        } else if (strtolower($value) != 'null') {
-            $sExtraQuery .= " CAST({$key} AS TEXT) ILIKE '%{$value}%' AND ";
-        }
-    }
-    $sExtraQuery = substr_replace($sExtraQuery, "", -4);
+if ($lista == 'unidade') {
+	$sExtraQuery .= ' and UNIDADE_DESTINO = ' . $usuario->ID_UNIDADE;
+} else if ($lista == 'outras') {
+	$sExtraQuery .= ' and UNIDADE_DESTINO <> ' . $usuario->ID_UNIDADE;
 }
 
 print(Grid::getGrid($_GET, $aColumns, $sIndexColumn, $sTable, null, $sExtraQuery, $aColumnsFTS));

@@ -16,47 +16,31 @@
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301, USA
  * */
 
+$usuario = Controlador::getInstance()->usuario;
+
 $aColumns = array(
-    'ID', 
-    'NOME', 
-    'SIGLA', 
-    'TIPO', 
-    'UP', 
-    'CODIGO', 
-    'UF', 
-    'ST_ATIVO', 
-    'NOME_UOP', 
-    'NULL'
-    );
+    'ID',
+    'DIGITAL_PAI',
+    'NU_REF',
+    'INTERESSADO',
+    'NM_USUARIO_ORIGEM',
+    'NM_UNIDADE_ORIGEM',
+    'NULL',
+    'DT_PRAZO',
+    'DIAS_RESTANTES',
+    'SG_UNIDADE_DESTINO',
+    'ID_UNIDADE_DESTINO',
+);
 
 $aColumnsFTS = array(
-    'NOME', 
-    'SIGLA', 
-    'TIPO',
-    'CODIGO', 
-    'UF', 
-    'NOME_UOP', 
-    );
+    'NU_REF',
+    'INTERESSADO',
+    'NM_USUARIO_ORIGEM',
+    'NM_UNIDADE_ORIGEM',
+    'SG_UNIDADE_DESTINO');
 
 $sIndexColumn = "ID";
-$sTable = "VW_UNIDADES";
-
-if (isset($_SESSION['PESQUISAR_UNIDADES'])) {
-    foreach ($_SESSION['PESQUISAR_UNIDADES'] as $key => $value) {
-        if (strtolower($key) == 'id_tipo' || 
-            strtolower($key) == 'id_uf' || 
-            strtolower($key) == 'uaaf' || 
-            strtolower($key) == 'cr' || 
-            strtolower($key) == 'superior' || 
-            strtolower($key) == 'diretoria') {
-            if (strtolower($value) != 'null') {
-                $sExtraQuery .= " {$key} = {$value} AND ";
-            }
-        } else if (strtolower($value) != 'null') {
-            $sExtraQuery .= " CAST({$key} AS TEXT) ILIKE '%{$value}%' AND ";
-        }
-    }
-    $sExtraQuery = substr_replace($sExtraQuery, "", -4);
-}
+$sTable = "ext__snas__vw_prazos_recebidos_setor";
+$sExtraQuery = "ID_UNIDADE_DESTINO = {$usuario->ID_UNIDADE}";
 
 print(Grid::getGrid($_GET, $aColumns, $sIndexColumn, $sTable, null, $sExtraQuery, $aColumnsFTS));
