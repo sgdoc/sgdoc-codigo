@@ -45,7 +45,6 @@ function acessarWebServiceSOF($metodo, $parametros = array(), $configuracao = ar
 		return array('sucesso' => false, 'mensagensErro' => $err);
 	}
 	$result = $client->call($metodo, $parametros, $configuracao['namespace']);
-
 	if ($client->fault) {
 		return $result;
 	} else {
@@ -402,12 +401,12 @@ function obterTodasMetasPorAnoExercicio($anoExercicio) {
 	return $DTO;
 }
 
-function obterAcoesPorPrograma($programa, $anoExercicio) {
+function obterAcoesPorPrograma($codigoprograma, $anoExercicio) {
 	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
 	$acoesPorProgramaParametros = array(
 			'credencial'		=> retornaCredenciais($configuracao),
 			'exercicio'			=> $anoExercicio,
-			'codigoPrograma'	=> $programa['codigoPrograma']
+			'codigoPrograma'	=> $codigoprograma
 	);
 	$acoesPorProgramaDTO = acessarWebServiceSOF( 'obterAcoesPorPrograma', $acoesPorProgramaParametros, $configuracao );
 	return $acoesPorProgramaDTO;
