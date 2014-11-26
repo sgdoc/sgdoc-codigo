@@ -61,8 +61,7 @@ include(__BASE_PATH__ . '/interfaces/detalhar_processos.php');
     var acao_pesquisa = '<?php echo $_REQUEST['acao_pesquisa']; ?>';
     var demandaAdicionadaPorPesquisa = '<?php echo $_REQUEST['digital']; ?>';
 
-    if (demandaAdicionadaPorPesquisa == "")
-    {
+    if (demandaAdicionadaPorPesquisa == "") {
         demandaAdicionadaPorPesquisa = '<?php echo $_REQUEST['DIGITAL_PAI']; ?>';
     }
 
@@ -102,7 +101,8 @@ include(__BASE_PATH__ . '/interfaces/detalhar_processos.php');
                                 id_usuario_destino: $('#id_usuario_destino').val(),
                                 dt_prazo: $('#dt_prazo').val(),
                                 tx_solicitacao: $('#tx_solicitacao').val(),
-                                nu_proc_dig_ref_pai: $('#nu_proc_dig_ref_pai').val()
+                                nu_proc_dig_ref_pai: $('#nu_proc_dig_ref_pai').val(),
+                                id_prazo_pai: $('#hdnIdPrazoPai').val()
                             },
                             function(data) {
                                 try {
@@ -215,6 +215,7 @@ include(__BASE_PATH__ . '/interfaces/detalhar_processos.php');
 
 
 <div id="box-novo-prazo" class="div-form-dialog" title="Novo Prazo">
+	<input type="hidden" id="hdnIdPrazoPai" value="0" />
     <fieldset>
         <label>Informações Principais</label>
         <div class="row">
@@ -256,7 +257,7 @@ include(__BASE_PATH__ . '/interfaces/detalhar_processos.php');
             </span>
         </div>
         <div class="row">
-            <label for="dt_prazo" class="label" style="float:left;">Texto Original da Demanda:</label>
+            <label for="txaDemanda" class="label" style="float:left;">Texto Original da Demanda:</label>
             <span class="conteudo">
                 <textarea id="txaDemanda" class="FUNDOCAIXA1" cols="83" rows="1" style="height: 150;" readonly="readonly"></textarea>
             </span>

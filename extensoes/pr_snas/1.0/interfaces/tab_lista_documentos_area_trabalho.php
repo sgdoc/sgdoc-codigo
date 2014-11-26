@@ -515,7 +515,7 @@ if (array_key_exists('3102', Controlador::getInstance()->recurso->dependencias))
 //	    /*Documento ausente*/
 //	    if(node.attr('stAusente')=='true'){
 //		$('#'+node.attr('idElemento')).attr('class','folder-open-ausente');
-//		$('#'+node.attr('idElemento')).attr('title','Este documento nao esta na sua area de trabalho');
+//		$('#'+node.attr('idElemento')).attr('title','Este documento nao esta na sua área de trabalho');
 //		if (node.html().length == 1) {
 //		    $('#'+node.attr('idElemento')).attr('class','folder-close-ausente');
 //		}

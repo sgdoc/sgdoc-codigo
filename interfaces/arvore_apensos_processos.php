@@ -90,7 +90,7 @@ $elementos = $arvore->getVinculacaoProcesso($root, $urlManager, 2/* Apensos */);
                         /*Processo ausente*/
                         if (node.attr('stAusente') == 'true') {
                             $('#' + node.attr('idElemento')).attr('class', 'folder-open-ausente');
-                            $('#' + node.attr('idElemento')).attr('title', 'Este processo nao esta na sua area de trabalho');
+                            $('#' + node.attr('idElemento')).attr('title', 'Este processo nao esta na sua área de trabalho');
                             if (node.html().length == 1) {
                                 $('#' + node.attr('idElemento')).attr('class', 'folder-close-ausente');
                             }

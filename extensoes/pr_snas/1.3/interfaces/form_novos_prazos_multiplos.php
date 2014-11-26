@@ -17,8 +17,76 @@
 ?>
 <script type="text/javascript">
 
-$(document).ready(function() {
+var listarUsuariosEncaminhar = function(unidade) {
+    $.getJSON("modelos/combos/mostrar_usuarios_unidades.php", {
+        diretoria: unidade,
+        request: 'usuarios'
+    }, function(data) {
+        if (data) {
+            var newOption = $('<option>');
+            newOption.html('Nenhum');
+            newOption.attr('value', '');
+            $('#selEncaminharUsuarioDestino').append(newOption);
+            $.each(data.usuarios, function(i) {
+                var newOption = $('<option>');
+                newOption.html(data.usuarios[i].nome);
+                newOption.attr('value', data.usuarios[i].id);
+                $('#selEncaminharUsuarioDestino').append(newOption);
+            });
+        } else {
+            alert('Esta unidade não possui usuários cadastrados!');
+        }
+    });
+}
 
+function limparChkPrazo() {
+	$('#hdnEncaminharPrazosSelecionados').val('');
+	
+	$('.chkPrazo').each(function(i, chk) {
+		$(chk).attr("checked", false);
+	});
+}
+
+function validarEncaminhar() {
+	if ($('#selEncaminharUnidadeDestino').val() == '') {
+		alert('Informe a unidade de destino');
+	} else if ($("#txtEncaminharDataPrazo").val() == '') {
+		alert('Informe a data dos prazos.');
+	} else {
+		return true;
+	}
+	return false;
+}
+
+$(document).ready(function() {
+	
+    $('#btnEncaminharPrazos').live('click', function(e) {
+        if ($('#hdnEncaminharPrazosSelecionados').val() != '') {
+	        
+        	$('#boxEncaminharPrazos').dialog('open');
+        } else {
+        	alert('Escolha um ou mais demadas para encaminhar.');
+        }
+    });
+
+   	$('.chkPrazo').live('click', function(e) {
+		var arrPrazos = $('#hdnEncaminharPrazosSelecionados').val().split(',');
+		var i = arrPrazos.indexOf($(this).attr('idPrazo'));
+
+		if ($(this).is(":checked")) {
+			if (i == -1) {
+				/*para evitar valores duplos*/
+				arrPrazos.push($(this).attr('idPrazo'));
+			}
+		} else {
+			if (i > -1) {
+				arrPrazos.splice(i, 1);
+			}
+		}
+	
+		$('#hdnEncaminharPrazosSelecionados').val(arrPrazos.toString());
+	});
+    
     $('#boxEncaminharPrazos').dialog({
         autoOpen: false,
         resizable: false,
@@ -26,92 +94,132 @@ $(document).ready(function() {
         width: 600,
         autoHeight: true,
         open: function(event, ui) {
-        	$('#tx_solicitacao').val('');
+        	$('#selEncaminharUnidadeDestino').empty();
+        	$('#selEncaminharUsuarioDestino').empty();
+        	$("#txtEncaminharDataPrazo").val('');
+        	$('#txtEncaminharSolicitacao').val('');
         },
         buttons: {
             Salvar: function() {
-                var validou = jquery_validar_novo_prazo();
-                if (validou == true) {
-                    if (confirm('Você tem certeza que deseja enviar este novo prazo?\nOBS: Esta operação não poderá ser desfeita!')) {
+                if (validarEncaminhar()) {
+                    if (confirm('Você tem certeza que deseja encaminhar estes prazos?\nOBS: Esta operação não poderá ser desfeita!')) {
                         $.post("extensoes/pr_snas/1.3/modelos/prazos/prazos.php", {
-                            acao: 'cadastrar',
-                            nu_proc_dig_ref: $('#nu_proc_dig_ref').val(),
-                            id_unid_destino: $('#id_unid_destino').val(),
-                            id_usuario_destino: $('#id_usuario_destino').val(),
-                            dt_prazo: $('#dt_prazo').val(),
-                            tx_solicitacao: $('#tx_solicitacao').val(),
-                            nu_proc_dig_ref_pai: $('#nu_proc_dig_ref_pai').val()
+                            acao: 'encaminhar',
+                            prazos: $('#hdnEncaminharPrazosSelecionados').val(),
+                            id_unid_destino: $('#selEncaminharUnidadeDestino').val(),
+                            id_usuario_destino: $('#selEncaminharUsuarioDestino').val(),
+                            dt_prazo: $('#txtEncaminharDataPrazo').val(),
+                            tx_solicitacao: $('#txtEncaminharSolicitacao').val()
                         },
                         function(data) {
                             try {
                             	carregarListaPrazos();
+                            	$('#progressbar').hide();
+                               	limparChkPrazo();
+								$("#boxEncaminharPrazos").dialog("close");
 
                                 if (data.success == 'true') {
-                                    $("#box-novo-prazo").dialog("close");
-                                    $('#tabs-prazos-env').click();
-                                    $('#tipo_ref').val('N');
-                                    $('#nu_proc_dig_ref').val('');
-                                    $('#nu_proc_dig_ref').attr('disabled', 'disabled');
-                                    $('#id_unid_destino').val('');
-                                    $('#id_usuario_destino').val('');
-                                    $('#dt_prazo').val('');
-                                    $('#tx_solicitacao').val('');
-                                    $('#progressbar').hide();
-                                    alert('Novo prazo cadastrado com sucesso!');
-
-                                    if (acao_pesquisa != null) {
-                                        window.location = "area_trabalho.php";
-                                    }
+                                    alert('Prazos encaminhados com sucesso!');
                                 } else {
-                                    $('#progressbar').hide();
                                     alert(data.error);
                                 }
                             } catch (e) {
-                                $('#progressbar').hide();
-                                alert('Ocorreu um erro ao inserir um novo prazo:\n[' + e + ']');
+                                alert('Ocorreu um erro ao encaminhar os prazos:\n[' + e + ']');
                             }
                         }, "json");
                     } else {
                         $('#progressbar').hide();
                     }
-                } else {
-                    alert(validou);
                 }
             }
         }
     });
+
+    $("#txtEncaminharDataPrazo").datepicker({
+        minDate: 0
+    });
+
+    /*Filtro Unidade*/
+    $('#divEncaminharPrazoFiltroUnidade').dialog({
+        title: 'Filtro',
+        autoOpen: false,
+        resizable: false,
+        modal: false,
+        width: 380,
+        height: 90,
+        open: function() {
+            $("#txtEncaminharPrazoFiltroUnidade").val('');
+        }
+    });
+
+    $('#imgEncaminharPrazoFiltroUnidade').click(function() {
+        $('#divEncaminharPrazoFiltroUnidade').dialog('open');
+    });
+
+    /*Combo Unidades*/
+    $("#txtEncaminharPrazoFiltroUnidade").autocompleteonline({
+        url: 'modelos/combos/autocomplete.php',
+        idComboBox: 'selEncaminharUnidadeDestino',
+        extraParams: {
+            action: 'unidades-internas',
+            type: 'IN'
+        },
+        onFinish: function() {
+            $('#selEncaminharUsuarioDestino').empty();
+            listarUsuariosEncaminhar($('#selEncaminharUnidadeDestino').val());
+        }
+    });
+
+    $('#selEncaminharUnidadeDestino').change(function(e) {
+        $('#selEncaminharUsuarioDestino').empty();
+        listarUsuariosEncaminhar($('#selEncaminharUnidadeDestino').val());
+    });
+    
 });
 
 </script>
 
 <div id="boxEncaminharPrazos" class="div-form-dialog" title="Encaminhar Prazos">
-    <fieldset>
-        <div class="row">
-            <label for="id_unid_destino_multiplo" class="label">*Setor Destino:</label>
-            <span class="conteudo">
-                <select id="id_unid_destino_multiplo" class="FUNDOCAIXA1"></select>
-            </span>
-            <img title="Filtrar" class="botao-auxiliar-fix-combobox" id="botao-filtro-unidade-novo-prazo_multiplo" src="imagens/fam/application_edit.png">
+	<input type="hidden" id="hdnEncaminharPrazosSelecionados" />
+
+	<div class="row">
+		<label for="selEncaminharUnidadeDestino" class="label">*Setor Destino:</label>
+		<span class="conteudo">
+			<select id="selEncaminharUnidadeDestino" class="FUNDOCAIXA1"></select>
+		</span>
+		<img title="Filtrar" class="botao-auxiliar-fix-combobox" id="imgEncaminharPrazoFiltroUnidade" src="imagens/fam/application_edit.png">
+	</div>
+
+	<div class="row">
+		<label for="selEncaminharUsuarioDestino" class="label">Destinatário:</label>
+		<span class="conteudo">
+			<select id="selEncaminharUsuarioDestino" class="FUNDOCAIXA1">
+				<option value="">Nenhum</option>
+			</select>
+		</span>
+	</div>
+	
+	<div class="row">
+		<label for="txtEncaminharDataPrazo" class="label">*Data do Prazo:</label>
+		<span class="conteudo">
+			<input type="text" id="txtEncaminharDataPrazo" class="FUNDOCAIXA1">
+		</span>
+	</div>
+	
+	<div class="row">
+		<label for="txtEncaminharSolicitacao" class="label" style="float:left;">Solicitação:<br/><br/>Este texto será anexado ao texto original dos prazos.</label>
+		<span class="conteudo">
+			<textarea id="txtEncaminharSolicitacao" class="FUNDOCAIXA1" cols="80" rows="1" onkeyup="DigitaLetraSeguro(this)" style="height: 100;"></textarea>
+		</span>
+	</div>
+</div>
+
+
+<div id="divEncaminharPrazoFiltroUnidade" class="box-filtro">
+    <div class="row">
+        <label>Unidade:</label>
+        <div class="conteudo">
+            <input type="text" id="txtEncaminharPrazoFiltroUnidade" onKeyUp="DigitaLetraSeguro(this)" class="FUNDOCAIXA1" />
         </div>
-        <div class="row">
-            <label for="id_usuario_destino_multiplo" class="label">Destinatário:</label>
-            <span class="conteudo">
-                <select id="id_usuario_destino_multiplo" class="FUNDOCAIXA1">
-                    <option value="">Nenhum</option>
-                </select>
-            </span>
-        </div>
-        <div class="row">
-            <label for="dt_prazo_multiplo" class="label">*Data do Prazo:</label>
-            <span class="conteudo">
-                <input type="text" id="dt_prazo_multiplo" class="FUNDOCAIXA1">
-            </span>
-        </div>
-        <div class="row">
-            <label for="tx_solicitacao_multiplo" class="label" style="float:left;">*Conteúdo da Solicitação:</label>
-            <span class="conteudo">
-                <textarea id="tx_solicitacao_multiplo" class="FUNDOCAIXA1" cols="83" rows="1" onkeyup="DigitaLetraSeguro(this)" style="height: 200;"></textarea>
-            </span>
-        </div>
-    </fieldset>
+    </div>
 </div>

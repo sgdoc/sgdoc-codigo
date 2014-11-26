@@ -19,7 +19,7 @@
     <div class="legenda-vinculacao-processos" title="Legendas">
         <img alt="" src='imagens/fam/book.png' title='Este icone representa os processos que estao subordinados a outro processo.'>
         <img alt="" src='imagens/fam/book_edit.png' title='Este icone representa o processo que você escolheu para visualizar na lista de vinculacao.'>
-        <img alt="" src='imagens/fam/book_red.png' title='Este icone representa o processo que nao esta na sua area de trabalho'>
+        <img alt="" src='imagens/fam/book_red.png' title='Este icone representa o processo que nao esta na sua área de trabalho'>
         <img alt="" src='imagens/fam/book_addresses_color.png' title='Este icone representa o processo mais relevante da vinculacao. Caso o processo escolhido nao esteja subordinado a nenhum processo ele se tornara o processo mais relevante.'>
         <img alt="" src='imagens/fam/error.png' title='Atenção! Os processos que nao estao na mesma caixa do processo principal serao tramitados automaticamente com o principal somente quando estiverem na mesma caixa.'>
         <span>LEGENDAS:</span>

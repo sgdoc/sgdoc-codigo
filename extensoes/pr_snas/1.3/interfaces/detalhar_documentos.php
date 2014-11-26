@@ -52,10 +52,6 @@ foreach ($recurso->dependencias as $arquivo) {
 		var boxDestinoOpen = false;
 		$(document).ready(function() {
 
-	        $('#btnEncaminharPrazos').live('click', function(e) {
-	            $('#boxEncaminharPrazos').dialog('open');
-	        });
-	        
             /*Calendarios*/
             $("#DATA_PRAZO_DETALHAR_DOCUMENTO").datepicker({
             	changeMonth: true,

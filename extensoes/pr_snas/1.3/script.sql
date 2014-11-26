@@ -1,3 +1,4 @@
+--SELECIONAR AÇÕES PPA/LOA
 CREATE TABLE snas.tb_prazo_vinculo_ppa_acoes(
   id serial NOT NULL,
   id_prazo integer NOT NULL,
@@ -26,3 +27,11 @@ CREATE INDEX ind_execucaoOrcamentaria_siop
   ON snas.tb_siop_execucao_orcamentaria
   USING btree
   ("codigoOrgao" COLLATE pg_catalog."default", "codigoOrgao" COLLATE pg_catalog."default", "codigoAcao" COLLATE pg_catalog."default", exercicio COLLATE pg_catalog."default");
+
+-- ENCAMINHAR MULTIPLOS PRAZOS (DEMANDAS)
+ALTER TABLE sgdoc.ext__snas__tb_controle_prazos ADD COLUMN id_prazo_pai integer;
+
+-- CORREÇÕES DE TEXTOS
+update sgdoc.tb_recursos set nome = replace(nome, 'Area', 'Área') where nome like '%Area%';
+
+update sgdoc.tb_recursos set descricao = replace(descricao, 'Area', 'Área') where descricao like '%Area%';

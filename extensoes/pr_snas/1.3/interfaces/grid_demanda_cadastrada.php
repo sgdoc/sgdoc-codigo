@@ -25,6 +25,7 @@ $idTabela = 'DocumentosDemanda'.ucfirst($lista);
 <script type="text/javascript">
 
     var oTable<?php echo $idTabela;?>;
+    var lista = '<?php echo $lista;?>';
     var total_documentos;
     var toggleDemanda = [];
 	var unidadeCorrente = "<?php echo Controlador::getInstance()->usuario->ID_UNIDADE; ?>";
@@ -53,9 +54,11 @@ $idTabela = 'DocumentosDemanda'.ucfirst($lista);
 
         $('.botao-novo-prazo').die('click').live('click', function(e) {
             var demanda = $(this).attr('demanda');
+            var id_prazo_pai = $(this).attr('id_prazo_pai');
             e.preventDefault();
 
             $('#nu_proc_dig_ref').val(demanda);
+            $('#hdnIdPrazoPai').val(id_prazo_pai);
             $('#box-novo-prazo').dialog('open');
         });
 
@@ -70,7 +73,7 @@ $idTabela = 'DocumentosDemanda'.ucfirst($lista);
 
         /*DataTable*/
         oTable<?php echo $idTabela;?> = $('#Tabela<?php echo $idTabela;?>').dataTable({
-            sDom: '<"H"<"divEncaminharPrazos">fr>t<"F"lip>',
+            sDom: '<"H"<"divEncaminharPrazos_' + lista + '">fr>t<"F"lip>',
             //aLengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
             bLengthChange: true,
             bStateSave: false,
@@ -79,7 +82,7 @@ $idTabela = 'DocumentosDemanda'.ucfirst($lista);
             bServerSide: true,
             bJQueryUI: true,
             sPaginationType: "full_numbers",
-            sAjaxSource: "modelos/documentos/listar_documentos_vinculados.php?lista=<?php echo $lista;?>&DIGITAL_PAI=" + $('#ID_DETALHAR_DOCUMENTO').val(),
+            sAjaxSource: "modelos/documentos/listar_documentos_vinculados.php?lista=" + lista + "&DIGITAL_PAI=" + $('#ID_DETALHAR_DOCUMENTO').val(),
             oLanguage: {
                 sProcessing: "Carregando...",
                 sLengthMenu: "_MENU_ por página",
@@ -114,7 +117,7 @@ $idTabela = 'DocumentosDemanda'.ucfirst($lista);
                 /* checkbox para seleção */
                 $('td:eq(0)', nRow).html('');
                 if (aData[9] == unidadeCorrente) {
-                	$('td:eq(0)', nRow).html('<input type="checkbox" id="prazo[' + iDisplayIndex + ']" value="' + aData[11] + '">');
+                	$('td:eq(0)', nRow).html('<input type="checkbox" idPrazo="' + aData[11] + '" class="chkPrazo" />');
                 }
                 
                 $('td:eq(1)', nRow).html('<a href="#" class="link_historico" demanda="' + aData[1] + '">' + aData[1] + '</a>');
@@ -186,6 +189,7 @@ if (AclFactory::checaPermissao(Controlador::getInstance()->acl, Controlador::get
 	                    width: 20,
 	                    height: 20,
 	                    demanda: aData[1],
+	                    id_prazo_pai: aData[11],
 	                }).bind("click", function() {
 
 	                }).appendTo($line);
@@ -237,9 +241,8 @@ if (AclFactory::checaPermissao(Controlador::getInstance()->acl, Controlador::get
             ]
         }); /* Fim dataTable */
 
-        
-       	$("div.divEncaminharPrazos").html('<button id="btnEncaminharPrazos" class="ui-button ui-widget ui-state-default ui-corner-all"><img src="imagens/novo_prazo.png" id="imgEncaminhar" /> Encaminhar</button>');
-        
+       	$("div.divEncaminharPrazos_unidade").html('<button id="btnEncaminharPrazos" class="ui-button ui-widget ui-state-default ui-corner-all"><img src="imagens/novo_prazo.png" id="imgEncaminhar" /> Encaminhar</button>');
+
     }); /* fim document.ready */
 
     /**
@@ -275,7 +278,7 @@ if (AclFactory::checaPermissao(Controlador::getInstance()->acl, Controlador::get
             }, function(data) {
                 try {
                     if (data.success == 'true') {
-                        $('#div_grid_demandas_cadastradas').load('grid_demanda_cadastrada.php?DIGITAL_PAI=' + $('#DIGITAL_DETALHAR_DOCUMENTO').val()).show();
+                        $('#div_grid_demandas_cadastradas').load('grid_demanda_cadastrada.php?lista=unidade&DIGITAL_PAI=' + $('#DIGITAL_DETALHAR_DOCUMENTO').val()).show();
                     } else {
                         alert(data.error);
                     }
@@ -311,7 +314,7 @@ if (AclFactory::checaPermissao(Controlador::getInstance()->acl, Controlador::get
 		background-color: #91C891;
 	}
     
-    .divEncaminharPrazos {
+    .divEncaminharPrazos_unidade {
     	float: left;
     }
     

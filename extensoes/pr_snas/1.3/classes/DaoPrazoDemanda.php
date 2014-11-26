@@ -57,6 +57,41 @@ class DaoPrazoDemanda extends DaoPrazo {
     }
 
     /**
+     * Retorna os dados do prazo e da extensão snas
+     * @param string $prazo
+     * @throws Exception
+     * @return multitype:|boolean
+     */
+    public static function getPrazoExtensao($prazo = false) {
+    	try {
+    		 
+    		if (!$prazo) {
+    			throw new Exception($e);
+    		}
+    
+    		$sql = 'select * 
+					from sgdoc.tb_controle_prazos p
+					  left join sgdoc.ext__snas__tb_controle_prazos e on (e.id=p.sq_prazo)
+					where p.sq_prazo = :id;';
+    		
+    		$stmt = Controlador::getInstance()->getConnection()->connection->prepare($sql);
+    		$stmt->bindParam('id', $prazo, PDO::PARAM_INT);
+    		$stmt->execute();
+    
+    		$out = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    		if (!empty($out)) {
+    			$out = array_change_key_case(($out), CASE_LOWER);
+    			return $out;
+    		}
+    
+    		return false;
+    	} catch (PDOException $e) {
+    		throw new Exception($e);
+    	}
+    }
+    
+    /**
      * Retorna o primeiro prazo (demanda) de uma demanda
      */
     public static function getPrimeiroPrazo($digDemanda = false) {
@@ -130,27 +165,49 @@ class DaoPrazoDemanda extends DaoPrazo {
     	}
     }
     
-    /**
-     * 
-     */
     public static function salvarPrazo(Prazo $prazo) {
-        try {
+    	try {
+    		Controlador::getInstance()->getConnection()->connection->beginTransaction();
+    		
+    		self::inserirPrazo(Controlador::getInstance(), $prazo);
+    		
+    		Controlador::getInstance()->getConnection()->connection->commit();
+    		
+    		return new Output(array('success' => 'true', 'message' => 'Prazo cadastrado com sucesso!'));
+    		
+    	} catch (Exception $e) {
+            Controlador::getInstance()->getConnection()->connection->rollBack();
+            return new Output(array('success' => 'false', 'error' => $e->getMessage()));
+        }
+    }
+    
+    private static function inserirPrazo(Controlador $controle, Prazo $prazo) {
+        //try {
 
-
-            Controlador::getInstance()->getConnection()->connection->beginTransaction();
+            //Controlador::getInstance()->getConnection()->connection->beginTransaction();
 
             if (!isset($prazo->prazo->id_usuario_destino) || $prazo->prazo->id_usuario_destino == '') {
                 $prazo->prazo->id_usuario_destino = NULL;
             }
 
-            $prazo->id_unid_origem = isset($prazo->prazo->id_unid_origem) ?
-                    $prazo->prazo->id_unid_origem : Zend_Auth::getInstance()->getIdentity()->ID_UNIDADE_ORIGINAL;
-            $prazo->id_usuario_origem = Controlador::getInstance()->usuario->ID;
+            $prazo->id_unid_origem = isset($prazo->prazo->id_unid_origem) ? $prazo->prazo->id_unid_origem : Zend_Auth::getInstance()->getIdentity()->ID_UNIDADE_ORIGINAL;
+            
+            //$prazo->id_usuario_origem = Controlador::getInstance()->usuario->ID;
+            $prazo->id_usuario_origem = $controle->usuario->ID;
             
             $dt_prazo = Util::formatDate($prazo->prazo->dt_prazo);
-            $pai =  strlen($prazo->prazo->nu_proc_dig_ref_pai) > 0 ? $prazo->prazo->nu_proc_dig_ref_pai : null ;
             
-            $stmt = Controlador::getInstance()->getConnection()->connection->prepare("INSERT INTO TB_CONTROLE_PRAZOS (NU_PROC_DIG_REF, ID_USUARIO_ORIGEM, ID_USUARIO_DESTINO, ID_UNID_ORIGEM, ID_UNID_DESTINO, DT_PRAZO, TX_SOLICITACAO)
+            $pai =  strlen($prazo->prazo->nu_proc_dig_ref_pai) > 0 ? $prazo->prazo->nu_proc_dig_ref_pai : null;
+            
+            $idPrazoPai = null;
+            if (isset($prazo->prazo->id_prazo_pai)) {
+            	$idPrazoPai = ($prazo->prazo->id_prazo_pai > 0) ? $prazo->prazo->id_prazo_pai : null;
+            }
+            
+            //$stmt = Controlador::getInstance()->getConnection()->connection->prepare("INSERT INTO TB_CONTROLE_PRAZOS (NU_PROC_DIG_REF, ID_USUARIO_ORIGEM, ID_USUARIO_DESTINO, ID_UNID_ORIGEM, ID_UNID_DESTINO, DT_PRAZO, TX_SOLICITACAO)
+            //VALUES (?,?,?,?,?,?,?)");
+            
+            $stmt = $controle->getConnection()->connection->prepare("INSERT INTO TB_CONTROLE_PRAZOS (NU_PROC_DIG_REF, ID_USUARIO_ORIGEM, ID_USUARIO_DESTINO, ID_UNID_ORIGEM, ID_UNID_DESTINO, DT_PRAZO, TX_SOLICITACAO)
             VALUES (?,?,?,?,?,?,?)");
             $stmt->bindParam(1, $prazo->prazo->nu_proc_dig_ref, PDO::PARAM_STR);
             $stmt->bindParam(2, $prazo->prazo->id_usuario_origem, PDO::PARAM_INT);
@@ -161,15 +218,18 @@ class DaoPrazoDemanda extends DaoPrazo {
             $stmt->bindParam(7, $prazo->prazo->tx_solicitacao, PDO::PARAM_STR);
             $stmt->execute();
             
-            $lastIdPrazo = Controlador::getInstance()->getConnection()->connection->lastInsertId('TB_CONTROLE_PRAZOS_SQ_PRAZO_SEQ');
+            //$lastIdPrazo = Controlador::getInstance()->getConnection()->connection->lastInsertId('TB_CONTROLE_PRAZOS_SQ_PRAZO_SEQ');
+            $lastIdPrazo = $controle->getConnection()->connection->lastInsertId('TB_CONTROLE_PRAZOS_SQ_PRAZO_SEQ');
 
-            $sttt = Controlador::getInstance()->getConnection()->connection->prepare("INSERT INTO EXT__SNAS__TB_CONTROLE_PRAZOS (ID,NU_PROC_DIG_REF_PAI) VALUES (?,?)");
-            $sttt->bindParam(1, $lastIdPrazo, PDO::PARAM_INT);
-            $sttt->bindParam(2, $pai, PDO::PARAM_STR);
+            //$sttt = Controlador::getInstance()->getConnection()->connection->prepare("INSERT INTO EXT__SNAS__TB_CONTROLE_PRAZOS (ID,NU_PROC_DIG_REF_PAI, ID_PRAZO_PAI) VALUES (:id, :dig_ref_pai, :id_pai);");
+            $sttt = $controle->getConnection()->connection->prepare("INSERT INTO EXT__SNAS__TB_CONTROLE_PRAZOS (ID,NU_PROC_DIG_REF_PAI, ID_PRAZO_PAI) VALUES (:id, :dig_ref_pai, :id_pai);");
+            $sttt->bindParam(id, $lastIdPrazo, PDO::PARAM_INT);
+            $sttt->bindParam(dig_ref_pai, $pai, PDO::PARAM_STR);
+            $sttt->bindParam(id_pai, $idPrazoPai, PDO::PARAM_INT);
             $sttt->execute();
 
             new Log('TB_CONTROLE_PRAZOS', $lastIdPrazo, Zend_Auth::getInstance()->getIdentity()->ID, 'inserir');
-
+/*
             Controlador::getInstance()->getConnection()->connection->commit();
 
             return new Output(array('success' => 'true', 'message' => 'Prazo cadastrado com sucesso!'));
@@ -177,11 +237,137 @@ class DaoPrazoDemanda extends DaoPrazo {
             Controlador::getInstance()->getConnection()->connection->rollBack();
             return new Output(array('success' => 'false', 'error' => $e->getMessage()));
         }
+*/
     }
 
     /**
-     * 
+     * Cria múltiplos prazos para uma unidade de destino
+     * @param Prazo $prazo
      */
+    public static function encaminharPrazos(Prazo $prazos) {
+    	
+    	try {
+    		Controlador::getInstance()->getConnection()->connection->beginTransaction();
+    	
+    		$arrId = explode(',', trim($prazos->prazo->prazos, ','));
+    		if (!array_walk($arrId, 'is_numeric')) {
+    			throw new Exception('Prazos inválidos.');
+    		}
+    		
+    		$idUnidDestino = $prazos->prazo->id_unid_destino;
+    		$idUsuarioDestino = null;
+    		if (isset($prazos->prazo->id_usuario_destino) && $prazos->prazo->id_usuario_destino != '') {
+    			$idUsuarioDestino = $prazos->prazo->id_usuario_destino;
+    		}
+    		
+    		$dataPrazo = $prazos->prazo->dt_prazo;
+    		
+    		$txtComp = '';
+    		if (isset($prazos->prazo->tx_solicitacao) && $prazos->prazo->tx_solicitacao != '') {
+    			$txtComp = "\n" . trim($prazos->prazo->tx_solicitacao);
+    		}
+    		
+    		foreach ($arrId as $idPrazoPai) {
+    			$prazo = self::getPrazoExtensao($idPrazoPai);
+    			if (!$prazo) {
+    				throw new Exception('Prazo não localizado.');
+    			}
+    			$novoPrazo = new Prazo();
+    			$novoPrazo->nu_proc_dig_ref = $prazo['nu_proc_dig_ref'];
+    			$novoPrazo->id_usuario_origem = Controlador::getInstance()->usuario->ID;
+    			$novoPrazo->id_usuario_destino = $idUsuarioDestino;
+    			$novoPrazo->id_unid_origem = Zend_Auth::getInstance()->getIdentity()->ID_UNIDADE_ORIGINAL;
+    			$novoPrazo->id_unid_destino = $idUnidDestino;
+    			$novoPrazo->dt_prazo = $dataPrazo;
+    			$novoPrazo->tx_solicitacao = $prazo['tx_solicitacao'] . $txtComp;
+    			$novoPrazo->nu_proc_dig_ref_pai = $prazo['nu_proc_dig_ref_pai'];
+    			$novoPrazo->id_prazo_pai = $idPrazoPai;
+    			
+    			self::inserirPrazo(Controlador::getInstance(), $novoPrazo);
+    		}
+    	
+    		Controlador::getInstance()->getConnection()->connection->commit();
+    	
+    		return new Output(array('success' => 'true', 'message' => 'Prazos encaminhados com sucesso!'));
+    	
+    	} catch (Exception $e) {
+    		Controlador::getInstance()->getConnection()->connection->rollBack();
+    		return new Output(array('success' => 'false', 'error' => $e->getMessage()));
+    	}
+    	 
+/*    	
+    	try {
+    		Controlador::getInstance()->getConnection()->connection->beginTransaction();
+    		
+    		$arrId = explode(',', trim($prazos->prazo->prazos, ','));
+    		
+    		if (!array_walk($arrId, 'is_numeric')) {
+    			throw new Exception('Prazos inválidos.');
+    		}
+    		
+    		$idUnidDestino = $prazos->prazo->id_unid_destino;
+    		$idUsuarioDestino = null;
+    		if (isset($prazos->prazo->id_usuario_destino) && $prazos->prazo->id_usuario_destino != '') {
+    			$idUsuarioDestino = $prazos->prazo->id_usuario_destino;
+    		}
+    		
+    		$idUnidOrigem = Zend_Auth::getInstance()->getIdentity()->ID_UNIDADE_ORIGINAL;
+    		$idUsuarioOrigem = Controlador::getInstance()->usuario->ID;
+    		 
+    		$dataPrazo = Util::formatDate($prazos->prazo->dt_prazo);
+    		
+    		$txtComp = '';
+    		if (isset($prazos->prazo->tx_solicitacao) && $prazos->prazo->tx_solicitacao != '') {
+    			$txtComp = "\n" . $prazos->prazo->tx_solicitacao;
+    		}
+    		
+    		$sql1 = "INSERT INTO TB_CONTROLE_PRAZOS (NU_PROC_DIG_REF, ID_USUARIO_ORIGEM, ID_USUARIO_DESTINO, ID_UNID_ORIGEM, ID_UNID_DESTINO, 
+    												DT_PRAZO, TX_SOLICITACAO, fg_status) VALUES (?,?,?,?,?,?,?,?);";
+    		
+    		$sql2 = "INSERT INTO EXT__SNAS__TB_CONTROLE_PRAZOS (ID,NU_PROC_DIG_REF_PAI, ID_PRAZO_PAI) VALUES (?,?,?);";
+    		
+    		foreach ($arrId as $idPrazoPai) {
+    			$prazo = self::getPrazoExtensao($idPrazoPai);
+    			if (!$prazo) {
+    				throw new Exception('Prazo não localizado.');
+    			}
+    			$txtSolicitacao = $prazo['tx_solicitacao'] . $txtComp;
+    			
+    			$stmt = Controlador::getInstance()->getConnection()->connection->prepare($sql1);
+    			$stmt->bindParam(1, $prazo['nu_proc_dig_ref'], PDO::PARAM_STR);
+    			$stmt->bindParam(2, $idUsuarioOrigem, PDO::PARAM_INT);
+    			$stmt->bindParam(3, $idUsuarioDestino, PDO::PARAM_INT);
+    			$stmt->bindParam(4, $idUnidOrigem, PDO::PARAM_INT);
+    			$stmt->bindParam(5, $idUnidDestino, PDO::PARAM_INT);
+    			$stmt->bindParam(6, $dataPrazo, PDO::PARAM_STR);
+    			$stmt->bindParam(7, $txtSolicitacao, PDO::PARAM_STR);
+    			$stmt->bindParam(8, $prazo['fg_status'], PDO::PARAM_STR);
+    			$stmt->execute();
+
+    			$lastIdPrazo = Controlador::getInstance()->getConnection()->connection->lastInsertId('TB_CONTROLE_PRAZOS_SQ_PRAZO_SEQ');
+    			
+    			$digitalPai =  $prazo['nu_proc_dig_ref_pai'];
+    			
+    			$sttt = Controlador::getInstance()->getConnection()->connection->prepare($sql2);
+    			$sttt->bindParam(1, $lastIdPrazo, PDO::PARAM_INT);
+    			$sttt->bindParam(2, $digitalPai, PDO::PARAM_STR);
+    			$sttt->bindParam(3, $idPrazoPai, PDO::PARAM_INT);
+    			$sttt->execute();
+    			
+    			new Log('TB_CONTROLE_PRAZOS', $lastIdPrazo, Zend_Auth::getInstance()->getIdentity()->ID, 'inserir');
+    			
+    		}
+    		
+    		Controlador::getInstance()->getConnection()->connection->commit();
+    		
+    		return new Output(array('success' => 'true', 'message' => 'Prazos encaminhados com sucesso!'));
+    	} catch (Exception $e) {
+    		Controlador::getInstance()->getConnection()->connection->rollBack();
+    		return new Output(array('success' => 'false', 'error' => $e->getMessage()));
+    	}
+*/
+    }
+    
     public static function removerPrazo($digital) {
         try {
 

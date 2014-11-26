@@ -68,7 +68,16 @@ if ($_POST) {
                 }
 
                 break;
-
+                
+			case 'encaminhar':
+				try {
+					$prazo = new Prazo($_POST);
+					$out = DaoPrazoDemanda::encaminharPrazos($prazo)->toArray();
+				} catch (Exception $e) {
+					$out = array('success' => 'false', 'error' => $e->getMessage());
+				}
+			break;
+                
             case 'pesquisar':
                 unset($_SESSION['PESQUISAR_PRAZOS']);
 
