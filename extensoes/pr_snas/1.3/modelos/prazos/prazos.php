@@ -124,8 +124,9 @@ if ($_POST) {
             
             case 'excluir-resposta-ppa':
 	            try {
+	            	$tipoVinculo = $_POST['tipo_vinculo'];
 	            	$idVinculo = $_POST['id_vinculo'];
-	            	$out = DaoPrazoDemanda::excluirPpaResposta($idVinculo)->toArray();
+	            	$out = DaoPrazoDemanda::excluirPpaResposta($tipoVinculo, $idVinculo)->toArray();
 	            } catch (Exception $e) {
 	            	$out = array('success' => 'false', 'error' => $e->getMessage());
 	            }

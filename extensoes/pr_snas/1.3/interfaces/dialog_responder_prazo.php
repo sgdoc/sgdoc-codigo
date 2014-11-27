@@ -154,10 +154,11 @@ print(Util::autoLoadJavascripts(array('javascripts/jquery.form.js')));
 	}
 
 	/* EXCLUIR VINCULO COM O OBJETIVO / META */
-	function excluirMetaPPA(id) {
+	function excluirVinculoPPA(tipo, id) {
 		if (confirm('Você tem certeza que deseja excluir este vínculo?')) {
 			$.post("modelos/prazos/prazos.php", {
 					acao: 'excluir-resposta-ppa',
+					tipo_vinculo: tipo,
 					id_vinculo: id
 				},
 				function(data) {

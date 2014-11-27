@@ -42,7 +42,7 @@ try {
 				$strTabMetas .= '<td>' . $arrDados[$i]['EXERCICIO'] . '</td>';
 				$strTabMetas .= '<td>';
 				if (!$leitura) {
-					$strTabMetas .= '<img onclick="excluirMetaPPA('.$arrDados[$i]['ID'].');" src="imagens/fam/delete.png" class="imgBotao16" title="Excluir Vínculo PPA" />';
+					$strTabMetas .= '<img onclick="excluirVinculoPPA(\'meta\', '.$arrDados[$i]['ID'].');" src="imagens/fam/delete.png" class="imgBotao16" title="Excluir Vínculo PPA" />';
 				}
 				$strTabMetas .= '<img onclick="detalharMeta('.$arrDados[$i]['ID'].');" src="imagens/fam/magnifier.png" class="imgBotao16" title="Detalhar Objetivo/Meta" /></td>';
 				$strTabMetas .= '</tr>';
@@ -71,7 +71,7 @@ try {
 				$strTabAcoes .= '<td>' . $arrDados[$i]['EXERCICIO'] . '</td>';
 				$strTabAcoes .= '<td>';
 				if (!$leitura) {
-					$strTabAcoes .= '<img onclick="excluirMetaPPA('.$arrDados[$i]['ID'].');" src="imagens/fam/delete.png" class="imgBotao16" title="Excluir Vínculo PPA" />';
+					$strTabAcoes .= '<img onclick="excluirVinculoPPA(\'acao\', '.$arrDados[$i]['ID'].');" src="imagens/fam/delete.png" class="imgBotao16" title="Excluir Vínculo PPA" />';
 				}
 				$strTabAcoes .= '<img onclick="detalharAcao('.$arrDados[$i]['ID'].');" src="imagens/fam/magnifier.png" class="imgBotao16" title="Detalhar Vínculo PPA" /></td>';
 				$strTabAcoes .= '</tr>';

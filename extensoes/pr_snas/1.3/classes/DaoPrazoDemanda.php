@@ -598,8 +598,12 @@ class DaoPrazoDemanda extends DaoPrazo {
 		}
     }
 
-    public static function excluirPpaResposta($idVinculo = false) {
+    public static function excluirPpaResposta($tipo = false, $idVinculo = false) {
     	try {
+    		
+    		if (!$tipo || (($tipo != 'meta') && ($tipo != 'acao'))) {
+    			throw new Exception('Informe se é a exclusão de uma Meta ou Ação.');
+    		}
     		
     		if (!$idVinculo) {
     			throw new Exception('Informe um vínculo.');
@@ -607,8 +611,16 @@ class DaoPrazoDemanda extends DaoPrazo {
     		
     		Controlador::getInstance()->getConnection()->connection->beginTransaction();
     
-    		$sql = 'update snas.tb_prazo_vinculo_ppa set st_ativo = 0 where id = ?;';
-    
+    		$msg = '';
+    		
+    		if ($tipo == 'meta') {
+    			$sql = 'update snas.tb_prazo_vinculo_ppa set st_ativo = 0 where id = ?;';
+    			$msg = 'Meta excluída com sucesso!';
+    		} else {
+    			$sql = 'update snas.tb_prazo_vinculo_ppa_acoes set st_ativo = 0 where id = ?;';
+    			$msg = 'Ação excluída com sucesso!';
+    		}
+    		
     		$stmt = Controlador::getInstance()->getConnection()->connection->prepare($sql);
     
     		$stmt->bindParam(1, $idVinculo, PDO::PARAM_INT);
@@ -617,7 +629,7 @@ class DaoPrazoDemanda extends DaoPrazo {
     		 
     		Controlador::getInstance()->getConnection()->connection->commit();
     
-    		return new Output(array('success' => 'true', 'message' => 'Metas excluída com sucesso!'));
+    		return new Output(array('success' => 'true', 'message' => $msg));
     	} catch (Exception $e) {
     		Controlador::getInstance()->getConnection()->connection->rollBack();
     		return new Output(array('success' => 'false', 'error' => $e->getMessage()));
@@ -729,7 +741,7 @@ class DaoPrazoDemanda extends DaoPrazo {
 					  (v.codigo_acao || \' - \' || a.titulo) as acao
 					from snas.tb_prazo_vinculo_ppa_acoes v
 					  inner join snas.tb_siop_orgaos o on 
-					    (o."codigoOrgao"::text=v.codigo_orgao and o.exercicio=v.exercicio)
+					    (o."codigoOrgao"::text=v.codigo_orgao and o.exercicio=v.exercicio and o."tipoOrgao" = \'U\')
 					  inner join snas.tb_siop_programas p on
 					    (p."codigoOrgao"=o."codigoOrgaoPai" and p."codigoPrograma"=v.codigo_programa and p.exercicio=v.exercicio)
 					  inner join snas.tb_siop_acoes a on

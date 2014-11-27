@@ -177,6 +177,7 @@ class DaoDadosSiop {
 				
 			$sql .= 'where 
 					  o."codigoOrgaoPai" = :orgao
+					  and o."tipoOrgao" = \'U\'
 					  and o.exercicio = :ano
 					  and a."codigoPrograma" = :programa
 					  and a."snExclusaoLogica" = false
