@@ -325,3 +325,9 @@ where url = 'grid_demanda_cadastrada.php' and id_recurso_tipo = 1;
 
 commit;
 
+grant all privileges on schema sgdoc,snas to postgres;
+grant usage on schema sgdoc,snas to usr_pr_sgdoc4;
+grant select,insert,update,delete on all tables in schema sgdoc,snas to usr_pr_sgdoc4;
+grant usage on all sequences in schema sgdoc,snas to usr_pr_sgdoc4;
+grant execute on all functions in schema sgdoc,snas to usr_pr_sgdoc4;
+
