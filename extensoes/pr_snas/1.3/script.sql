@@ -26,3 +26,10 @@ ALTER TABLE sgdoc.ext__snas__tb_controle_prazos ADD COLUMN id_prazo_pai integer;
 update sgdoc.tb_recursos set nome = replace(nome, 'Area', 'Área') where nome like '%Area%';
 
 update sgdoc.tb_recursos set descricao = replace(descricao, 'Area', 'Área') where descricao like '%Area%';
+
+
+grant all privileges on schema sgdoc,snas to postgres;
+grant usage on schema sgdoc,snas to usr_pr_sgdoc4;
+grant select,insert,update,delete on all tables in schema sgdoc,snas to usr_pr_sgdoc4;
+grant usage on all sequences in schema sgdoc,snas to usr_pr_sgdoc4;
+grant execute on all functions in schema sgdoc,snas to usr_pr_sgdoc4;
