@@ -19,15 +19,6 @@ CREATE INDEX fki_vinculo_ppa_acoes_prazo ON snas.tb_prazo_vinculo_ppa_acoes USIN
 
 COMMENT ON COLUMN snas.tb_prazo_vinculo_ppa_acoes.codigo_orgao IS 'Orgao do tipo "U"';
 
-ALTER TABLE snas.tb_siop_execucao_orcamentaria ADD COLUMN "codigoOrgao" text;
-
-DROP INDEX snas."ind_execucaoOrcamentaria_siop";
-
-CREATE INDEX ind_execucaoOrcamentaria_siop
-  ON snas.tb_siop_execucao_orcamentaria
-  USING btree
-  ("codigoOrgao" COLLATE pg_catalog."default", "codigoOrgao" COLLATE pg_catalog."default", "codigoAcao" COLLATE pg_catalog."default", exercicio COLLATE pg_catalog."default");
-
 -- ENCAMINHAR MULTIPLOS PRAZOS (DEMANDAS)
 ALTER TABLE sgdoc.ext__snas__tb_controle_prazos ADD COLUMN id_prazo_pai integer;
 

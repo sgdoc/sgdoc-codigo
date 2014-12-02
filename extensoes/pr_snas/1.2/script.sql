@@ -108,8 +108,9 @@ CREATE INDEX "ind_codigoAcao_siop"
 
 CREATE TABLE snas.tb_siop_execucao_orcamentaria
 (
-  "codigoAcao" text,
+  "codigoOrgao" text,
   "codigoPrograma" text,
+  "codigoAcao" text,
   exercicio integer,
   "dotacaoAtual" numeric,
   empenhado numeric,
@@ -124,7 +125,7 @@ ALTER TABLE snas.tb_siop_execucao_orcamentaria
 CREATE INDEX "ind_execucaoOrcamentaria_siop"
   ON snas.tb_siop_execucao_orcamentaria
   USING btree
-  ("codigoAcao" COLLATE pg_catalog."default", "codigoPrograma" COLLATE pg_catalog."default");
+  ("codigoOrgao" COLLATE pg_catalog."default", "codigoPrograma" COLLATE pg_catalog."default", "codigoAcao" COLLATE pg_catalog."default", exercicio COLLATE pg_catalog."default");
 
 
 CREATE TABLE snas.tb_siop_metas
