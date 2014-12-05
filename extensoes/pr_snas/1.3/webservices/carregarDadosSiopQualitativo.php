@@ -1,8 +1,9 @@
 <?php
 
 include_once(dirname(__FILE__) . '/include.soap.php');
-
-echo "Qualitativo\n";
+agora("==================================================================");
+agora("Qualitativo");
+agora("==================================================================");
 
 /*
  * Define que dados serão buscados no webservice. 
@@ -29,35 +30,41 @@ if($baixar['orgaos']) {
 	 * Obtendo a base de dados de órgãos para o ano de exercício repassado
 	 * 
 	*/
-	echo "Limpando base de dados dos programas para o ano de {$exercicio}.\n";
-	limparDadosSiop('orgaos', "exercicio = '{$exercicio}'");
-	echo "Obtendo órgãos.\n";
+	agora("Obtendo órgãos.");
+	limparDadosSiop('orgaos', "exercicio = '{$exercicio}'","Limpando base de dados dos órgãos para o ano de {$exercicio}.");
 	$orgaosSiorg = obterOrgaosSgbio();
-	$totalRegistros = 0;
+	$contadorOrgaosSiop = 0;
+	$totalOrgaosSiop = count($orgaosSiorg);
+	$totalRegistrosOrgaos = 0;
 	foreach($orgaosSiorg as $k => $j) {
-		$codigoSiorg = $j['CODIGOSIORG'];			
-		do {
-			echo "Obtendo dados do orgão {$codigoSiorg}. ";
-			$orgaosAux = obterOrgaosPorCodigoSiorgAnoExercicio($codigoSiorg, $exercicio);
+		$codigoSiorg = $j['CODIGOSIORG'];
+		$contadorOrgaosSiop++;			
+		do {			
+			$orgaosAux = obterOrgaosPorCodigoSiorgAnoExercicio($codigoSiorg, $exercicio, $contadorOrgaosSiop, $totalOrgaosSiop);
 			if(!$orgaosAux['sucesso']) {		
-				echo "Houve um problema:\n\n";
+				agora("Houve um problema:");
+				echo "\n";
 				echo str_replace("<br>", "\n", $orgaosAux['mensagensErro']);
 				echo "\n";
 			} else {
-				$numRegistros = 0;
+				$numRegistrosOrgaos = 0;
 				foreach($orgaosAux['registros'] as $orgao) {
 					if(isset($orgao['tipoOrgao'])) {
 						$orgao['orgaoSiorg'] = $codigoSiorg;
 						salvarDadosSiop('orgaos', $orgao);
-						$numRegistros++;
-						$totalRegistros++;
+						$numRegistrosOrgaos++;
+						$totalRegistrosOrgaos++;
 					}						
 				}
-				echo "Registros salvos: {$numRegistros}.\n";
+				if($numRegistrosOrgaos > 0) {
+					agora("\tSalvados {$numRegistrosOrgaos} registros para o órgão {$codigoSiorg}.");
+				} else {
+					agora("\tNão foi encontrado nenhum registro para esse órgão.");
+				}
 			}
 		} while (!$orgaosAux['sucesso']);
 	}
-	echo "Total de órgãos registrados: {$totalRegistros}. \n";
+	agora("Total de órgãos registrados: {$totalRegistrosOrgaos}.");
 }
 
 if($baixar['programas']) {
@@ -66,22 +73,27 @@ if($baixar['programas']) {
 	 * Obtendo a base de dados de programas para o ano de exercício repassado
 	 * 
 	*/
-	echo "Obtendo programas.\n";
+	agora("Obtendo programas.");
+	limparDadosSiop('programas', "exercicio = '{$exercicio}'","Limpando base de dados dos programas para o ano de {$exercicio}.");
 	$orgaosSiop = obterOrgaosSiopPorExercicio($exercicio);
 	$programas = array();
 	$camposPrograma = obterCampos('programas');	
-	$totalRegistros = 0;
+	$totalOrgaosSiop = count($orgaosSiop);
+	$contadorProgramasPorOrgaoSiop = 0;
 	foreach($orgaosSiop as $k => $j) {
 		$codigoSiop = $j['CODIGOSIOP'];
+		$contadorProgramasPorOrgaoSiop++;
 		do {
-			echo "Obtendo programas do orgão {$codigoSiop}.\n";
-			$programasAux = obterProgramasPorOrgaoAnoExercicio($codigoSiop, $exercicio);
+			$programasAux = obterProgramasPorOrgaoAnoExercicio($codigoSiop, $exercicio, $contadorProgramasPorOrgaoSiop, $totalOrgaosSiop);
 			if(!$programasAux['sucesso']) {
-				echo "\tNão foi possível obter os dados dos programas:\n\n";
+				agora("\tNão foi possível obter os dados dos programas:");
+				echo "\n";
 				echo str_replace("<br>", "\n", $programasAux['mensagensErro']);
 				echo "\n";
 			} else {
+				$contadorProgramasPorOrgao = 0;
 				foreach($programasAux['registros'] as $programa) {
+					$contadorProgramasPorOrgao++;
 					$programa['codigoOrgao'] = $codigoSiop;
 					$chvPrograma = $programa['codigoPrograma'];
 					foreach($camposPrograma as $chave => $tipo) {
@@ -96,15 +108,18 @@ if($baixar['programas']) {
 					}
 					reset($camposPrograma);	
 				}
+				if($contadorProgramasPorOrgao > 0) {
+					agora("\tEncontrados {$contadorProgramasPorOrgao} programa(s) para esse órgão.");
+				} else {
+					agora("\nNão foi encontrado nenhum programa para esse órgão.");
+				}
 			}
 		} while(!$programasAux['sucesso']); 
 	}		
-	echo "Programas obtidos. Limpando base de dados dos programas para o ano de {$exercicio}.\n";
-	limparDadosSiop('programas', "exercicio = '{$exercicio}'");
+	agora("Salvando programas encontrados.");
 	foreach($programas as $programa) {
-		salvarDadosSiop('programas', $programa);			
+		salvarDadosSiop('programas', $programa);
 	}	
-	echo "Dados dos programas salvados.\n";
 	reset($programas);
 }
 
@@ -114,21 +129,31 @@ if($baixar['acoes']) {
 	 * Obtendo a base de dados de ações para o ano de exercício repassado
 	 * 
 	*/
-	echo "Limpando base de dados das ações para o ano de {$exercicio}.\n";
-	limparDadosSiop('acoes', " exercicio = '{$exercicio}' ");
+	agora("Obtendo ações.");
+	limparDadosSiop('acoes', " exercicio = '{$exercicio}' ","Limpando base de dados das ações para o ano de {$exercicio}.");
 	$programas = obterProgramasSiopPorExercicio($exercicio);
+	$totalProgramas = count($programas);
+	$contadorProgramas = 0;
 	foreach($programas as $programa) {
-		echo "Obtendo ações do programa '{$programa['CODIGOPROGRAMA']}'.\n";
-		$acoesDoPrograma = obterAcoesPorPrograma($programa['CODIGOPROGRAMA'], $exercicio);
+		$contadorProgramas++;
+		$codigoPrograma = $programa['CODIGOPROGRAMA'];
+		$acoesDoPrograma = obterAcoesPorPrograma($codigoPrograma, $exercicio, $contadorProgramas, $totalProgramas);
 		if( !$acoesDoPrograma['sucesso'] ) {
-			echo "\tNão foi possível obter os dados das ações do programa '{$programa['CODIGOPROGRAMA']}:'.\n\n";
+			agora("\tNão foi possível obter os dados das ações do programa '{$codigoPrograma}':");
+			echo "\n";
 			echo str_replace("<br>", "\n", $acoesDoPrograma['mensagensErro']);
-			echo "\n\n";
+			echo "\n";
 		} else {
+			$numRegistrosAcoes = 0;
 			foreach($acoesDoPrograma['registros'] as $acaoDoPrograma) {
-				salvarDadosSiop('acoes', $acaoDoPrograma);					
+				salvarDadosSiop('acoes', $acaoDoPrograma);
+				$numRegistrosAcoes++;					
 			}
-			echo "\tDados das ações do programa '{$programa['CODIGOPROGRAMA']}' salvado.\n";
+			if($numRegistrosAcoes > 0) {
+				agora("\tSalvadas {$numRegistrosAcoes} ações do programa '{$codigoPrograma}'.");
+			} else {
+				agora("\tO programa não tem ações.");
+			}
 			reset($acoesDoPrograma);
 		}
 	}
@@ -141,19 +166,25 @@ if($baixar["objetivos"]) {
 	 * Obtendo a base de dados de objetivos para o ano de exercício repassado
 	 *
 	 */
-	echo "Obtendo objetivos.\n";
+	agora("Obtendo objetivos.");
+	limparDadosSiop('objetivos', "exercicio = '{$exercicio}'","Limpando base de dados dos objetivos para o ano de {$exercicio}.");
 	$objetivos = obterTodosObjetivosPorAnoExercicio($exercicio);
 	if(!$objetivos['sucesso']) {
-		echo "\tNão foi possível obter os dados dos objetivos:\n\n";
+		agora("\tNão foi possível obter os dados dos objetivos:");
+		echo "\n";
 		echo str_replace("<br>", "\n", $objetivos['mensagensErro']);
-		echo "\n\n";
+		echo "\n";
 	} else {
-		echo "Objetivos obtidos. Limpando base de dados dos objetivos para o ano de {$exercicio}.\n";
-		limparDadosSiop('objetivos', "exercicio = '{$exercicio}'");
+		$numRegistrosObjetivos = 0;
 		foreach($objetivos['registros'] as $objetivo) {
 			salvarDadosSiop('objetivos', $objetivo);
+			$numRegistrosObjetivos++;
 		}
-		echo "Dados dos objetivos salvados.\n";
+		if($numRegistrosObjetivos > 0) {
+			agora("Salvados {$numRegistrosObjetivos} objetivos.");
+		} else {
+			agora("Sem objetivos para serem salvados.");
+		}
 		reset($objetivos);
 	}
 }
@@ -164,19 +195,25 @@ if($baixar['metas']) {
 	 * Obtendo a base de dados de metas para o ano de exercício repassado
 	 *
 	*/
-	echo "Obtendo metas.\n";
+	agora("Obtendo metas.");
+	limparDadosSiop('metas', "exercicio = '{$exercicio}'","Limpando base de dados das metas para o ano de {$exercicio}.");
 	$metas = obterTodasMetasPorAnoExercicio($exercicio);
 	if(!$metas['sucesso']) {
-		echo "\tNão foi possível obter os dados das metas:\n\n";
+		agora("\tNão foi possível obter os dados das metas:");
+		echo "\n";
 		echo str_replace("<br>", "\n", $metas['mensagensErro']);
-		echo "\n\n";
+		echo "\n";
 	} else {
-		echo "Metas obtidas. Limpando base de dados das metas para o ano de {$exercicio}.\n";
-		limparDadosSiop('metas', "exercicio = '{$exercicio}'");
+		$numRegistrosMetas = 0;
 		foreach($metas['registros'] as $meta) {
 			salvarDadosSiop('metas', $meta);
+			$numRegistrosMetas++;
 		}
-		echo "Dados das metas salvados.\n";
+		if($numRegistrosMetas > 0) {
+			agora("Salvadas {$numRegistrosMetas} metas.");
+		} else {
+			agora("Sem metas para serem salvadas.");
+		}
 		reset($metas);
 	}
 }

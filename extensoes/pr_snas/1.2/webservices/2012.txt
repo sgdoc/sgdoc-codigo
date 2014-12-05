@@ -1,0 +1,1577 @@
+Quantitativo
+Limpando base de dados das execuções orçamentárias para o ano de 2012.
+Array
+(
+    [IDENTIFICADORUNICO] => 758
+    [CODIGOMOMENTO] => 9000
+    [CODIGOORGAO] => 49000
+    [CODIGOPROGRAMA] => 2012
+    [CODIGOTIPOPROGRAMA] => 6
+    [ESTRATEGIAIMPLEMENTACAO] => 
+    [EXERCICIO] => 2012
+    [HORIZONTETEMPORALCONTINUO] => 0
+    [JUSTIFICATIVA] => 
+    [OBJETIVO] => 
+    [PROBLEMA] => 
+    [PUBLICOALVO] => 
+    [SNEXCLUSAOLOGICA] => 
+    [TITULO] => Agricultura Familiar
+)
+Obtendo execuções orçamentárias do programa '2012'.
+Array
+(
+    [codigoAcao] => 00GW
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 67000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 00GZ
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 30000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 0281
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 2917159000.00
+    [empenhado] => 2917159000
+    [liquidado] => 2917159000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 0359
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 627130080.00
+    [empenhado] => 627130080
+    [liquidado] => 627130080.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 0A81
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 466666667.00
+    [empenhado] => 153100289.11
+    [liquidado] => 153100289.11
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 20GI
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 217000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 20SY
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 47224729.00
+    [empenhado] => 33211029.05
+    [liquidado] => 33211029.05
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 20SZ
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1500000.00
+    [empenhado] => 1469000
+    [liquidado] => 1469000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 20T2
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 2000000.00
+    [empenhado] => 2000000
+    [liquidado] => 2000000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 210O
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 3333333.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 210V
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4230898.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 210W
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 2178
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 3000000.00
+    [empenhado] => 149782
+    [liquidado] => 149782.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 2B54
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 10111673.00
+    [empenhado] => 8804240.75
+    [liquidado] => 8804240.75
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 2C76
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1447858.00
+    [empenhado] => 1447857.18
+    [liquidado] => 1447857.18
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 4260
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 354381471.00
+    [empenhado] => 338044921.6
+    [liquidado] => 338044921.60
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 4266
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 19837292.00
+    [empenhado] => 9818486.89
+    [liquidado] => 9818486.89
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 4280
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 23634700.00
+    [empenhado] => 19251701.14
+    [liquidado] => 19251701.14
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 4448
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 15318200.00
+    [empenhado] => 11838704.41
+    [liquidado] => 11838704.41
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 4470
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 268763100.00
+    [empenhado] => 227059759.83
+    [liquidado] => 227059759.83
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 6087
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 875000.00
+    [empenhado] => 860132.41
+    [liquidado] => 860132.41
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 8312
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1000000.00
+    [empenhado] => 992799.2
+    [liquidado] => 992799.20
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 8326
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4000000.00
+    [empenhado] => 2832996.76
+    [liquidado] => 2832996.76
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 8332
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 11748000.00
+    [empenhado] => 6045204.16
+    [liquidado] => 6045204.16
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 8358
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4212000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 8400
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 6000000.00
+    [empenhado] => 5817022.37
+    [liquidado] => 5817022.37
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [codigoAcao] => 8996
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1750005.00
+    [empenhado] => 1204598.9
+    [liquidado] => 1204598.90
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 49000
+)
+Array
+(
+    [IDENTIFICADORUNICO] => 758
+    [CODIGOMOMENTO] => 9000
+    [CODIGOORGAO] => 74000
+    [CODIGOPROGRAMA] => 2012
+    [CODIGOTIPOPROGRAMA] => 6
+    [ESTRATEGIAIMPLEMENTACAO] => 
+    [EXERCICIO] => 2012
+    [HORIZONTETEMPORALCONTINUO] => 0
+    [JUSTIFICATIVA] => 
+    [OBJETIVO] => 
+    [PROBLEMA] => 
+    [PUBLICOALVO] => 
+    [SNEXCLUSAOLOGICA] => 
+    [TITULO] => Agricultura Familiar
+)
+Obtendo execuções orçamentárias do programa '2012'.
+Array
+(
+    [codigoAcao] => 00GW
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 67000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 00GZ
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 30000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 0281
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 2917159000.00
+    [empenhado] => 2917159000
+    [liquidado] => 2917159000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 0359
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 627130080.00
+    [empenhado] => 627130080
+    [liquidado] => 627130080.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 0A81
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 466666667.00
+    [empenhado] => 153100289.11
+    [liquidado] => 153100289.11
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 20GI
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 217000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 20SY
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 47224729.00
+    [empenhado] => 33211029.05
+    [liquidado] => 33211029.05
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 20SZ
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1500000.00
+    [empenhado] => 1469000
+    [liquidado] => 1469000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 20T2
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 2000000.00
+    [empenhado] => 2000000
+    [liquidado] => 2000000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 210O
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 3333333.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 210V
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4230898.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 210W
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 2178
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 3000000.00
+    [empenhado] => 149782
+    [liquidado] => 149782.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 2B54
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 10111673.00
+    [empenhado] => 8804240.75
+    [liquidado] => 8804240.75
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 2C76
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1447858.00
+    [empenhado] => 1447857.18
+    [liquidado] => 1447857.18
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 4260
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 354381471.00
+    [empenhado] => 338044921.6
+    [liquidado] => 338044921.60
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 4266
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 19837292.00
+    [empenhado] => 9818486.89
+    [liquidado] => 9818486.89
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 4280
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 23634700.00
+    [empenhado] => 19251701.14
+    [liquidado] => 19251701.14
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 4448
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 15318200.00
+    [empenhado] => 11838704.41
+    [liquidado] => 11838704.41
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 4470
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 268763100.00
+    [empenhado] => 227059759.83
+    [liquidado] => 227059759.83
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 6087
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 875000.00
+    [empenhado] => 860132.41
+    [liquidado] => 860132.41
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 8312
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1000000.00
+    [empenhado] => 992799.2
+    [liquidado] => 992799.20
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 8326
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4000000.00
+    [empenhado] => 2832996.76
+    [liquidado] => 2832996.76
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 8332
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 11748000.00
+    [empenhado] => 6045204.16
+    [liquidado] => 6045204.16
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 8358
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4212000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 8400
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 6000000.00
+    [empenhado] => 5817022.37
+    [liquidado] => 5817022.37
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [codigoAcao] => 8996
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1750005.00
+    [empenhado] => 1204598.9
+    [liquidado] => 1204598.90
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74000
+)
+Array
+(
+    [IDENTIFICADORUNICO] => 758
+    [CODIGOMOMENTO] => 9000
+    [CODIGOORGAO] => 44000
+    [CODIGOPROGRAMA] => 2012
+    [CODIGOTIPOPROGRAMA] => 6
+    [ESTRATEGIAIMPLEMENTACAO] => 
+    [EXERCICIO] => 2012
+    [HORIZONTETEMPORALCONTINUO] => 0
+    [JUSTIFICATIVA] => 
+    [OBJETIVO] => 
+    [PROBLEMA] => 
+    [PUBLICOALVO] => 
+    [SNEXCLUSAOLOGICA] => 
+    [TITULO] => Agricultura Familiar
+)
+Obtendo execuções orçamentárias do programa '2012'.
+Array
+(
+    [codigoAcao] => 00GW
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 67000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 00GZ
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 30000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 0281
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 2917159000.00
+    [empenhado] => 2917159000
+    [liquidado] => 2917159000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 0359
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 627130080.00
+    [empenhado] => 627130080
+    [liquidado] => 627130080.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 0A81
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 466666667.00
+    [empenhado] => 153100289.11
+    [liquidado] => 153100289.11
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 20GI
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 217000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 20SY
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 47224729.00
+    [empenhado] => 33211029.05
+    [liquidado] => 33211029.05
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 20SZ
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1500000.00
+    [empenhado] => 1469000
+    [liquidado] => 1469000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 20T2
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 2000000.00
+    [empenhado] => 2000000
+    [liquidado] => 2000000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 210O
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 3333333.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 210V
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4230898.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 210W
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 2178
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 3000000.00
+    [empenhado] => 149782
+    [liquidado] => 149782.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 2B54
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 10111673.00
+    [empenhado] => 8804240.75
+    [liquidado] => 8804240.75
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 2C76
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1447858.00
+    [empenhado] => 1447857.18
+    [liquidado] => 1447857.18
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 4260
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 354381471.00
+    [empenhado] => 338044921.6
+    [liquidado] => 338044921.60
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 4266
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 19837292.00
+    [empenhado] => 9818486.89
+    [liquidado] => 9818486.89
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 4280
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 23634700.00
+    [empenhado] => 19251701.14
+    [liquidado] => 19251701.14
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 4448
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 15318200.00
+    [empenhado] => 11838704.41
+    [liquidado] => 11838704.41
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 4470
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 268763100.00
+    [empenhado] => 227059759.83
+    [liquidado] => 227059759.83
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 6087
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 875000.00
+    [empenhado] => 860132.41
+    [liquidado] => 860132.41
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 8312
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1000000.00
+    [empenhado] => 992799.2
+    [liquidado] => 992799.20
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 8326
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4000000.00
+    [empenhado] => 2832996.76
+    [liquidado] => 2832996.76
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 8332
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 11748000.00
+    [empenhado] => 6045204.16
+    [liquidado] => 6045204.16
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 8358
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4212000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 8400
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 6000000.00
+    [empenhado] => 5817022.37
+    [liquidado] => 5817022.37
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [codigoAcao] => 8996
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1750005.00
+    [empenhado] => 1204598.9
+    [liquidado] => 1204598.90
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 44000
+)
+Array
+(
+    [IDENTIFICADORUNICO] => 758
+    [CODIGOMOMENTO] => 9000
+    [CODIGOORGAO] => 74101
+    [CODIGOPROGRAMA] => 2012
+    [CODIGOTIPOPROGRAMA] => 6
+    [ESTRATEGIAIMPLEMENTACAO] => 
+    [EXERCICIO] => 2012
+    [HORIZONTETEMPORALCONTINUO] => 0
+    [JUSTIFICATIVA] => 
+    [OBJETIVO] => 
+    [PROBLEMA] => 
+    [PUBLICOALVO] => 
+    [SNEXCLUSAOLOGICA] => 
+    [TITULO] => Agricultura Familiar
+)
+Obtendo execuções orçamentárias do programa '2012'.
+Array
+(
+    [codigoAcao] => 00GW
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 67000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 00GZ
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 30000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 0281
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 2917159000.00
+    [empenhado] => 2917159000
+    [liquidado] => 2917159000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 0359
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 627130080.00
+    [empenhado] => 627130080
+    [liquidado] => 627130080.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 0A81
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 466666667.00
+    [empenhado] => 153100289.11
+    [liquidado] => 153100289.11
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 20GI
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 217000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 20SY
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 47224729.00
+    [empenhado] => 33211029.05
+    [liquidado] => 33211029.05
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 20SZ
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1500000.00
+    [empenhado] => 1469000
+    [liquidado] => 1469000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 20T2
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 2000000.00
+    [empenhado] => 2000000
+    [liquidado] => 2000000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 210O
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 3333333.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 210V
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4230898.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 210W
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 2178
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 3000000.00
+    [empenhado] => 149782
+    [liquidado] => 149782.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 2B54
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 10111673.00
+    [empenhado] => 8804240.75
+    [liquidado] => 8804240.75
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 2C76
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1447858.00
+    [empenhado] => 1447857.18
+    [liquidado] => 1447857.18
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 4260
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 354381471.00
+    [empenhado] => 338044921.6
+    [liquidado] => 338044921.60
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 4266
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 19837292.00
+    [empenhado] => 9818486.89
+    [liquidado] => 9818486.89
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 4280
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 23634700.00
+    [empenhado] => 19251701.14
+    [liquidado] => 19251701.14
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 4448
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 15318200.00
+    [empenhado] => 11838704.41
+    [liquidado] => 11838704.41
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 4470
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 268763100.00
+    [empenhado] => 227059759.83
+    [liquidado] => 227059759.83
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 6087
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 875000.00
+    [empenhado] => 860132.41
+    [liquidado] => 860132.41
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 8312
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1000000.00
+    [empenhado] => 992799.2
+    [liquidado] => 992799.20
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 8326
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4000000.00
+    [empenhado] => 2832996.76
+    [liquidado] => 2832996.76
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 8332
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 11748000.00
+    [empenhado] => 6045204.16
+    [liquidado] => 6045204.16
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 8358
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4212000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 8400
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 6000000.00
+    [empenhado] => 5817022.37
+    [liquidado] => 5817022.37
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [codigoAcao] => 8996
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1750005.00
+    [empenhado] => 1204598.9
+    [liquidado] => 1204598.90
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 74101
+)
+Array
+(
+    [IDENTIFICADORUNICO] => 758
+    [CODIGOMOMENTO] => 9000
+    [CODIGOORGAO] => 22000
+    [CODIGOPROGRAMA] => 2012
+    [CODIGOTIPOPROGRAMA] => 6
+    [ESTRATEGIAIMPLEMENTACAO] => 
+    [EXERCICIO] => 2012
+    [HORIZONTETEMPORALCONTINUO] => 0
+    [JUSTIFICATIVA] => 
+    [OBJETIVO] => 
+    [PROBLEMA] => 
+    [PUBLICOALVO] => 
+    [SNEXCLUSAOLOGICA] => 
+    [TITULO] => Agricultura Familiar
+)
+Obtendo execuções orçamentárias do programa '2012'.
+Array
+(
+    [codigoAcao] => 00GW
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 67000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 00GZ
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 30000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 0281
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 2917159000.00
+    [empenhado] => 2917159000
+    [liquidado] => 2917159000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 0359
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 627130080.00
+    [empenhado] => 627130080
+    [liquidado] => 627130080.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 0A81
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 466666667.00
+    [empenhado] => 153100289.11
+    [liquidado] => 153100289.11
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 20GI
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 217000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 20SY
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 47224729.00
+    [empenhado] => 33211029.05
+    [liquidado] => 33211029.05
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 20SZ
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1500000.00
+    [empenhado] => 1469000
+    [liquidado] => 1469000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 20T2
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 2000000.00
+    [empenhado] => 2000000
+    [liquidado] => 2000000.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 210O
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 3333333.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 210V
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4230898.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 210W
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1000000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 2178
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 3000000.00
+    [empenhado] => 149782
+    [liquidado] => 149782.00
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 2B54
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 10111673.00
+    [empenhado] => 8804240.75
+    [liquidado] => 8804240.75
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 2C76
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1447858.00
+    [empenhado] => 1447857.18
+    [liquidado] => 1447857.18
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 4260
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 354381471.00
+    [empenhado] => 338044921.6
+    [liquidado] => 338044921.60
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 4266
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 19837292.00
+    [empenhado] => 9818486.89
+    [liquidado] => 9818486.89
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 4280
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 23634700.00
+    [empenhado] => 19251701.14
+    [liquidado] => 19251701.14
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 4448
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 15318200.00
+    [empenhado] => 11838704.41
+    [liquidado] => 11838704.41
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 4470
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 268763100.00
+    [empenhado] => 227059759.83
+    [liquidado] => 227059759.83
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 6087
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 875000.00
+    [empenhado] => 860132.41
+    [liquidado] => 860132.41
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 8312
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1000000.00
+    [empenhado] => 992799.2
+    [liquidado] => 992799.20
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 8326
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4000000.00
+    [empenhado] => 2832996.76
+    [liquidado] => 2832996.76
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 8332
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 11748000.00
+    [empenhado] => 6045204.16
+    [liquidado] => 6045204.16
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 8358
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 4212000.00
+    [empenhado] => 0
+    [liquidado] => 0.00
+    [percentualLiquidadoEmpenhado] => 0
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 8400
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 6000000.00
+    [empenhado] => 5817022.37
+    [liquidado] => 5817022.37
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)
+Array
+(
+    [codigoAcao] => 8996
+    [codigoPrograma] => 2012
+    [exercicio] => 2012
+    [dotacaoAtual] => 1750005.00
+    [empenhado] => 1204598.9
+    [liquidado] => 1204598.90
+    [percentualLiquidadoEmpenhado] => 100
+    [codigoOrgao] => 22000
+)

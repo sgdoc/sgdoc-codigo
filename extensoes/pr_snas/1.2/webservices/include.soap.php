@@ -149,176 +149,219 @@ function obterCampos($destino) {
 					"snParticipacaoSocial" => TIPO_BOOLEAN
 				),
 		"execucao_orcamentaria" => array (
+					"codigoOrgao" => TIPO_NUMERAL,
 					"codigoAcao" => TIPO_NUMERAL,
 					"codigoPrograma" => TIPO_NUMERAL,
 					"exercicio" => TIPO_INTEIRO,
 					"dotacaoAtual" => TIPO_NUMERAL,
 					"empenhado" => TIPO_NUMERAL,
 					"liquidado" => TIPO_NUMERAL,
- 					"percentualLiquidadoEmpenhado" => TIPO_NUMERAL,
-					"codigoOrgao" => TIPO_NUMERAL
+ 					"percentualLiquidadoEmpenhado" => TIPO_NUMERAL
 				)
 	);
 	return $campos[$destino];
 } 
 
 function salvarDadosSiop($destino, $valores) {
-	$tabela = obterTabelaSiop($destino);
-	$campos = obterCampos($destino);
-	$colunas = implode("\",\"", array_keys($campos));
-	$auxValores = implode(",:", array_keys($campos));
-	
-	$operacao = "insert into {$tabela} (\"{$colunas}\") values (:{$auxValores})";
-	$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
-	$gravar = true;
-	foreach($campos as $chave => $tipo) {
-		if($chave == 'identificadorUnico' && $valores[$chave] == 0)
-			$gravar = false;
-		switch($tipo) {
-			case TIPO_NUMERAL:
-				$valor = $valores[$chave];
-				$tipo_numeral = substr($valor, -3, 1); // Pega o separador de decimal se houver
-				switch($tipo_numeral) {
-					case ',':
-						$valor = str_replace('.', '', $valor);
-						$valor = str_replace(',', '.', $valor);
-						break;
-					case '.':
-						$valor = str_replace(',', '', $valor);
-						break;
-					default :
-						break;
-				}
-				$pdo = \PDO::PARAM_STR;
-				break;
-			case TIPO_TEXTUAL :
-				$valor = utf8_encode($valores[$chave]);
-				$pdo = \PDO::PARAM_STR;
-				break;
-			case TIPO_BOOLEAN :
-				$valor = ($valores[$chave] == 'true') ? true : false;
-				$pdo = \PDO::PARAM_BOOL;
-				break;
-			default :
-				$valor = (INT) $valores[$chave];
-				$pdo = \PDO::PARAM_INT;
+	try{
+		$tabela = obterTabelaSiop($destino);
+		$campos = obterCampos($destino);
+		$colunas = implode("\",\"", array_keys($campos));
+		$auxValores = implode(",:", array_keys($campos));
+		
+		$operacao = "insert into {$tabela} (\"{$colunas}\") values (:{$auxValores})";
+		$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
+		$gravar = true;
+		foreach($campos as $chave => $tipo) {
+			if($chave == 'identificadorUnico' && $valores[$chave] == 0)
+				$gravar = false;
+			switch($tipo) {
+				case TIPO_NUMERAL:
+					$valor = $valores[$chave];
+					$tipo_numeral = substr($valor, -3, 1); // Pega o separador de decimal se houver
+					switch($tipo_numeral) {
+						case ',':
+							$valor = str_replace('.', '', $valor);
+							$valor = str_replace(',', '.', $valor);
+							break;
+						case '.':
+							$valor = str_replace(',', '', $valor);
+							break;
+						default :
+							break;
+					}
+					$pdo = \PDO::PARAM_STR;
+					break;
+				case TIPO_TEXTUAL :
+					$valor = utf8_encode($valores[$chave]);
+					$pdo = \PDO::PARAM_STR;
+					break;
+				case TIPO_BOOLEAN :
+					$valor = ($valores[$chave] == 'true') ? true : false;
+					$pdo = \PDO::PARAM_BOOL;
+					break;
+				default :
+					$valor = (INT) $valores[$chave];
+					$pdo = \PDO::PARAM_INT;
+			}
+			$bind = ":{$chave}";
+			$stmt->bindValue($bind, $valor, $pdo);
 		}
-		$bind = ":{$chave}";
-		$stmt->bindValue($bind, $valor, $pdo);
-	}
-	if( $gravar ) {	
-		$stmt->execute();
-		return $stmt->fetch(PDO::FETCH_ASSOC);
+		if( $gravar ) {	
+			$stmt->execute();
+			return $stmt->fetch(PDO::FETCH_ASSOC);
+		}
+	} catch  (Exception $e) {
+		agora("Erro ao salvar dados:");
+		var_dump($e->getMessage());
+		echo "Parâmetros passados:\n";
+		var_dump($destino, $valores);
 	}
 	return false;
 }
 
 
 function obterDadosSiop($destino, $condicao = null, $ordem = null, $limite = null ) {
-	$tabela = obterTabelaSiop($destino);
-	
-	$where = '';
-	if(!is_null($condicao)) {
-		$condicoes = $condicao;
-		if(is_array($condicao)) {
-			$condicoes = implode(' and ', $condicao);
-		}
-		$where = " where {$condicoes} ";
-	}
-	
-	$order = '';
-	if(!is_null($ordem)) {
-		$ordenadores = $ordem;
-		if(is_array($ordem)) {
-			$ordenadores = implode(' , ', $ordem);
-		}
-		$order = " order by {$ordenadores} ";
-	}
-	
-	$limit = '';
-	if(!is_null($limite)) {
-		$limit = " limit $limite ";
-	}
-	
-	$operacao = "select * from {$tabela} {$where} {$order} {$limit}";
-	$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
-	$stmt->execute();
 	$out = array();
-	while($tuple = $stmt->fetch(PDO::FETCH_ASSOC)) {
-		$out[] = $tuple;
+	try {
+		$tabela = obterTabelaSiop($destino);
+		
+		$where = '';
+		if(!is_null($condicao)) {
+			$condicoes = $condicao;
+			if(is_array($condicao)) {
+				$condicoes = implode(' and ', $condicao);
+			}
+			$where = " where {$condicoes} ";
+		}
+		
+		$order = '';
+		if(!is_null($ordem)) {
+			$ordenadores = $ordem;
+			if(is_array($ordem)) {
+				$ordenadores = implode(' , ', $ordem);
+			}
+			$order = " order by {$ordenadores} ";
+		}
+		
+		$limit = '';
+		if(!is_null($limite)) {
+			$limit = " limit $limite ";
+		}
+		
+		$operacao = "select * from {$tabela} {$where} {$order} {$limit}";
+		$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
+		$stmt->execute();
+		$out = array();
+		while($tuple = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			$out[] = $tuple;
+		}
+	} catch (Exception $e) {
+		agora("Erro ao obter dados SIOP:");
+		var_dump($e->getMessage());
+		echo "Parâmetros passados:\n";
+		var_dump($destino, $condicao, $ordem, $limite);
 	}
 	return $out;
 }
 
-function limparDadosSiop($destino, $condicao) {
-	$tabela = obterTabelaSiop($destino);
-	$condicoes = $condicao;
-	if(is_array($condicao)) {
-		$condicoes = implode(' and ', $condicao);
+function limparDadosSiop($destino, $condicao, $mensagem = "") {
+	if($mensagem != "") {
+		agora($mensagem);
 	}
-	$operacao = "delete from {$tabela} where {$condicoes}";
-	
-	$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
-	$stmt->execute();
-	return $stmt->fetch(PDO::FETCH_ASSOC);
+	try{
+		$tabela = obterTabelaSiop($destino);
+		$condicoes = $condicao;
+		if(is_array($condicao)) {
+			$condicoes = implode(' and ', $condicao);
+		}
+		$operacao = "delete from {$tabela} where {$condicoes}";
+		
+		$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
+		$stmt->execute();
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	} catch (Exception $e) {
+		agora("Erro ao limpar dados de '{$destino}' quando '{$condicao}':");
+		var_dump($e->getMessage());
+	}
 }
 
 
 function obterOrgaosSgbio() {
-	$operacao = "
-		select 
-			distinct (stps.co_orgao::integer)::text as codigoSiorg
-		from 
-			sgdoc.tb_pessoa_siorg stps 
-	";
-	$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
-	$stmt->execute();
+	agora("Carregando órgãos do sistema SgBio.");
 	$out = array();
-	while($tuple = $stmt->fetch(PDO::FETCH_ASSOC)) {
-		$out[] = $tuple;
+	try{
+		$operacao = "
+			select 
+				distinct (stps.co_orgao::integer)::text as codigoSiorg
+			from 
+				sgdoc.tb_pessoa_siorg stps 
+			order by
+				codigoSiorg
+		";
+		$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
+		$stmt->execute();
+		while($tuple = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			$out[] = $tuple;
+		}
+	} catch (Exception $e) {
+		agora("Erro ao obter orgãos:");
+		var_dump($e->getMessage());
 	}
 	return $out;
 }
 
 function obterOrgaosSiopPorExercicio($exercicio) {
-	$operacao = "
-		select 
-			distinct \"codigoOrgao\" as codigoSiop
-		from 
-			snas.tb_siop_orgaos 
-		where 
-			exercicio = :exercicio
-		order by
-			\"codigoOrgao\"
-	";
-	
-	$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
-	$stmt->bindValue(':exercicio',$exercicio,\PDO::PARAM_INT);
-	$stmt->execute();
+	agora("Obtendo órgãos SIOP do exercício de {$exercicio}.");
 	$out = array();
-	while($tuple = $stmt->fetch(PDO::FETCH_ASSOC)) {
-		$out[] = $tuple;
+	try {
+		$operacao = "
+			select 
+				distinct \"codigoOrgao\" as codigoSiop
+			from 
+				snas.tb_siop_orgaos 
+			where 
+				exercicio = :exercicio
+			order by
+				\"codigoOrgao\"
+		";
+		
+		$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
+		$stmt->bindValue(':exercicio',$exercicio,\PDO::PARAM_INT);
+		$stmt->execute();
+		while($tuple = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			$out[] = $tuple;
+		}
+	} catch (Exception $e) {
+		agora("Erro ao obter programas:");
+		var_dump($e->getMessage());
 	}
 	return $out;
 }
 
 function obterProgramasSiopPorExercicio($exercicio) {
-	$operacao = "
-		SELECT DISTINCT 
-			\"codigoPrograma\"
-		FROM 
-			snas.tb_siop_programas
-		WHERE 
-			exercicio = :exercicio
-		 ORDER BY \"codigoPrograma\"
-	";
-
-	$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
-	$stmt->bindValue(':exercicio',$exercicio,\PDO::PARAM_INT);
-	$stmt->execute();
+	agora("Obtendo programas SIOP cadastrados para o exercício de {$exercicio}.");
 	$out = array();
-	while($tuple = $stmt->fetch(PDO::FETCH_ASSOC)) {
-		$out[] = $tuple;
+	try{
+		$operacao = "
+			SELECT DISTINCT 
+				\"codigoPrograma\"
+			FROM 
+				snas.tb_siop_programas
+			WHERE 
+				exercicio = :exercicio
+			 ORDER BY \"codigoPrograma\"
+		";
+		
+		$stmt = ConfigWs::factory()->getConnection()->prepare($operacao);
+		$stmt->bindValue(':exercicio',$exercicio,\PDO::PARAM_INT);
+		$stmt->execute();
+		while($tuple = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			$out[] = $tuple;
+		}
+	} catch (Exception $e) {
+		agora("Erro ao obter programas:");
+		var_dump($e->getMessage());
 	}
 	return $out;
 }
@@ -334,7 +377,8 @@ function obterTodosOrgaosPorAnoExercicio($anoExercicio) {
 	return $orgaosDTO;
 }
 
-function obterOrgaosPorCodigoSiorgAnoExercicio($codigoSiorg, $anoExercicio) {
+function obterOrgaosPorCodigoSiorgAnoExercicio($codigoSiorg, $anoExercicio, $contador, $total) {
+	agora("Obtendo dados do orgão {$codigoSiorg} ({$contador} de {$total}).");
 	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
 	$orgaosParametros = array(
 			'credencial'	=> retornaCredenciais($configuracao),
@@ -356,7 +400,8 @@ function obterTodosProgramasPorAnoExercicio($anoExercicio) {
 	return $DTO;
 }
 
-function obterProgramasPorOrgaoAnoExercicio($codigoOrgao, $anoExercicio) {
+function obterProgramasPorOrgaoAnoExercicio($codigoOrgao, $anoExercicio, $contador, $total) {
+	agora("Obtendo programas do orgão {$codigoOrgao} ({$contador} de {$total}). ");
 	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
 	$parametros = array(
 			'credencial'		=> retornaCredenciais($configuracao),
@@ -380,6 +425,7 @@ function obterTodasAcoesPorAnoExercicio($anoExercicio) {
 }
 
 function obterTodosObjetivosPorAnoExercicio($anoExercicio) {
+	agora("Obtendo todos os objetivos do exercício de {$anoExercicio}.");
 	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
 	$parametros = array(
 			'credencial'		=> retornaCredenciais($configuracao),
@@ -391,6 +437,7 @@ function obterTodosObjetivosPorAnoExercicio($anoExercicio) {
 }
 
 function obterTodasMetasPorAnoExercicio($anoExercicio) {
+	agora("Obtendo todas as metas do exercício de {$anoExercicio}.");
 	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
 	$parametros = array(
 			'credencial'		=> retornaCredenciais($configuracao),
@@ -401,7 +448,8 @@ function obterTodasMetasPorAnoExercicio($anoExercicio) {
 	return $DTO;
 }
 
-function obterAcoesPorPrograma($codigoprograma, $anoExercicio) {
+function obterAcoesPorPrograma($codigoprograma, $anoExercicio, $contador, $total) {
+	agora("Obtendo ações do programa '{$codigoprograma}' ({$contador} de {$total}).");	
 	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
 	$acoesPorProgramaParametros = array(
 			'credencial'		=> retornaCredenciais($configuracao),
@@ -412,46 +460,17 @@ function obterAcoesPorPrograma($codigoprograma, $anoExercicio) {
 	return $acoesPorProgramaDTO;
 }
 
-function obterObjetivosPorPrograma($programa, $anoExercicio) {
-	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
-	$objetivosPorProgramaParametros = array(
-			'credencial'		=> retornaCredenciais($configuracao),
-			'exercicio'			=> $anoExercicio,
-			'codigoPrograma'	=> $programa['codigoPrograma'],
-			'codigoMomento'		=> $programa['codigoMomento']
-	);
-	$objetivosPorProgramaDTO = acessarWebServiceSOF( 'obterObjetivosPorPrograma', $objetivosPorProgramaParametros, $configuracao );
-	return $objetivosPorProgramaDTO;
-}
-
-function obterMetasPorObjetivo($objetivo, $anoExercicio) {
-	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
-	$metasPorObjetivoParametros = array(
-			'credencial'		=> retornaCredenciais($configuracao),
-			'exercicio'			=> $anoExercicio,
-			'codigoPrograma'	=> $objetivo['codigoPrograma'],
-			'codigoMomento'		=> $objetivo['codigoMomento'],
-			'codigoObjetivo'	=> $objetivo['codigoObjetivo']
-	);
-	$metasPorObjetivo = acessarWebServiceSOF( 'obterMetasPorObjetivo', $metasPorObjetivoParametros, $configuracao );
-	return $metasPorObjetivo;
-}
-
-function obterExecucaoOrcamentaria($programa, $exercicio) {
+function obterExecucaoOrcamentaria($codigoprograma, $exercicio) {
+	agora("Obtendo execuções orçamentárias do programa '{$codigoprograma}'.");
+	
 	$configuracao = ConfigWs::factory()->getSiopConfig('quantitativo');	
 	$programaParametros = array(
 			'credencial'		=> retornaCredenciais($configuracao),
 			'filtro'			=> array(
 					'anoExercicio'		=> $exercicio,
-					// 'acoes'			=> array(
-					//		'acao'		=> $acao,
-					//),
 					'programas'	=> array(
-							'programa'	=> $programa,
-					),
-// 					'unidadesOrcamentarias' => array(
-// 							'unidadeOrcamentaria' => $unidadeOrcamentaria,
-// 					),
+							'programa'	=> $codigoprograma,
+					)
 			),
 			'selecaoRetorno' => array(
 					'acao'				=> true,
@@ -468,4 +487,54 @@ function obterExecucaoOrcamentaria($programa, $exercicio) {
 
 function retornaValorValido($entrada, $chave, $default) {
 	return isset($entrada[$chave]) ? $entrada[$chave] : $default;
+}
+
+
+function obtemValorVariavel($opcoes, $opcoesVariavel) {
+	$nome = $opcoesVariavel['nome'];
+	$letra = $opcoesVariavel['letra'];
+	$obrigatorio = $opcoesVariavel['obrigatorio'];
+	$valor = '';
+	if (array_key_exists($nome, $opcoes)) {
+		$valor = strtolower($opcoes[$nome]);
+	} elseif (array_key_exists($letra, $opcoes)) {
+		$valor = strtolower($opcoes[$letra]);
+	}
+	$mensagem = '';
+	switch($opcoesVariavel['tipo']) {
+		case 'lista':
+			$argumentos = implode(' | ', $opcoesVariavel['valores']);
+			if ($valor == '') {
+				if ($obrigatorio) {
+					$mensagem = "Argumento obrigatório: -{$letra} ou --{$nome} [ {$argumentos} ]";
+				}
+			} else if (in_array($valor, $opcoesVariavel['valores']) === false) {
+				$mensagem = "Argumento inválido para o parâmetro '{$nome}', informe [ {$argumentos} ]";
+				$valor = '';
+			}
+			break;
+		case 'ano':
+			$valor = (int) $valor;
+			if ($valor == '') {
+				if($obrigatorio) {
+					$mensagem = "Argumento obrigatório: -{$letra} ou --{$nome} [ ano no formato 9999 ]";
+				}
+			} else if ( $valor < 1900 || $valor > 9999) {
+				$mensagem = "Argumento inválido para o parâmetro '{$nome}', informe [ ano no formato 9999 ]";
+				$valor = '';
+			}
+	}
+	if($mensagem != '')
+	{
+		print "{$mensagem}\n";
+	}
+	return $valor;
+}
+
+function agora($mensagem = "", $quebraDeLinha = true) {
+	echo date("H:i:s");
+	if($mensagem !== "")
+		echo " ==> {$mensagem}";
+	if($quebraDeLinha) 
+		echo "\n";	
 }
