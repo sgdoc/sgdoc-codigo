@@ -25,15 +25,15 @@ https://github.com/sgdoc/sgdoc-codigo/releases/latest
 
 ### Download da versão disponível 
 
-    wget https://github.com/sgdoc/sgdoc-codigo/archive/v4.2.29.zip
+    wget https://github.com/sgdoc/sgdoc-codigo/archive/v4.3.0.zip
 
 ### Descompacte o arquivo
 
-    unzip v4.2.29.zip
+    unzip v4.3.0.zip
 
 ### Publicação do sgdoc
 
-    mv sgdoc-codigo-4.2.29 /var/www/html/sgdoc
+    mv sgdoc-codigo-4.3.0 /var/www/html/sgdoc
 
 
 Iniciando o banco de dados posrgresql (caso não esteja rodando)
