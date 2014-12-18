@@ -37,7 +37,7 @@ class Config extends CFConfig {
         'dsv' => ' - desenvolvimento',  //Desenvolvimento
         'trn' => ' - treinamento',       //Treinamento
     	'tes' => ' - teste',             //Teste
-        'dev-presidencia' => ' - Dev Presidência',
+        'dev-presidencia' => ' - Dev Presidência'
     );
     public $xml;
 
@@ -105,7 +105,6 @@ class Config extends CFConfig {
         }else{
             define("__CONFIG_ICPBRASIL_CERTIFICADO_CAMINHO__", '');
         }
-            
 
         return $this;
     }

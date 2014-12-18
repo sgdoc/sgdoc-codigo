@@ -330,17 +330,7 @@ class Volume extends Base {
             // a funcionalidade deve adicionar um registro no log para cada volume que foi excluído, 
             // e um registro no log no momento da criação do novo volume, excluir os registros e criar o novo volume.
             // deletando todos os comentários
-            $sql = "DELETE FROM TB_COMENTARIOS_PROCESSOS 
-                    WHERE ID IN (SELECT V.ID_COMENTARIO FROM TB_PROCESSOS_VOLUME V
-                                 WHERE V.ID_PROCESSO_CADASTRO = ?)";
-
-            $stmt = Controlador::getInstance()->getConnection()->connection->prepare($sql);
-            $stmt->bindParam(1, $this->idProcesso, PDO::PARAM_INT);
-
-            $stmt->execute();
-
-            new Log('TB_COMENTARIOS_PROCESSOS', $this->idProcesso, Session::get('_usuario')->id, 'Limpou comentários de volumes');
-
+                       
             $sql = "DELETE FROM TB_PROCESSOS_VOLUME 
                     WHERE ID_PROCESSO_CADASTRO = ?";
 
@@ -351,10 +341,22 @@ class Volume extends Base {
 
             // Inserindo registro no log informando que os volumes foram limpos
             new Log('TB_PROCESSOS_VOLUME', $this->idProcesso, Session::get('_usuario')->id, 'Limpou volumes');
+            
+            $sql = "DELETE FROM tb_comentarios_processos 
+                        where texto_comentario ilike 'O volume%'
+                          AND numero_processo = ?";
+
+            $stmt = Controlador::getInstance()->getConnection()->connection->prepare($sql);
+            $stmt->bindParam(1, $this->processo, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            new Log('TB_COMENTARIOS_PROCESSOS', $this->idProcesso, Session::get('_usuario')->id, 'Limpou comentários vinculados aos volumes');
+
 
 
             // Excluindo do histórico de trâmite de processos informações sobre abertura/encerramento de volumes
-            $sql2 = "DELETE FROM TB_HISTORICO_TRAMITE_PROCESSOS WHERE ACAO LIKE '%VOLUME%' AND NUMERO_PROCESSO = ?";
+            $sql2 = "DELETE FROM TB_HISTORICO_TRAMITE_PROCESSOS WHERE ACAO iLIKE '%VOLUME%' AND NUMERO_PROCESSO = ?";
 
             $stmt2 = Controlador::getInstance()->getConnection()->connection->prepare($sql2);
             $stmt2->bindParam(1, $this->processo, PDO::PARAM_STR);
@@ -362,7 +364,7 @@ class Volume extends Base {
             $stmt2->execute();
 
             // Inserindo registro no log informando que os históricos de trâmite foram limpos
-            new Log('TB_HISTORICO_TRAMITE_PROCESSOS', $this->idProcesso, Session::get('_usuario')->id, 'Limpou volumes');
+            new Log('TB_HISTORICO_TRAMITE_PROCESSOS', $this->idProcesso, Session::get('_usuario')->id, 'Limpou histórico de volumes no trâmite');
 
             // Inserir registro informando a abertura do volume inicial do processo
             $sql3 = "INSERT INTO TB_PROCESSOS_VOLUME 
