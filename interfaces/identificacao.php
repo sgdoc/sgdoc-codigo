@@ -24,6 +24,13 @@ include("function/auto_load_statics.php");
  * include 'Zend/Session/Namespace.php';
  */
 $attempts = new Zend_Session_Namespace('attempts');
+
+$versao = __APPVERSAO__;
+if (CF_APP_ENVIRONMENT != 'prd') {
+	$extensions = Config::factory()->getParam('extensions.active');
+	$versao .= ' - extensão: ' . $extensions[0];
+}
+
 ?>
 
 <style type="text/css">
@@ -69,7 +76,7 @@ $attempts = new Zend_Session_Namespace('attempts');
         border: 1px solid red;
     }
 </style>
-<p align='left' class="style13">Sistema Gerenciador de Documentos (v. <?php print(__APPVERSAO__); ?>)</p>
+<p align='left' class="style13">Sistema Gerenciador de Documentos (v. <?php print($versao); ?>)</p>
 <div id="div-form-autenticacao">
     <?php if (__CONFIG_ICPBRASIL_CERTIFICADO_CAMINHO__ != ''): ?>
     <div class="certificado-info">

@@ -1,0 +1,70 @@
+{
+    "resources":
+            {
+                "classes": [                
+                    "classes/Arvore.php",
+                    "classes/CFModelDocumentoDemanda.php",
+                    "classes/VinculacaoDemanda.php",
+                    "classes/CFModelControlePrazosDemanda.php",
+                    "classes/TPDocumentoDemanda.php",
+                    "classes/CFModelControlePrazosDemanda.php",
+                    "classes/DaoPrazoDemanda.php",
+                    "classes/AutoCompleteDemanda.php",
+                    "classes/Prazo.php"
+                ],
+                "css": [],
+                "imagens": [],
+                "interfaces": [
+                    "tab_vinculacao_documentos_associados.php",
+                    "tab_lista_prazos_enviados.php",
+                    "tab_lista_prazos_recebidos_setor.php",
+                    "grid_demanda_cadastrada.php",
+                    "detalhar_documentos.php",
+                    "historico_prazos_demandas.php",
+                    "form_cadastrar_solicitacao_generica.php",
+                    "form_cadastrar_documentos_novo.php",
+                    "lista_vinculacao_documentos.php",
+                    "tab_vinculacao_documentos_vincular.php",
+                    "arvore_documentos_associados.php",
+                    "tab_vinculacao_documentos_desassociar.php",
+                    "arvore_documentos_associados.php",
+                    "pesquisar_documentos.php",
+                    "lista_pesquisa_documentos.php",
+                    "tab_lista_documentos_area_trabalho.php",
+                    "form_novo_prazo.php",
+                    "lista_prazos.php",
+                    "lista_pesquisa_documentos_demanda.php",
+                    "dialog_responder_prazo.php",
+                    "tab_detalhes_programas_siop.php",
+                    "tab_detalhes_responder_prazo.php",
+                    "arvore_anexos_documentos.php",
+                    "arvore_apensos_documentos.php"
+                ],
+                "javascripts": [
+                	"javascripts/documentos.js"
+                ],
+                "modelos": [
+                    "modelos/generico/cf.php",
+                    "modelos/documentos/listar_documentos_vinculados.php",
+                    "modelos/documentos/cadastrar.php",
+                    "modelos/arvores/listar_documentos_associados.php",
+                    "modelos/documentos/vinculacao.php",
+                    "modelos/demanda/pesquisa_acao.php",
+                    "modelos/demanda/pesquisa_execucao.php",
+                    "modelos/demanda/pesquisa_iniciativa.php",
+                    "modelos/demanda/pesquisa_meta.php",
+                    "modelos/demanda/pesquisa_objetivo.php",
+                    "modelos/demanda/pesquisa_programa.php",
+                    "modelos/demanda/pesquisa_qualificacao_demanda.php",
+                    "modelos/documentos/documentos.php",
+                    "modelos/prazos/prazos.php",
+                    "modelos/prazos/dados_siop.php",
+                    "modelos/prazos/historico_prazos_demandas.php",
+                    "modelos/prazos/meus_prazos_enviados.php",
+                    "modelos/prazos/listar_prazos_recebidos_setor.php",
+                    "modelos/combos/autocomplete.php",
+                    "modelos/documentos/listar_documentos_pesquisa_demanda.php",
+                    "modelos/documentos/listar_documentos_trabalho.php"
+                ]
+            }
+}

@@ -108,8 +108,9 @@ CREATE INDEX "ind_codigoAcao_siop"
 
 CREATE TABLE snas.tb_siop_execucao_orcamentaria
 (
-  "codigoAcao" text,
+  "codigoOrgao" text,
   "codigoPrograma" text,
+  "codigoAcao" text,
   exercicio integer,
   "dotacaoAtual" numeric,
   empenhado numeric,
@@ -124,7 +125,7 @@ ALTER TABLE snas.tb_siop_execucao_orcamentaria
 CREATE INDEX "ind_execucaoOrcamentaria_siop"
   ON snas.tb_siop_execucao_orcamentaria
   USING btree
-  ("codigoAcao" COLLATE pg_catalog."default", "codigoPrograma" COLLATE pg_catalog."default");
+  ("codigoOrgao" COLLATE pg_catalog."default", "codigoPrograma" COLLATE pg_catalog."default", "codigoAcao" COLLATE pg_catalog."default", exercicio COLLATE pg_catalog."default");
 
 
 CREATE TABLE snas.tb_siop_metas
@@ -323,4 +324,10 @@ from sgdoc.tb_privilegios_usuarios pu
 where url = 'grid_demanda_cadastrada.php' and id_recurso_tipo = 1;
 
 commit;
+
+grant all privileges on schema sgdoc,snas to postgres;
+grant usage on schema sgdoc,snas to usr_pr_sgdoc4;
+grant select,insert,update,delete on all tables in schema sgdoc,snas to usr_pr_sgdoc4;
+grant usage on all sequences in schema sgdoc,snas to usr_pr_sgdoc4;
+grant execute on all functions in schema sgdoc,snas to usr_pr_sgdoc4;
 

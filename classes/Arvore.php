@@ -87,7 +87,7 @@ WHERE DCP.DIGITAL = ? AND DV.FG_ATIVO = 1 AND ST_ATIVO = 1 AND ID_VINCULACAO = ?
                 foreach ($out as $key => $value) {
                     $supp = null;
 
-                    $ausente = (!Documento::validarDocumentoAreaDeTrabalho($value['FILHO'])) ? array('classe' => 'ausente', 'title' => 'Este documento nao esta na sua area de trabalho.', 'ausente' => 'true') : array('classe' => '', 'title' => '', 'ausente' => 'false');
+                    $ausente = (!Documento::validarDocumentoAreaDeTrabalho($value['FILHO'])) ? array('classe' => 'ausente', 'title' => 'Este documento nao esta na sua área de trabalho.', 'ausente' => 'true') : array('classe' => '', 'title' => '', 'ausente' => 'false');
                     if (true) {
                         $supp = "<ul class='ajax'>"
                                 . "<li id='{$value['FILHO']}'>{url:'{$pageName}?action=getElementList&ownerEl={$value['FILHO']}',idElemento:'{$value['FILHO']}',stAusente:{$ausente['ausente']}}</li>"
