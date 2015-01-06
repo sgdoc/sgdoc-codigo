@@ -34,8 +34,13 @@ class FormatoPNG implements IFormato
     
     public function __construct( $parAbsoluteFileName='' ) 
     {
+       
+        if (!extension_loaded('gd')) {
+            throw new \Exception("FormatoPNG::__construct() - Extensão GD não foi instalada");
+        }
+        
         if(!count(trim( $parAbsoluteFileName ))){
-            throw new \Exception("FormatoPNG::__construct() - Imagem com endereço inválido");
+            
         }
         $this->_absoluteFileName = $parAbsoluteFileName;            
         $this->_fileExists();
