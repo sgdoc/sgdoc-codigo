@@ -319,6 +319,7 @@ body {
 .tabela {
     background-color: #799936;
     border: 1px solid #9AC619;
+    border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     padding: 2px;
@@ -330,6 +331,7 @@ body {
     /*width: 100%;
     height: 100%;*/
     border: 1px solid #9AC619;
+    border-radius: 30px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     padding: 2px;
@@ -341,6 +343,7 @@ body {
     width: 60%;
     height: 60%;
     border: 1px solid #9AC619;
+    border-radius: 30px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     padding: 2px;
@@ -353,6 +356,7 @@ body {
     margin-top: auto;
     background-color: #799936;
     border: 1px solid #9AC619;
+    border-radius: 30px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     padding: 2px;
@@ -365,6 +369,7 @@ body {
     margin-top: auto;
     background-color: #F00;
     border: 1px solid #FFFFFF;
+    border-radius: 30px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     padding: 2px;
@@ -374,6 +379,7 @@ body {
 .tabela_detalhar_documentos {
     background-color: #799936;
     border: 1px solid #9AC619;
+    border-radius: 30px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     padding: 2px;
@@ -386,6 +392,7 @@ body {
     color: #000;
     border-top: medium #000;
     border: 1px solid #000;
+    border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     padding: 6px;
@@ -393,6 +400,7 @@ body {
 
 .FUNDOCAIXA1 {
     border: 1px solid #9AC619;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 2px;
@@ -400,6 +408,7 @@ body {
 
 .FUNDOCAIXA2 {
     border: 1px solid #9AC619;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 2px;
@@ -408,6 +417,7 @@ body {
 
 .FUNDOCAIXA3 {
     border: 1px solid #9AC619;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 2px;
@@ -418,6 +428,7 @@ body {
 .listagem { /*text-shadow: 1px -1px 9px #000;*/
     background-color: #799936;
     border: 1px solid #9AC619;
+    border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     padding: 2px;
@@ -428,6 +439,7 @@ body {
 .listagem_pesquisa { /*text-shadow: 1px -1px 9px #000;*/
     background-color: #799936;
     border: 2px dashed #9AC619;
+    border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     padding: 2px;
@@ -437,6 +449,7 @@ body {
 .FUNDOCAIXA1:focus {
     border: 1px solid #9AC619;
     background-color: #EFFFBA;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 2px;
@@ -444,6 +457,7 @@ body {
 
 .FUNDOCAIXA3:focus {
     background-color: #EFFFBA;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 2px;
@@ -451,6 +465,7 @@ body {
 
 .FUNDOCAIXA2 {
     border: 1px solid #DBE7F9;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 2px;
@@ -458,6 +473,7 @@ body {
 
 .FUNDOCAIXA2:focus {
     border-color: #000000;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 2px;
@@ -465,6 +481,7 @@ body {
 
 textarea {
     border: 1px solid #FFFFFF;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 2px;
@@ -472,6 +489,7 @@ textarea {
 
 iframe {
     border: 0px solid #FFFFFF;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 3px;
@@ -483,6 +501,7 @@ iframe {
     height: 32px;
     width: 200px;
     margin: 0px;
+    border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     padding: 2px;
@@ -493,6 +512,7 @@ iframe {
     -moz-opacity: 0.0;
     filter: alpha(opacity:0.2);
     font-size: 18px;
+    border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     padding: 2px;
@@ -500,6 +520,7 @@ iframe {
 
 #div-input-falso {
     margin-top: -28px;
+    border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     padding: 2px;
@@ -510,6 +531,7 @@ iframe {
     height: 29px;
     font-size: 15px;
     font-family: Verdana;
+    border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     padding: 2px;
@@ -660,6 +682,7 @@ iframe {
 .titulo_pesquisa { /*text-shadow: 1px -1px 9px #000;*/
     background-color: #799936;
     border: 2px solid #363;
+    border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     padding: 2px;
@@ -711,6 +734,7 @@ iframe {
 .tabela_mensagem_erro{
     background-color: #952E29;
     border: 1px solid #A63D37;
+    border-radius: 30px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     padding: 2px;
@@ -720,6 +744,7 @@ iframe {
 .tabela_mensagem_sucesso{
     background-color: #799936;
     border: 1px solid #9AC619;
+    border-radius: 30px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     padding: 2px;
@@ -742,6 +767,7 @@ iframe {
 .borda-superior-esquerda{
     height: 65px;
     width:50px;
+    border-radius-topleft: 40px;
     -moz-border-radius-topleft: 40px;
     background-color: #799936;
     border: 1px solid #9AC619;
@@ -750,6 +776,7 @@ iframe {
 .borda-superior-direita{
     height: 65px;
     width:50px;
+    border-radius-topright: 40px;
     -moz-border-radius-topright: 40px;
     background-color: #799936;
     border: 1px solid #9AC619;
@@ -795,6 +822,7 @@ iframe {
     width: 400px;
     padding: 5px;
     border: 1px solid #9AC619;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     margin-left: 10px;
@@ -884,6 +912,7 @@ iframe {
     width: 400px;
     padding: 5px;
     border: 1px solid #9AC619;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     margin-left: 10px;
@@ -979,6 +1008,7 @@ iframe {
     width: 400px;
     padding: 5px;
     border: 1px solid #9AC619;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     margin-left: 10px;
@@ -1060,6 +1090,7 @@ iframe {
     width: 400px;
     padding: 5px;
     border: 1px solid #9AC619;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     margin-right: 0px;

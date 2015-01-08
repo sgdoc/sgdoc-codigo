@@ -140,6 +140,7 @@ table.display thead th div.DataTables_sort_wrapper span {
 .dataTables_filter input {
     background-color: #ffffff;
     border: 1px solid #9AC619;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 2px;
@@ -148,6 +149,7 @@ table.display thead th div.DataTables_sort_wrapper span {
 
 .dataTables_filter input:focus {
     background-color: #EFFFBA;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 2px;
@@ -197,6 +199,7 @@ table.display {
     width: 100%;
     clear: both;
     border-collapse: separate;
+    empty-cells: show;
 }
 
 table.display tfoot th {
