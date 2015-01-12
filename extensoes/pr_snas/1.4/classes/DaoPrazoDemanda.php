@@ -311,7 +311,7 @@ class DaoPrazoDemanda extends DaoPrazo {
     			$novoPrazo->nu_proc_dig_ref_pai = $prazo['nu_proc_dig_ref_pai'];
     			$novoPrazo->id_prazo_pai = $idPrazoPai;
     			
-    			self::inserirPrazo(Controlador::getInstance(), $novoPrazo);
+    			self::inserirPrazo($novoPrazo);
     		}
     	
     		Controlador::getInstance()->getConnection()->connection->commit();
