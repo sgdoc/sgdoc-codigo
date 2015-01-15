@@ -109,16 +109,16 @@ foreach ($controller->recurso->dependencias as $arquivo) {
             </div>
         </div>
         <div id="tabs">
-            <table class="display" border="0" id="TabelaHistoricos">
+            <table class="display" id="TabelaHistoricos">
                 <thead>
                     <tr>
                         <th class="style13 column-checkbox">#</th>
                         <th class="style13 column-numero">Prazo</th>
-                        <th class="style13 column-numero">Movimento</th>
-                        <th class="style13 column-tipo">Demanda</th>
-                        <th class="style13 column-assunto">Data Resp</th>
+                        <th class="style13 column-assunto">Movimento</th>
+                        <th class="style13 column-assunto">Demanda</th>
+                        <th class="style13 column-numero">Data Resp</th>
                         <th class="style13 column-assunto">Resposta</th>
-                        <th class="style13 column-tipo">Órgão</th>
+                        <th class="style13 column-assunto">Órgão</th>
                     </tr>
                 </thead>
             </table>

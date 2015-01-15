@@ -242,7 +242,7 @@ if (AclFactory::checaPermissao(Controlador::getInstance()->acl, Controlador::get
             ]
         }); /* Fim dataTable */
 
-       	$("div.divEncaminharPrazos_unidade").html('<button id="btnEncaminharPrazos" class="ui-button ui-widget ui-state-default ui-corner-all"><img src="imagens/novo_prazo.png" id="imgEncaminhar" /> Encaminhar</button>');
+       	$("div.divEncaminharPrazos_unidade").html('<button title="Enviar demandas agrupadas" id="btnEncaminharPrazos" class="ui-button ui-widget ui-state-default ui-corner-all"><img src="imagens/novo_prazo.png" id="imgEncaminhar" /> Encaminhar</button>');
 
     }); /* fim document.ready */
 
@@ -337,7 +337,7 @@ if (AclFactory::checaPermissao(Controlador::getInstance()->acl, Controlador::get
         <tr>
         	<th class="style13 column-digital" style="width: 5px;">#</th>
             <th class="style13 column-digital" style="width: 70px;">Número</th>
-            <th class="style13 column-digital" style="width: 70px;">-- Demanda --</th>
+            <th class="style13 column-digital" style="width: 70px;">Demanda</th>
             <th class="style13 column-encaminhamento" style="width: 300px;">Resposta</th> 
             <th class="style13 column-numero">Movimento/Interessado</th>
             <th class="style13 column-assunto">Órgão</th>
