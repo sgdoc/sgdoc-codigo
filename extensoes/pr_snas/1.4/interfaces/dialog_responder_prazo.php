@@ -354,7 +354,7 @@ print(Util::autoLoadJavascripts(array('javascripts/jquery.form.js')));
 								}
 		                        limpar();
 		                        $('#divResponderPrazo').dialog("close");
-		                        alert('Prazo enviado com Sucesso!');
+		                        alert('Resposta enviada com sucesso!');
 		                    } else {
 								alert(data.error);
 							}

@@ -292,7 +292,7 @@ class DaoPrazoDemanda extends DaoPrazo {
     		
     		$txtComp = '';
     		if (isset($prazos->prazo->tx_solicitacao) && $prazos->prazo->tx_solicitacao != '') {
-    			$txtComp = "\n" . trim($prazos->prazo->tx_solicitacao);
+    			$txtComp = "\n\n" . trim($prazos->prazo->tx_solicitacao);
     		}
     		
     		foreach ($arrId as $idPrazoPai) {
@@ -911,7 +911,7 @@ class DaoPrazoDemanda extends DaoPrazo {
 	    		$stmt->bindParam('prazoPai', $idPrazoPai, PDO::PARAM_INT);
 	    		$stmt->bindParam('arquivo', $nomeSistema, PDO::PARAM_STR);
 	    		$stmt->bindParam('nome', $anexos[$i]['NOME_ORIGINAL'], PDO::PARAM_STR);
-	    		$stmt->bindParam('data', $anexos[$i]['DT_UPLOAD'], PDO::PARAM_STR);
+	    		$stmt->bindParam('data', Util::formatDate($anexos[$i]['DT_UPLOAD']), PDO::PARAM_STR);
 	    		$stmt->bindParam('usuario', $anexos[$i]['ID_PESSOA'], PDO::PARAM_INT);
 	    		$stmt->execute();
 	    		
@@ -964,9 +964,10 @@ class DaoPrazoDemanda extends DaoPrazo {
     		
     		//ANEXOS
     		$anexos = self::listarArquivosAnexos($idPrazo);
-
-    		for ($i=0;$i<count($anexos);$i++) {
-    			self::excluirArquivoAnexo($anexos[$i]['ID']);
+    		if (is_array($anexos)) {
+	    		for ($i=0;$i<count($anexos);$i++) {
+	    			self::excluirArquivoAnexo($anexos[$i]['ID']);
+	    		}
     		}
     		
     		self::salvarResposta($respostaPrazo);
