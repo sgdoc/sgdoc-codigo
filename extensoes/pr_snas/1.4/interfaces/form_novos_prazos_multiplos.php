@@ -41,6 +41,7 @@ var listarUsuariosEncaminhar = function(unidade) {
 
 function limparChkPrazo() {
 	$('#hdnEncaminharPrazosSelecionados').val('');
+	$('#hdnEncaminharPrazosData').val('');
 	
 	$('.chkPrazo').each(function(i, chk) {
 		$(chk).attr("checked", false);
@@ -58,6 +59,26 @@ function validarEncaminhar() {
 	return false;
 }
 
+function selecionarMenorPrazo() {
+	var arrDatas = new Array();
+	
+	var date_sort_asc = function (date1, date2) {
+	  if (date1 > date2) return 1;
+	  if (date1 < date2) return -1;
+	  return 0;
+	};
+
+	
+	$('.chkPrazo').each(function(i, chk) {
+		if ($(chk).is(":checked")) {
+			arrDatas.push(new Date($(chk).attr('dataPrazo') + " 00:00:00"));
+		}
+	});
+	
+	arrDatas.sort(date_sort_asc);
+	$('#hdnEncaminharPrazosData').val(convertDateToString(arrDatas[0].toISOString().substr(0, 10)));
+}
+
 $(document).ready(function() {
 	
     $('#btnEncaminharPrazos').live('click', function(e) {
@@ -72,7 +93,7 @@ $(document).ready(function() {
    	$('.chkPrazo').live('click', function(e) {
 		var arrPrazos = $('#hdnEncaminharPrazosSelecionados').val().split(',');
 		var i = arrPrazos.indexOf($(this).attr('idPrazo'));
-
+			
 		if ($(this).is(":checked")) {
 			if (i == -1) {
 				/*para evitar valores duplos*/
@@ -83,8 +104,9 @@ $(document).ready(function() {
 				arrPrazos.splice(i, 1);
 			}
 		}
-	
 		$('#hdnEncaminharPrazosSelecionados').val(arrPrazos.toString());
+		
+		selecionarMenorPrazo();
 	});
     
     $('#boxEncaminharPrazos').dialog({
@@ -96,7 +118,7 @@ $(document).ready(function() {
         open: function(event, ui) {
         	$('#selEncaminharUnidadeDestino').empty();
         	$('#selEncaminharUsuarioDestino').empty();
-        	$("#txtEncaminharDataPrazo").val('');
+        	$("#txtEncaminharDataPrazo").val($('#hdnEncaminharPrazosData').val());
         	$('#txtEncaminharSolicitacao').val('');
         },
         buttons: {
@@ -138,7 +160,7 @@ $(document).ready(function() {
     $("#txtEncaminharDataPrazo").datepicker({
         minDate: 0
     });
-
+    
     /*Filtro Unidade*/
     $('#divEncaminharPrazoFiltroUnidade').dialog({
         title: 'Filtro',
@@ -181,6 +203,7 @@ $(document).ready(function() {
 
 <div id="boxEncaminharPrazos" class="div-form-dialog" title="Encaminhar Prazos">
 	<input type="hidden" id="hdnEncaminharPrazosSelecionados" />
+	<input type="hidden" id="hdnEncaminharPrazosData" />
 
 	<div class="row">
 		<label for="selEncaminharUnidadeDestino" class="label">*Setor Destino:</label>

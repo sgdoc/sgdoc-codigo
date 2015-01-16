@@ -118,7 +118,7 @@ $idTabela = 'DocumentosDemanda'.ucfirst($lista);
                 /* checkbox para seleção */
                 $('td:eq(0)', nRow).html('');
                 if (aData[9] == unidadeCorrente) {
-                	$('td:eq(0)', nRow).html('<input type="checkbox" idPrazo="' + aData[11] + '" class="chkPrazo" />');
+                	$('td:eq(0)', nRow).html('<input type="checkbox" idPrazo="' + aData[11] + '" dataPrazo="' + aData[6] + '" class="chkPrazo" />');
                 }
                 
                 $('td:eq(1)', nRow).html('<a href="#" class="link_historico" demanda="' + aData[1] + '">' + aData[1] + '</a>');
