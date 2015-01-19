@@ -31,6 +31,10 @@ if (isset($_REQUEST['unidade'])) {
 if (isset($_REQUEST['lote'])) {
     $lote = $_REQUEST['lote'];
 }
-
-$etiquetas = new Etiqueta();
-$etiquetas->gerarEtiquetas($idUnidade, $lote);
+if (__CONFIG_ETIQUETA_SIORG__ == 1){
+    $etiquetas = new EtiquetaSiorg();
+    $etiquetas->gerarEtiquetas($idUnidade, $lote);
+}else{
+    $etiquetas = new Etiqueta();
+    $etiquetas->gerarEtiquetas($idUnidade, $lote);
+}
