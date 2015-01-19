@@ -123,7 +123,7 @@ class DocumentoImagemAggregator {
             shell_exec($cmd);
 
             foreach ($arrPDFs as $pdfFilename) {
-                unlink($pdfFilename);
+              //  unlink($pdfFilename);
             }
 
             $absoluteFileName = $pdfMergedAbsoluteFilename . '.pdf';
