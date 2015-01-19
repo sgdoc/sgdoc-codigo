@@ -40,7 +40,7 @@ class FormatoPNG implements IFormato
         }
         
         if(!count(trim( $parAbsoluteFileName ))){
-            
+            throw new \Exception("FormatoPNG::__construct() - Imagem com endereço inválido");
         }
         $this->_absoluteFileName = $parAbsoluteFileName;            
         $this->_fileExists();
