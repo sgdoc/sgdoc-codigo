@@ -76,6 +76,7 @@ img {
     z-index:10;
     border:10px;
     border-color: #fff;
+    border-radius:5px;
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
 }
@@ -87,6 +88,7 @@ img {
     background-color: rgba(0,0,0,0.9);
     z-index:11;
     border:0px;
+    border-radius:5px;
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
 }
@@ -106,6 +108,7 @@ img {
     width: 100%;
     height: 100%;
     position:relative;
+    border-radius:10px;
     -moz-border-radius:10px;
     -webkit-border-radius:10px;
     margin: 5px 5px 5px 5px;
@@ -137,6 +140,7 @@ img {
     right:5px;
     bottom:5px;
     float: left;
+    border-radius:5px;
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
 }
@@ -144,6 +148,7 @@ img {
 #thumbnails #items {
     width:20000em;
     -moz-user-select: -moz-none;
+    border-radius:5px;
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
 }
@@ -156,12 +161,14 @@ img {
     margin-right:7px;
     border:3px solid #ffffff;
     float: left;
+    border-radius:5px;
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
 }
 
 #thumbnails #items img.selected {
     border:3px solid red;
+    border-radius:5px;
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
 }
@@ -243,6 +250,7 @@ img {
 }
 
 .slideshow {
+	border-radius:5px;
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
 }
@@ -260,6 +268,7 @@ img {
     right:0px;
     bottom: 0px;
     text-align: center;
+    border-radius:5px;
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
     border:0px;
@@ -295,6 +304,7 @@ img {
     right:0px;
     bottom: 0px;
     text-align: center;
+    border-radius:5px;
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
     border:0px;
@@ -369,6 +379,7 @@ textarea{
     margin-right:7px;
     border:3px solid #ffffff;
     float: left;
+    border-radius:5px;
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
 }
@@ -391,6 +402,7 @@ textarea{
 }
 
 #sortable li img{
+	border-radius:5px;
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
     border: 30px #fff;

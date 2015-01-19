@@ -22,6 +22,7 @@
 #div-form-apensar input, #div-form-abertura input, #div-form-desentrenhar input, #div-form-desmembrar input, #div-form-desapensar input {
     padding: 5px;
     border: 1px solid #9AC619;
+    border-radius:5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     height: 28px;
@@ -32,6 +33,7 @@
 #div-form-apensar select, #div-form-abertura select, #div-form-desentrenhar select, #div-form-desmembrar select, #div-form-desapensar select {
     padding: 5px;
     border: 1px solid #9AC619;
+    border-radius:5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     height: 28px;
@@ -42,6 +44,7 @@
 #div-form-apensar textarea, #div-form-abertura textarea, #div-form-desentrenhar textarea, #div-form-desmembrar textarea, #div-form-desapensar textarea {
     padding: 5px;
     border: 1px solid #9AC619;
+    border-radius:5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     height: 100px;
@@ -131,6 +134,7 @@
 #filtro-diretoria-apensar {
     padding: 5px;
     border: 1px solid #9AC619;
+    border-radius:5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     height: 28px;
@@ -169,6 +173,7 @@
 #filtro-diretoria-desapensar{
     padding: 5px;
     border: 1px solid #9AC619;
+    border-radius:5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     height: 28px;
@@ -209,6 +214,7 @@
 #filtro-diretoria-desetrenhar  {
     padding: 5px;
     border: 1px solid #9AC619;
+    border-radius:5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     height: 28px;
@@ -247,6 +253,7 @@
 #filtro-diretoria-desmembrar {
     padding: 5px;
     border: 1px solid #9AC619;
+    border-radius:5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     height: 28px;
@@ -285,6 +292,7 @@
 #filtro-diretoria-comentar {
     padding: 5px;
     border: 1px solid #9AC619;
+    border-radius:5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     height: 28px;
