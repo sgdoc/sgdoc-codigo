@@ -551,4 +551,9 @@ insert into sgdoc.tb_documentos_assunto (assunto,usuario,homologado) values ('WO
 insert into sgdoc.tb_documentos_assunto (assunto,usuario,homologado) values ('WORSHOP',1,1);
 insert into sgdoc.tb_documentos_assunto (assunto,usuario,homologado) values ('ZONA DE AMORTECIMENTO',1,1);
  
+ 
+ALTER TABLE sgdoc.tb_controle_numeracao DROP CONSTRAINT tb_controle_numeracao_uq;
+
+ALTER TABLE sgdoc.tb_controle_numeracao ADD CONSTRAINT tb_controle_numeracao_uq UNIQUE(id_unidades, id_tipologias, ano);
+    
 commit;
