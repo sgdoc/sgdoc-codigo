@@ -75,8 +75,8 @@ print(Util::autoLoadJavascripts(array('javascripts/jquery.form.js')));
 	            	if (somenteLeitura) {
 	            		$('#divResponderPrazo').dialog('option', 'title', 'Resposta do Prazo');
 	            		$('#btnLimparResp').hide();
-	            		$('#btnSalvar').hide();
-	            		$('#btnEnviar').hide();
+	            		$('#btnSalvarResp').hide();
+	            		$('#btnEnviarResp').hide();
 	            		$('#divUpload').hide();
 	            		/* oculta a area de busca do PPA */
             			$('#tblPPA').hide();
@@ -89,8 +89,8 @@ print(Util::autoLoadJavascripts(array('javascripts/jquery.form.js')));
 	            	} else {
 	            		$('#divResponderPrazo').dialog('option', 'title', 'Responder ao Prazo');
 	            		$('#btnLimparResp').show();
-	            		$('#btnSalvar').show();
-	            		$('#btnEnviar').show();
+	            		$('#btnSalvarResp').show();
+	            		$('#btnEnviarResp').show();
 	            		$('#divUpload').show();
             			$('#tblPPA').show();
             			$('#lblResPrazoSemPPA').show();	            	
@@ -208,7 +208,7 @@ print(Util::autoLoadJavascripts(array('javascripts/jquery.form.js')));
 				divAba.attr('id', 'divTabFilho' + i);
 				$('#tabsPrazos').append(divAba);
 
-				divAba.load('aba_resposta_prazo_filho.php?prazo=' + arr[i].ID + '&ind=' + i).show();
+				divAba.load('aba_resposta_prazo_filho.php?prazo=' + arr[i].ID + '&ind=' + i + '&leitura=' + (somenteLeitura ? 'true' : 'false')).show();
 			}
 		}
 		$("#tabsPrazos").tabs({ active: '1' });
@@ -412,40 +412,33 @@ print(Util::autoLoadJavascripts(array('javascripts/jquery.form.js')));
 	        modal: true,
 	        width: 1000,
 	        heigth: 'auto',
-	        minHeight: 700,
+	        minHeight: 600,
 	        close: function( event, ui ) {
 	        	antesFechar();
-	        },
-	        buttons: {
-				Limpar: {id: 'btnLimparResp',
-					text: 'Limpar Resposta',
-					click: function() {
-						limparResposta();
-					}
-				},
-	        	Salvar: {id: 'btnSalvar',
-					text: 'Salvar',
-					click: function() {
-						if (validarResposta()) {
-							salvarResposta();
-						}
-					}
-				},
-	        	Enviar: {id: 'btnEnviar',
-		        	text: 'Enviar',
-		        	click: function() {
-						if (validarResposta()) {
-							enviarResposta();
-						}
-					}
-				},
-				Cancelar: function() {
-					antesFechar();
-					$(this).dialog("close");
-				}
+	        }
+		});
+
+		$('#btnLimparResp').click(function() {
+			limparResposta();
+		});
+
+		$('#btnSalvarResp').click(function() {
+			if (validarResposta()) {
+				salvarResposta();
 			}
 		});
 
+		$('#btnEnviarResp').click(function() {
+			if (validarResposta()) {
+				enviarResposta();
+			}
+		});
+
+		$('#btnCancelarResp').click(function() {
+			antesFechar();
+			$('#divResponderPrazo').dialog("close");
+		});
+		
         /*Filtro Unidade*/
         $('#divResPrazoFiltroUnidadePPA').dialog({
             title: 'Filtro',
@@ -542,7 +535,7 @@ print(Util::autoLoadJavascripts(array('javascripts/jquery.form.js')));
 		margin-left: 5px;
 		font-weight: normal;
 	}
-	
+
 	#divResponderPrazo legend {
 		font-weight: bold;
 		margin-left: 3px;
@@ -557,6 +550,17 @@ print(Util::autoLoadJavascripts(array('javascripts/jquery.form.js')));
 	#divResponderPrazo #txaResPrazoResposta {
 		height: 60px;
 		width: 100%;
+	}
+
+	.divBotoesResposta {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		width:100%;
+		text-align:right;
+	}
+	
+	#divResponderPrazo .divBotoesResposta span {
+		font-weight: bold;
 	}
 	
 	.tdAnexos {
@@ -785,7 +789,14 @@ print(Util::autoLoadJavascripts(array('javascripts/jquery.form.js')));
 					</td>
 				</tr></table>
 			</fieldset>
-			
+
+			<div id="divBotoesRespondesPrazo" class="divBotoesResposta">
+				<button id="btnLimparResp" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Limpar Resposta</span></button>
+				<button id="btnSalvarResp" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Salvar</span></button>
+				<button id="btnEnviarResp" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Enviar</span></button>
+				<button id="btnCancelarResp" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Cancelar</span></button>
+			</div>
+
 		</div> <!-- FIM divTabPai -->
 		
 	</div> <!-- FIM TABS -->

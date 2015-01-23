@@ -14,6 +14,7 @@ $prazo = DaoPrazoDemanda::getPrazoResposta($idPrazo);
 <script type="text/javascript">
 	var ind = '<?php echo $indAba; ?>';
 	var id = '<?php echo $idPrazo; ?>';
+	var leituraAba = <?php echo $_GET['leitura']; ?>;
 	
 	$(document).ready(function() {
 
@@ -33,9 +34,20 @@ $prazo = DaoPrazoDemanda::getPrazoResposta($idPrazo);
 
 		carregarMetasPPA($('#divVinculosPPA'+ind), <?php echo ($prazo['ha_vinculo'] ? 'false' : 'true'); ?>, id, true);
 
-		$("#btnUtilizarResp"+ind).click(function() {
-			concatenarResposta(id);
+		if (leituraAba) {
+			$("#btnUtilizarResp"+ind).hide();
+		} else {
+			$("#btnUtilizarResp"+ind).show();
+			$("#btnUtilizarResp"+ind).click(function() {
+				concatenarResposta(id);
+			});
+		}
+
+		$('#btnCancelarResp'+ind).click(function() {
+			antesFechar();
+			$('#divResponderPrazo').dialog("close");
 		});
+		
 	});
 </script>
 
@@ -159,9 +171,13 @@ $prazo = DaoPrazoDemanda::getPrazoResposta($idPrazo);
 	<span><?php echo $prazo['legislacao_descricao']; ?></span>
 </fieldset>
 
-<div style="width:100%; text-align:center;">
-	<button id="btnUtilizarResp<?php echo $indAba; ?>" class="ui-button ui-widget ui-state-default ui-corner-all" style="padding:5px;">
-		<img src="imagens/responder_prazo.png" class="imgBtn" />
-		Utilizar Resposta
+<div class="divBotoesResposta">
+	<button id="btnUtilizarResp<?php echo $indAba; ?>" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+		<span class="ui-button-text">
+			Utilizar Resposta
+		</span>
+	</button>
+	<button id="btnCancelarResp<?php echo $indAba; ?>" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+		<span class="ui-button-text">Cancelar</span>
 	</button>
 </div>

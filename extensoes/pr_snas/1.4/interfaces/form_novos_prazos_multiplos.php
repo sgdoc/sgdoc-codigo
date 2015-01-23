@@ -61,6 +61,7 @@ function validarEncaminhar() {
 
 function selecionarMenorPrazo() {
 	var arrDatas = new Array();
+	var strData = "";
 	
 	var date_sort_asc = function (date1, date2) {
 	  if (date1 > date2) return 1;
@@ -71,7 +72,13 @@ function selecionarMenorPrazo() {
 	
 	$('.chkPrazo').each(function(i, chk) {
 		if ($(chk).is(":checked")) {
-			arrDatas.push(new Date($(chk).attr('dataPrazo') + " 00:00:00"));
+			strData = $(chk).attr('dataPrazo');
+			if (jQuery.browser.mozilla) {
+				strData = strData.concat('T00:00:00');
+			} else {
+				strData = strData.concat(' 00:00:00');
+			}
+			arrDatas.push(new Date(strData));
 		}
 	});
 	
