@@ -31,6 +31,18 @@ include(__BASE_PATH__ . '/extensoes/pr_snas/1.5/interfaces/form_novo_prazo.php')
 	var colUnidDestino = 6;
 
     $(document).ready(function() {
+
+    	/* Colunas da dataTable que não devem aparecer */
+    	var arrColInvisiveis = [9, 10, 11];
+    	/* trata as colunas dos órgão, ocultando ou exibindo, dependendo da opção de filtro */
+    	if ($("#selFiltroOrigemDemanda").val() != 'TD') {
+        	if ($("#selFiltroOrigemDemanda").val() == 'PU') {
+            	arrColInvisiveis.push(colUnidDestino);
+        	} else {
+        		arrColInvisiveis.push(colUnidOrigem);
+        	}
+        }
+        
         $('.botao-visualizar-detalhes-demanda').die('click').live('click', function(e) {
             var demanda = $(this).attr('demanda');
             e.preventDefault();
@@ -231,7 +243,7 @@ if (AclFactory::checaPermissao(Controlador::getInstance()->acl, Controlador::get
             },
             aoColumnDefs: [
                 {bSortable: false, aTargets: [0, 8, 9, 10, 11]},
-                {bVisible: false, aTargets: [9, 10, 11] }
+                {bVisible: false, aTargets: arrColInvisiveis }
             ]
         }); /* Fim dataTable */
 
@@ -240,15 +252,6 @@ if (AclFactory::checaPermissao(Controlador::getInstance()->acl, Controlador::get
             			'</button>';
        	$("div.divEncaminharPrazos").html(txtHtml);
 
-        /* trata as colunas dos órgão, ocultando ou exibindo, dependendo da opção de filtro */
-        if ($("#selFiltroOrigemDemanda").val() != 'TD') {
-        	if ($("#selFiltroOrigemDemanda").val() == 'PU') {
-        		oTableDocumentosDemanda.fnSetColumnVis(colUnidDestino, false);
-        	} else {
-        		oTableDocumentosDemanda.fnSetColumnVis(colUnidOrigem, false);
-        	}
-        }
-       	
     }); /* fim document.ready */
 
     /**

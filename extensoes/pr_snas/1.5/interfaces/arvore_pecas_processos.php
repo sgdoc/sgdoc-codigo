@@ -21,8 +21,8 @@
 $DONT_RENDER_BACKGROUND = TRUE;
 
 include(__BASE_PATH__ . '/extensoes/pr_snas/1.5/classes/Arvore.php');
-include("function/auto_load_statics.php");
-include("interfaces/detalhar_documentos.php");
+include_once(__BASE_PATH__ . "/function/auto_load_statics.php");
+include(__BASE_PATH__ . "/extensoes/pr_snas/1.5/interfaces/detalhar_documentos.php");
 
 
 $vinculacao = new Vinculacao();
@@ -131,7 +131,8 @@ $elementos = $arvore->getPecasProcesso($numero_processo, $urlManager);
         <ul id="tree-apensos-processos" class="arvoreDocumentos">
         	<?php 				
         		$processo = current(CFModelProcesso::factory()->findByParam(array('NUMERO_PROCESSO' => $numero_processo))); 
-        		$assunto = DaoAssuntoProcesso::getAssunto((int) $processo->ASSUNTO)['assunto'];
+        		$assuntoDao = DaoAssuntoProcesso::getAssunto((int) $processo->ASSUNTO);
+        		$assunto = $assuntoDao['assunto'];
         		$classe = Processo::validarProcessoAreaDeTrabalho($numero_processo) ? 'root' : 'root root-ausente';
 				$data = Util::formatDate($processo->DT_AUTUACAO) ? Util::formatDate($processo->DT_AUTUACAO) : "Data Não informada";
         	?>

@@ -20,8 +20,8 @@
  */
 $DONT_RENDER_BACKGROUND = TRUE;
 include(__BASE_PATH__ . '/extensoes/pr_snas/1.5/classes/Arvore.php');
-include("function/auto_load_statics.php");
-include("interfaces/detalhar_processos.php");
+include_once(__BASE_PATH__ . "/function/auto_load_statics.php");
+include(__BASE_PATH__ . "/interfaces/detalhar_processos.php");
 
 $urlManager = __APPMODELS__ . "arvores/listar_anexos_processos.php";
 $numero_processo = $_GET['numero_processo'];
@@ -138,7 +138,8 @@ $elementos = $arvore->getVinculacaoProcesso($root, $urlManager, 1/* Anexos */);
         <ul id="tree-anexos-processos" class="arvoreProcessos">			
         	<?php
 				$processo = current(CFModelProcesso::factory()->findByParam(array('NUMERO_PROCESSO' => $root)));        		
-				$assunto = DaoAssuntoProcesso::getAssunto((int) $processo->ASSUNTO)['assunto'];				
+        		$assuntoDao = DaoAssuntoProcesso::getAssunto((int) $processo->ASSUNTO);
+        		$assunto = $assuntoDao['assunto'];
         		$classe = Processo::validarProcessoAreaDeTrabalho($root) ? 'root' : 'root root-ausente';
 				$data = Util::formatDate($processo->DT_AUTUACAO) ? Util::formatDate($processo->DT_AUTUACAO) : "Data Não informada";
 			?>
