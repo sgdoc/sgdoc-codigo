@@ -16,9 +16,7 @@
 * */
 
 include_once(__BASE_PATH__ . '/extensoes/pr_snas/1.5/interfaces/pesquisar_documentos.php');
-
-require_once __BASE_PATH__ . '/extensoes/pr_snas/1.5/interfaces/dialog_responder_prazo.php';
-
+require_once (__BASE_PATH__ . '/extensoes/pr_snas/1.5/interfaces/dialog_responder_prazo.php');
 require_once (__BASE_PATH__ . '/extensoes/pr_snas/1.5/interfaces/form_novos_prazos_multiplos.php');
 
 $controller = Controlador::getInstance();
