@@ -1,0 +1,70 @@
+{
+    "resources":
+            {
+                "classes": [                
+                    "classes/Arvore.php",
+                    "classes/AutoCompleteDemanda.php",
+                    "classes/DaoPrazoDemanda.php",
+                    "classes/CFModelDocumentoDemanda.php",
+                    "classes/CFModelControlePrazosDemanda.php",
+                    "classes/Prazo.php",
+                    "classes/TPDocumentoDemanda.php",
+                    "classes/VinculacaoDemanda.php"
+                ],
+                "css": [],
+                "imagens": [],
+                "interfaces": [
+                    "aba_resposta_prazo_filho.php",
+                    "arvore_anexos_documentos.php",
+                    "arvore_anexos_processos.php",
+                    "arvore_apensos_documentos.php",
+                    "arvore_apensos_processos.php",
+                    "arvore_documentos_associados.php",
+                    "arvore_pecas_processos.php",
+                    "detalhar_documentos.php",
+                    "dialog_responder_prazo.php",
+                    "download_arquivo.php",
+                    "form_cadastrar_documentos_novo.php",
+                    "form_cadastrar_solicitacao_generica.php",
+                    "form_novo_prazo.php",
+                    "grid_demanda_cadastrada.php",
+                    "historico_prazos_demandas.php",
+                    "lista_pesquisa_documentos.php",
+                    "lista_pesquisa_documentos_demanda.php",
+                    "lista_prazos.php",
+                    "lista_vinculacao_documentos.php",
+                    "lista_vinculacao_processos.php",
+                    "pesquisar_documentos.php",
+                    "tab_detalhes_programas_siop.php",
+                    "tab_detalhes_responder_prazo.php",
+                    "tab_lista_documentos_area_trabalho.php",
+                    "tab_lista_prazos_enviados.php",
+                    "tab_lista_prazos_recebidos.php",
+                    "tab_lista_prazos_recebidos_setor.php",
+                    "tab_vinculacao_documentos_associados.php",
+                    "tab_vinculacao_documentos_desassociar.php",
+                    "tab_vinculacao_documentos_vincular.php"
+                ],
+                "javascripts": [
+                	"javascripts/documentos.js",
+                	"javascripts/exportar_dados_config.js"
+                ],
+                "modelos": [
+                    "modelos/arvores/listar_documentos_associados.php",
+                    "modelos/combos/autocomplete.php",
+                    "modelos/documentos/cadastrar.php",
+                    "modelos/documentos/documentos.php",
+                    "modelos/documentos/exportar_documentos_configuravel.php",
+                    "modelos/documentos/listar_documentos_pesquisa_demanda.php",
+                    "modelos/documentos/listar_documentos_trabalho.php",
+                    "modelos/documentos/listar_documentos_vinculados.php",
+                    "modelos/documentos/vinculacao.php",
+                    "modelos/generico/cf.php",
+                    "modelos/prazos/prazos.php",
+                    "modelos/prazos/dados_siop.php",
+                    "modelos/prazos/historico_prazos_demandas.php",
+                    "modelos/prazos/meus_prazos_enviados.php",
+                    "modelos/prazos/listar_prazos_recebidos_setor.php"
+                ]
+            }
+}
