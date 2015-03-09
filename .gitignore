@@ -3,3 +3,6 @@
 /nbproject/
 .settings/
 .project
+cache/sessions/.htaccess
+cache/
+documento_virtual/

@@ -100,11 +100,15 @@ class Config extends CFConfig {
         define("__ADAPTER_SINCRONIZACAO_USUARIO__", $this->_params['adapter.synchronizer.user.class']);
         define("__ADAPTER_SINCRONIZACAO_PERMISSAO__", $this->_params['adapter.synchronizer.permission.class']);
         define("__ADAPTER_SINCRONIZACAO_UNIDADE__", $this->_params['adapter.synchronizer.unit.class']);
-
         if (isset($this->_params['config.icpbrasil.certificado.caminho'])){
             define("__CONFIG_ICPBRASIL_CERTIFICADO_CAMINHO__", $this->_params['config.icpbrasil.certificado.caminho']);
         }else{
             define("__CONFIG_ICPBRASIL_CERTIFICADO_CAMINHO__", '');
+        }
+        if (isset($this->_params['config.etiqueta.siorg'])){
+            define("__CONFIG_ETIQUETA_SIORG__", $this->_params['config.etiqueta.siorg']);
+        }else{
+            define("__CONFIG_ETIQUETA_SIORG__", 0);
         }
 
         return $this;

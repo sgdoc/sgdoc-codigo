@@ -26,7 +26,7 @@ $aColumns = array(
     'UF', 
     'ST_ATIVO', 
     'NOME_UOP', 
-    'NULL'
+    'ID'
     );
 
 $aColumnsFTS = array(
