@@ -26,7 +26,7 @@ include("interfaces/detalhar_documentos.php");
 
 
 $vinculacao = new Vinculacao();
-$urlManager = __APPMODELS__ . "arvores/listar_todos_vinculos_documentos.php";
+$urlManager = __URLSERVERAPP__ . "/extensoes/pr_snas/1.6/modelos/arvores/listar_todos_vinculos_documentos.php";
 $numero_processo = $_GET['numero_processo'];
 $arvore = new Arvore();
 

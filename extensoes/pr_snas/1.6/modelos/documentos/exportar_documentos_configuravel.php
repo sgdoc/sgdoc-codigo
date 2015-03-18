@@ -95,7 +95,22 @@ if ($_POST) {
 			
 			$arrOpcoes = json_decode($strOpcoes, true);
 			
-			$pastaTmp = __CAM_UPLOAD__ . '/TMP/'.session_id().'_';
+			$pastaTmp = __CAM_UPLOAD__ . '/TMP/expdoccfg/';
+			
+			if (!is_dir($pastaTmp)) {
+				mkdir($pastaTmp);
+			} else {
+				//limpa os arquivos de 2 dias atrás, se houver
+				$dataAlvo = strtotime('-2 day', mktime());
+				foreach(glob($pastaTmp.'*.txt') as $arq) {
+					$dataArq = filemtime($arq);
+					if( $dataAlvo > $dataArq )	{
+						unlink($arq);
+					}
+				}				
+			}
+			
+			$pastaTmp .= session_id().'_';
 			$arrArquivos = array();
 			//$separador = ';';
 			
@@ -109,7 +124,7 @@ if ($_POST) {
 				}
 				
 				/* Será um arquivo para cada documento
-				 * nome do arquivo = TipoDocumento#######.csv, onde ####### = digital
+				 * nome do arquivo = TipoDocumento#######.txt, onde ####### = digital
 				*/
 				$nomeArq = StringUtil::getCamelCase($doc['tipo']) . $doc['digital'] . '.txt';
 				$fp = fopen(($pastaTmp . $nomeArq), 'w');

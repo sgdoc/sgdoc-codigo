@@ -38,7 +38,7 @@ class Arvore extends Base
     public function getVinculosDocumento ($digital, $pageName)
     {
         try {
-            $sttm = Controlador::getInstance()->getConnection()->connection->prepare("SELECT DCP.DIGITAL AS PAI, DCF.DIGITAL AS FILHO FROM TB_DOCUMENTOS_VINCULACAO DV
+            $sttm = Controlador::getInstance()->getConnection()->connection->prepare("SELECT DCP.DIGITAL AS PAI, DCF.DIGITAL AS FILHO, DCP.ASSUNTO_COMPLEMENTAR AS ASSUNTO FROM TB_DOCUMENTOS_VINCULACAO DV
 INNER JOIN TB_DOCUMENTOS_CADASTRO DCP ON DCP.ID = DV.ID_DOCUMENTO_PAI
 INNER JOIN TB_DOCUMENTOS_CADASTRO DCF ON DCF.ID = DV.ID_DOCUMENTO_FILHO
 WHERE DCP.DIGITAL = ? AND DV.FG_ATIVO = 1 AND ST_ATIVO = 1");
@@ -57,7 +57,7 @@ WHERE DCP.DIGITAL = ? AND DV.FG_ATIVO = 1 AND ST_ATIVO = 1");
                                 . "<li id='{$value['FILHO']}'>{url:'{$pageName}?action=getElementList&ownerEl={$value['FILHO']}',idElemento:'{$value['FILHO']}',stAusente:{$ausente['ausente']}}</li>"
                                 . "</ul>";
                     }
-                    $str .= "<li class='text' title='{$ausente['title']}' id='{$value['FILHO']}'><span class='{$ausente['classe']}'>{$value['FILHO']}</span>{$supp}</li>";
+                    $str .= "<li class='text' title='{$ausente['title']}' id='{$value['FILHO']}'><span class='{$ausente['classe']}'>{$value['FILHO']}</span> [ {$value['ASSUNTO']} ]{$supp}</li>";
                 }
             }
         } catch (PDOException $e) {
@@ -91,8 +91,10 @@ WHERE DCP.DIGITAL = ? AND DV.FG_ATIVO = 1 AND ST_ATIVO = 1 AND ID_VINCULACAO = ?
                     if (true) {
                         $supp = "
                         		<ul class='ajax'>
-                        			<li id='{$value['FILHO']}'><span class='{$ausente['classe']}'>
-                        				{url:'{$pageName}?action=getElementList&ownerEl={$value['FILHO']}',idElemento:'{$value['FILHO']}',stAusente:{$ausente['ausente']}}</span>
+                        			<li id='{$value['FILHO']}'>
+                        				<span class='{$ausente['classe']}'>
+                        				{url:'{$pageName}?action=getElementList&ownerEl={$value['FILHO']}',idElemento:'{$value['FILHO']}',stAusente:{$ausente['ausente']}}
+                        				</span>
                         			</li>
                         		</ul>
                         		";
@@ -122,7 +124,8 @@ WHERE DCP.DIGITAL = ? AND DV.FG_ATIVO = 1 AND ST_ATIVO = 1 AND ID_VINCULACAO = ?
     {
 
         try {
-            $sttm = Controlador::getInstance()->getConnection()->connection->prepare("SELECT DC.DIGITAL AS FILHO 
+            $sttm = Controlador::getInstance()->getConnection()->connection->prepare("
+            		SELECT DC.DIGITAL AS FILHO, DC.ASSUNTO_COMPLEMENTAR AS ASSUNTO 
                 FROM TB_PROCESSOS_DOCUMENTOS PXD
                     INNER JOIN TB_DOCUMENTOS_CADASTRO DC ON DC.ID = PXD.ID_DOCUMENTOS_CADASTRO
                     INNER JOIN TB_PROCESSOS_CADASTRO PC ON PC.ID = PXD.ID_PROCESSOS_CADASTRO
@@ -144,7 +147,11 @@ WHERE DCP.DIGITAL = ? AND DV.FG_ATIVO = 1 AND ST_ATIVO = 1 AND ID_VINCULACAO = ?
                                 . "<li id='$idElemento'>{url:'{$pageName}?action=getElementList&ownerEl={$value['FILHO']}',idElemento:'{$idElemento}',stAusente:{$ausente['ausente']}}</li>"
                                 . "</ul>";
                     }
-                    $str .= "<li class='text' title='{$ausente['title']}' id='{$idElemento}'>A<span class='{$ausente['classe']}'>{$value['FILHO']}</span>{$supp}</li>";
+                    $str .= "<li class='text' title='{$ausente['title']}' id='{$idElemento}'><span class='{$ausente['classe']}'>{$value['FILHO']}</span>";
+                    if(count(trim($value['ASSUNTO'])) > 0) {
+                    	$str .= " [ {$value['ASSUNTO']} ]";
+                    $str.= "{$supp}</li>";
+                    }
                 }
             }
         } catch (PDOException $e) {
@@ -161,7 +168,8 @@ WHERE DCP.DIGITAL = ? AND DV.FG_ATIVO = 1 AND ST_ATIVO = 1 AND ID_VINCULACAO = ?
     {
 
         try {
-            $sttm = Controlador::getInstance()->getConnection()->connection->prepare("SELECT PCP.NUMERO_PROCESSO AS PAI, PCF.NUMERO_PROCESSO AS FILHO
+            $sttm = Controlador::getInstance()->getConnection()->connection->prepare("
+            		SELECT PCP.NUMERO_PROCESSO AS PAI, PCF.NUMERO_PROCESSO AS FILHO
                     FROM TB_PROCESSOS_VINCULACAO PV
                         INNER JOIN TB_PROCESSOS_CADASTRO PCP ON PCP.ID = PV.ID_PROCESSO_PAI
                         INNER JOIN TB_PROCESSOS_CADASTRO PCF ON PCF.ID = PV.ID_PROCESSO_FILHO

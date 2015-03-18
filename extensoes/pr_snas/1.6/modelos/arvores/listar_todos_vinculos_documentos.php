@@ -15,6 +15,7 @@
  * www.softwarepublico.gov.br ou escreva para a Fundação do Software Livre(FSF)
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301, USA
  * */
+include(__BASE_PATH__ . '/extensoes/pr_snas/1.6/classes/Arvore.php');
 
 $arvore = new Arvore();
 
@@ -25,7 +26,7 @@ switch ($_GET['action']) {
             } else {
                 $ownerEl = 0;
             }
-            $out = $arvore->getVinculacaoDocumento($ownerEl, '/extensoes/pr_snas/1.6/modelos/arvores/listar_documentos_associados.php', 3/* Associados */);
+            $out = $arvore->getVinculosDocumento($ownerEl, '/extensoes/pr_snas/1.6/modelos/arvores/listar_todos_vinculos_documentos.php');
         }
         break;
     default:
@@ -34,4 +35,4 @@ switch ($_GET['action']) {
 }
 
 /* Estrutura HTML do Tree */
-print($out);
+print $out;

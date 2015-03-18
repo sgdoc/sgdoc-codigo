@@ -51,6 +51,7 @@
                 ],
                 "modelos": [
                     "modelos/arvores/listar_documentos_associados.php",
+                    "modelos/arvores/listar_todos_vinculos_documentos.php",
                     "modelos/combos/autocomplete.php",
                     "modelos/documentos/cadastrar.php",
                     "modelos/documentos/documentos.php",
