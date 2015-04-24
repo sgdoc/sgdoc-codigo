@@ -92,22 +92,6 @@ CREATE TABLE snas.tb_siop_exec_orcam_plano_orcam (
 
 ALTER TABLE snas.tb_siop_exec_orcam_plano_orcam OWNER TO usr_pr_sgdoc4;
 
---CRIACAO DE INDICES
-CREATE INDEX "ind_codigoLocalizador_siop" ON snas.tb_siop_localizadores USING btree ("codigoLocalizador");
-
-CREATE INDEX "ind_identificadorUnicoLocal_siop" ON snas.tb_siop_localizadores USING btree ("identificadorUnico");
-
-CREATE INDEX "ind_planoOrcamentario_siop" ON snas.tb_siop_planos_orcamentarios USING btree ("planoOrcamentario");
-
-CREATE INDEX "ind_identificadorUnicoPL_siop" ON snas.tb_siop_planos_orcamentarios USING btree ("identificadorUnico");
-
-CREATE INDEX "ind_execOrcamAcao_siop" ON snas.tb_siop_exec_orcam_acao USING btree ("codigoOrgao", "codigoPrograma", "codigoAcao", exercicio);
-
-CREATE INDEX "ind_execOrcamLocal_siop" ON snas.tb_siop_exec_orcam_localizador USING btree ("codigoOrgao", "codigoPrograma", "codigoAcao", "codigoLocalizador", exercicio);
-
-CREATE INDEX "ind_execOrcamPL_siop" ON snas.tb_siop_exec_orcam_plano_orcam USING btree ("codigoOrgao", "codigoPrograma", "codigoAcao", "codigoLocalizador", "planoOrcamentario", exercicio);
-
---PERMISSOES
 grant all privileges on schema sgdoc, snas to postgres;
 grant usage on schema sgdoc, snas to usr_pr_sgdoc4;
 grant select, insert, update, delete on all tables in schema sgdoc, snas to usr_pr_sgdoc4;
