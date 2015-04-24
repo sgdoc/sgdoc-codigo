@@ -76,7 +76,7 @@ if (CF_APP_ENVIRONMENT != 'prd') {
         border: 1px solid red;
     }
 </style>
-<p align='left' class="style13">Sistema Gerenciador de Documentos (v. <?php print(__APPVERSAO__); ?>)</p>
+<p align='left' class="style13">Sistema Gerenciador de Documentos (v. <?php print($versao); ?>)</p>
 <div id="div-form-autenticacao">
     <?php if (__CONFIG_ICPBRASIL_CERTIFICADO_CAMINHO__ != ''): ?>
     <div class="certificado-info">
