@@ -443,7 +443,8 @@ class VinculacaoDemanda extends Vinculacao {
 	    	$sql .= 'from sgdoc.tb_documentos_vinculacao v ';
 	    	$sql .= 'inner join sgdoc.tb_documentos_cadastro d on (d.id=v.' . ($relacao == 'p' ? 'id_documento_filho' : 'id_documento_pai') . ') ';
 	    	$sql .= 'where (v.st_ativo = 1) and (v.id_vinculacao = :vinc) ';
-	    	$sql .= 'and (v.' . ($relacao == 'p' ? 'id_documento_pai' : 'id_documento_filho') . ' = :id);';
+	    	$sql .= 'and (v.' . ($relacao == 'p' ? 'id_documento_pai' : 'id_documento_filho') . ' = :id) ';
+	    	$sql .= 'order by d.digital;';
 	    	
 	    	$stmt = Controlador::getInstance()->getConnection()->connection->prepare($sql);
 	    	

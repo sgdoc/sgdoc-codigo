@@ -165,7 +165,11 @@ if ($_POST) {
 					if ($arrDem !== false) {
 						for ($i=0; $i<count($arrDem); $i++) {
 							$prazo = DaoPrazoDemanda::getPrimeiroPrazo($arrDem[$i]['DIGITAL']);
-							$prazo['legislacao_situacao'] = DaoPrazoDemanda::getSituacaoLegislacao($prazo['legislacao_situacao']);
+							if (is_null($prazo['dt_resposta'])) {
+								$prazo['legislacao_situacao'] = '';
+							} else {
+								$prazo['legislacao_situacao'] = $prazo['legislacao_situacao_descricao'];
+							}
 							fwrite($fp, "\n----- DEMANDA " . ($i+1) . " -----\n");
 							foreach ($arrOpcSel as $opt) {
 								if (($opt != 'prz-ppa') && ($opt != 'prz-exec_orc')) {
