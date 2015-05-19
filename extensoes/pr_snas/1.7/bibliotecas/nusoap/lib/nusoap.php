@@ -3126,7 +3126,11 @@ class soap_transport_http extends nusoap_base {
         	$err = 'cURL ERROR: '.curl_errno($this->ch).': '.$cErr.'<br>';
         	// TODO: there is a PHP bug that can cause this to SEGV for CURLINFO_CONTENT_TYPE
 			foreach(curl_getinfo($this->ch) as $k => $v){
-				$err .= "$k: $v<br>";
+				if(is_array($v)) {
+					$err .= "$k: " . implode(':',$v) . "<br>";
+				} else {
+					$err .= "$k: $v<br>";
+				}
 			}
 			$this->debug($err);
 			$this->setError($err);
@@ -6580,6 +6584,10 @@ class nusoap_parser extends nusoap_base {
 	*/
 	function nusoap_parser($xml,$encoding='UTF-8',$method='',$decode_utf8=true){
 		parent::nusoap_base();
+	    // Hack by CAZypedia crew to fix character encoding of NCBI XML data from SOAP
+	    // This prevents non-English characters from causing the parser to choke.
+	    $xml = iconv("ISO-8859-1", "UTF-8//TRANSLIT", $xml);
+	    // End hack.
 		$this->xml = $xml;
 		$this->xml_encoding = $encoding;
 		$this->method = $method;

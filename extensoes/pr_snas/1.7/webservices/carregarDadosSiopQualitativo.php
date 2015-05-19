@@ -34,12 +34,29 @@ if($baixar['orgaos']) {
 	*/
 	agora("Obtendo órgãos.");
 	limparDadosSiop('orgaos', "exercicio = '{$exercicio}'","Limpando base de dados dos órgãos para o ano de {$exercicio}.");
-	$orgaosSiorg = obterOrgaosSgbio();
+	$orgaosSiorg = array();
+	do {			
+		$orgaosSiop = obterOrgaosPorAnoExercicio($exercicio);
+		if(!$orgaosSiop['sucesso']) {
+			agora("Houve um problema:");
+			echo "\n";
+			echo str_replace("<br>", "\n", $orgaosAux['mensagensErro']);
+			echo "\n";
+		} else {
+			$numOrgaosSiop = 0;
+			foreach($orgaosSiop['registros'] as $orgao) {
+				if(isset($orgao['orgaoSiorg'])) {
+					$orgaosSiorg[$orgao['orgaoSiorg']] = $orgao['snAtivo'];
+				}
+			}
+		}
+	} while (!$orgaosSiop['sucesso']);
+	
 	$contadorOrgaosSiop = 0;
 	$totalOrgaosSiop = count($orgaosSiorg);
 	$totalRegistrosOrgaos = 0;
 	foreach($orgaosSiorg as $k => $j) {
-		$codigoSiorg = $j['CODIGOSIORG'];
+		$codigoSiorg = $k;
 		$contadorOrgaosSiop++;			
 		do {			
 			$orgaosAux = obterOrgaosPorCodigoSiorgAnoExercicio($codigoSiorg, $exercicio, $contadorOrgaosSiop, $totalOrgaosSiop);

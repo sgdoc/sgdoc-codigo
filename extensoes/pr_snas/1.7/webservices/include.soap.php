@@ -444,6 +444,17 @@ function obterOrgaosPorCodigoSiorgAnoExercicio($codigoSiorg, $anoExercicio, $con
 	return $orgaosDTO;
 }
 
+function obterOrgaosPorAnoExercicio($anoExercicio) {
+	agora("Obtendo dados dos orgãos para o exercício de {$anoExercicio}.");
+	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
+	$orgaosParametros = array(
+			'credencial'	=> retornaCredenciais($configuracao),
+			'exercicio'		=> $anoExercicio
+	);
+	$orgaosDTO = acessarWebServiceSOF( 'obterOrgao', $orgaosParametros, $configuracao );
+	return $orgaosDTO;
+}
+
 function obterTodosProgramasPorAnoExercicio($anoExercicio) {
 	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
 	$parametros = array(
