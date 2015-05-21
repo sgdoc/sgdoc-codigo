@@ -357,10 +357,10 @@ class DaoDadosSiop {
 					  v.codigo_acao as cod_acao, a.titulo as tit_acao,
 					  v.codigo_localizador as cod_localizador, l.descricao as des_localizador,
 					  v.codigo_plano_orcamentario as cod_plano_orcamentario, po.titulo as tit_plano_orcamentario,
-					  trim(to_char(e."dotacaoAtual", \'9G999G999G990D99\')) as val_dotacao_atual,
-					  trim(to_char(e.empenhado, \'9G999G999G990D99\')) as val_empenhado,
-					  trim(to_char(e.liquidado, \'9G999G999G990D99\')) as val_liquidado,
-					  trim(to_char(e."percentualLiquidadoEmpenhado", \'9G990D99\')) as per_liq_emp
+					  e."dotacaoAtual" as val_dotacao_atual,
+					  e.empenhado as val_empenhado,
+					  e.liquidado as val_liquidado,
+					  e."percentualLiquidadoEmpenhado" as per_liq_emp
 					from snas.tb_prazo_vinculo_ppa_acoes v
 					  inner join snas.tb_siop_orgaos o on 
 					    (o."codigoOrgao"::text=v.codigo_orgao and o.exercicio=v.exercicio)
@@ -384,6 +384,12 @@ class DaoDadosSiop {
 			$out = $stmt->fetch(PDO::FETCH_ASSOC);
 	
 			if (!empty($out)) {
+
+				$out['VAL_DOTACAO_ATUAL'] = number_format($out['VAL_DOTACAO_ATUAL'], 2, ',', '.');
+				$out['VAL_EMPENHADO'] = number_format($out['VAL_EMPENHADO'], 2, ',', '.');
+				$out['VAL_LIQUIDADO'] = number_format($out['VAL_LIQUIDADO'], 2, ',', '.');
+				$out['PER_LIQ_EMP'] = number_format($out['PER_LIQ_EMP'], 2, ',', '.');
+				
 				return $out;
 			}
 	
@@ -447,4 +453,12 @@ class DaoDadosSiop {
 		
 		return true;
 	}
+	
+	private function toReal($number) {
+		// se o decimal é um ponto em vez de virgula converte para o formato 9.999,99
+		if( substr($number, -3, 1) == '.' )
+			$number = number_format(str_replace('.', ',', str_replace(',', '', $number)), 2, ',', '.');
+		return $number;
+	}
+	
 }
