@@ -539,8 +539,8 @@ function obterPlanosOrcamentariosPorAcao($anoExercicio, $identificadorUnicoAcao,
 	return $DTO;
 }
 
-function obterLocalizadoresPorAcao($anoExercicio, $identificadorUnicoAcao, $codigoMomento = '9000') {
-	agora("Obtendo localizadores da ação {$identificadorUnicoAcao} para o exercício de {$anoExercicio}. ");
+function obterLocalizadoresPorAcao($anoExercicio, $identificadorUnicoAcao, $contador, $total, $codigoMomento = '9000') {
+	agora("Obtendo localizadores da ação {$identificadorUnicoAcao} para o exercício de {$anoExercicio}. ({$contador} de {$total})");
 	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
 	$parametros = array(
 			'credencial'				=> retornaCredenciais($configuracao),
