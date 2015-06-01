@@ -243,27 +243,41 @@ if($baixar['localizadores']) {
 	 * Obtendo a base de dados de localizações para o ano de exercício repassado
 	 *
 	*/
-	agora("Obtendo localizadores.");
+	agora("Carregando ações obtidos na base SIOP.");
+
+	$acoesSiop = obterDadosSiop('acoes', "exercicio = {$exercicio}", array('"identificadorUnico"','"codigoAcao"'));
+	$totalAcoes = count($acoesSiop);
+	$contadorAcoes = 0;
+	agora("Obtendo localizadores");
 	limparDadosSiop('localizadores', "exercicio = '{$exercicio}'","Limpando base de dados dos localizadores para o ano de {$exercicio}.");
-	$localizadores = obterTodosLocalizadoresPorAnoExercicio($exercicio);
-	if(!$localizadores['sucesso']) {
-		agora("\tNão foi possível obter os dados dos localizadores:");
-		echo "\n";
-		echo str_replace("<br>", "\n", $localizadores['mensagensErro']);
-		echo "\n";
-	} else {
-		$numRegistrosLocalizadores = 0;
-		foreach($localizadores['registros'] as $localizador) {
-			salvarDadosSiop('localizadores', $localizador);
-			$numRegistrosLocalizadores++;
-		}
-		if($numRegistrosLocalizadores > 0) {
-			agora("Salvados {$numRegistrosLocalizadores} localizadores.");
-		} else {
-			agora("Sem localizadores para serem salvados.");
-		}
-		reset($localizadores);
+	$numTotalLocalizadores = 0;
+
+	foreach($acoesSiop as $acaoSiop) {
+		$contadorAcoes++;
+		$identificadorUnicoAcao = $acaoSiop['IDENTIFICADORUNICO'];
+		do {
+			$localizadores = obterLocalizadoresPorAcao($exercicio, $identificadorUnicoAcao, $contadorAcoes, $totalAcoes);
+			if(!$localizadores['sucesso']) {
+				agora("\tNão foi possível obter os dados dos localizadores para a ação {$identificadorUnicoAcao}:");
+				echo "\n";
+				echo str_replace("<br>", "\n", $localizadores['mensagensErro']);
+				echo "\n";
+			} else {
+				$numRegistrosLocalizadores = 0;
+				foreach($localizadores['registros'] as $localizador) {
+					salvarDadosSiop('localizadores', $localizador);
+					$numRegistrosLocalizadores++;
+					$numTotalLocalizadores++;
+				}
+				if($numRegistrosLocalizadores > 0) {
+					agora("Salvados {$numRegistrosLocalizadores} localizadores para a ação {$identificadorUnicoAcao}.");
+				} else {
+					agora("Sem localizadores para a ação {$identificadorUnicoAcao}.");
+				}
+			}
+		} while(!$localizadores['sucesso']);
 	}
+	agora("Salvados no total {$numTotalLocalizadores} localizadores.");
 }
 
 if($baixar['planos']) {
