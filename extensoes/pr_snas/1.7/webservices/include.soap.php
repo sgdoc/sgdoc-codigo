@@ -10,7 +10,7 @@ define("TIPO_BOOLEAN", 3);
 function inicializarWebServiceSOF($configuracao) {
 	$proxy = ConfigWs::factory()->getSiopProxyConfig();
 	$client = new nusoap_client($configuracao['wsdl_url'], false, $proxy['server'], $proxy['port'], $proxy['username'], $proxy['password'], 0, 3000 );
-	$client->setDebugLevel(9);
+	$client->setDebugLevel(1);
 	$client->setUseCURL(true);
 
 	// Verifica se há algum dado de configuração para certificado. 
@@ -50,7 +50,7 @@ function acessarWebServiceSOF($metodo, $parametros = array(), $configuracao = ar
 	} else {
 		$err = $client->getError();
 		if ($err) {
-			return array('sucesso' => false, 'mensagensErro' => $err);
+			return array('sucesso' => false, 'mensagensErro' => $err, 'debug' => $client->debug_str );
 		}
 	}
 	$registros = array();
@@ -59,7 +59,7 @@ function acessarWebServiceSOF($metodo, $parametros = array(), $configuracao = ar
 	} else {
 		$registros[0] = $result[$dto];
 	}
-	return array( 'sucesso' => true, 'registros' => $registros );
+	return array( 'sucesso' => true, 'registros' => $registros, 'debug' => $client->debug_str  );
 }
 
 function retornaCredenciais($configuracao){
@@ -247,7 +247,7 @@ function salvarDadosSiop($destino, $valores) {
 					$pdo = \PDO::PARAM_STR;
 					break;
 				case TIPO_TEXTUAL :
-					$valor = utf8_encode($valores[$chave]);
+					$valor = $valores[$chave];
 					$pdo = \PDO::PARAM_STR;
 					break;
 				case TIPO_BOOLEAN :
