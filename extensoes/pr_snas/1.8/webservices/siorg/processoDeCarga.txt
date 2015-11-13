@@ -1,0 +1,10 @@
+- Gerar um arquivo xml com o retorno do método ( REST ) http://estruturaorganizacional.dados.gov.br/doc/estrutura-organizacional/completa.xml;
+- Remover as tags iniciais e finais, mantendo somente a lista de tags <unidades>;
+- Remover caracteres de marcação (por exemplo "&#xD;");
+- Incluir uma quebra de linha após cada tag </unidades>;
+- Rodar a rotina "sgdoc/extensoes/pr_snas/1.7/webservices/siorg/carga.php", informando o nome do arquivo na linha 57;
+
+- atualizar endereços e contatos
+
+- Fazer um dump da tabela "sgdoc.tb_pessoa_siorg", e, nele, alterar o nome para "sgdoc.tb_pessoa_siorg_carga"
+- Executar os scripts de banco do arquivo scripts.sql no servidor de destino;
