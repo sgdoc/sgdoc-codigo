@@ -123,7 +123,7 @@ include(__BASE_PATH__ . '/extensoes/pr_snas/1.8/interfaces/form_novo_prazo.php')
 			},
 			fnRowCallback: function(nRow, aData, iDisplayIndex) {
 
-				var prazoDaUnidade = (aData[11] == unidadeCorrente);
+				var prazoDaUnidade = (aData[12] == unidadeCorrente);
 				
 				if ($("#selFiltroOrigemDemanda").val() != 'TD') {
 					/* se não for exibir todos, irá excluir uma coluna, então ajusta-se o índice das colunas abaixo */
