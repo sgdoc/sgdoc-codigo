@@ -30,6 +30,7 @@
 				if (
 						$('#DATA_DOCUMENTO_CADASTRAR_SOLICITACOES_GENERICA').val() &&
 						$('#ASSUNTO_CADASTRAR_SOLICITACOES_GENERICA').val() &&
+						$('#ASSUNTO_COMPLEMENTAR_CADASTRAR_SOLICITACOES_GENERICA').val() &&						
 //						$('#PRIORIDADE_CADASTRAR_SOLICITACOES_GENERICA').val() &&
 						$('#PRAZO_CADASTRAR_SOLICITACOES_GENERICA').val() &&
 						$('#NOME_INTERESSADO_CADASTRAR_SOLICITACOES_GENERICA').val() &&
@@ -294,7 +295,7 @@
 
 				<div class="row-prioridades">
 					<div class="row">
-						<label class="label">*PRIORIDADE(S):</label>
+						<label class="label">PRIORIDADE(S):</label>
 						<span class="conteudo">
 							<select class="FUNDOCAIXA1" id="LISTA_PRIORIDADE"></select>
 						</span>
