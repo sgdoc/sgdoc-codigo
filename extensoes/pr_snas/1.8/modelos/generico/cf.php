@@ -183,7 +183,8 @@ function adicionaDemanda( $inputData, $usuario )
 
 function getPriority( $prioridade )
 {
-	return current( CFModelPrioridade::factory()->find( $prioridade ) );
+	if(is_int($prioridade))
+		return current( CFModelPrioridade::factory()->find( $prioridade ) );
 }
 
 function getUsuario()
