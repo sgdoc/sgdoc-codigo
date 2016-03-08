@@ -176,5 +176,31 @@ class CFModelDocumentoCamposDemanda extends CFModelAbstract {
                     break;
             }
     }
-
+    
+    /**
+     * @todo Retorna todas as prioridades de um documento
+     * @param digital $digital
+     * @return array Retorna uma lista de prioridades
+     */
+	public function getPrioridades( $digital ) {
+		try {
+			$associacao = $this->getAssociacao($tipo);
+				
+			$stmt = $this->_conn->prepare("
+				select id_prioridade 
+				from sgdoc.ext__snas__tb_documentos_campos
+				where tipo = 'PR' and digital = ?
+			" );
+			$stmt->bindParam(1, $digital, PDO::PARAM_INT);
+			$stmt->execute();
+			
+			$prioridades = array();
+			foreach( (array) $stmt->fetchAll(PDO::FETCH_ASSOC) as $prioridade ) {
+				$prioridades[] = $prioridade['ID_PRIORIDADE'];
+			}
+			return $prioridades;
+		} catch (PDOException $e) {
+			throw $e;
+		}
+	}
 }

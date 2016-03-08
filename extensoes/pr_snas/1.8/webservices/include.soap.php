@@ -11,7 +11,9 @@ function inicializarWebServiceSOF($configuracao) {
 	$proxy = ConfigWs::factory()->getSiopProxyConfig();
 	$client = new nusoap_client($configuracao['wsdl_url'], false, $proxy['server'], $proxy['port'], $proxy['username'], $proxy['password'], 0, 3000 );
 	$client->setDebugLevel(1);
-	$client->setUseCURL(true);
+	$client->setUseCURL(true);	
+//	$client->setCurlOption(CURLOPT_SSLVERSION, 1);
+	
 
 	// Verifica se há algum dado de configuração para certificado. 
 	// Caso houver define o tipo de autenticação para certificate.

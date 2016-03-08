@@ -439,13 +439,20 @@ class VinculacaoDemanda extends Vinculacao {
 	    		throw new Exception('Vinculo inválido, informe '. implode(', ', self::$vinculos) . '.');
 	    	}
 	    	
-	    	$sql = 'select v.' . ($relacao == 'p' ? 'id_documento_filho' : 'id_documento_pai') . ' as id_documento, d.digital ';
-	    	$sql .= 'from sgdoc.tb_documentos_vinculacao v ';
-	    	$sql .= 'inner join sgdoc.tb_documentos_cadastro d on (d.id=v.' . ($relacao == 'p' ? 'id_documento_filho' : 'id_documento_pai') . ') ';
-	    	$sql .= 'where (v.st_ativo = 1) and (v.id_vinculacao = :vinc) ';
-	    	$sql .= 'and (v.' . ($relacao == 'p' ? 'id_documento_pai' : 'id_documento_filho') . ' = :id) ';
-	    	$sql .= 'order by d.digital;';
+	    	$idTabela  = ($relacao == 'p' ? 'id_documento_filho' : 'id_documento_pai');
+	    	$idRelacao = ($relacao == 'p' ? 'id_documento_pai' : 'id_documento_filho');
 	    	
+	    	$sql = "
+	    		select 
+	    			v.{$idTabela} as id_documento, d.digital 
+	    		from 
+	    			sgdoc.tb_documentos_vinculacao v 
+	    			inner join sgdoc.tb_documentos_cadastro d on ( d.id = v.{$idTabela} ) 
+	    		where 
+	    			( v.st_ativo = 1 ) and ( v.id_vinculacao = :vinc ) 
+	    			and ( v.{$idRelacao} = :id ) 
+	    		order by d.assunto, d.assunto_complementar, d.digital;
+	    	";
 	    	$stmt = Controlador::getInstance()->getConnection()->connection->prepare($sql);
 	    	
 	    	$stmt->bindParam('vinc', $vinculo, PDO::PARAM_INT);

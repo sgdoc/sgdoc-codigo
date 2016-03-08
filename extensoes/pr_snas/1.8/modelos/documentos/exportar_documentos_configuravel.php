@@ -165,67 +165,71 @@ if ($_POST) {
 					$arrDem = VinculacaoDemanda::listarVinculados($idDocumento, 'p', 3);
 					if ($arrDem !== false) {
 						for ($i=0; $i<count($arrDem); $i++) {
-							$prazo = DaoPrazoDemanda::getPrimeiroPrazo($arrDem[$i]['DIGITAL']);
-							if (is_null($prazo['dt_resposta'])) {
-								$prazo['legislacao_situacao'] = '';
-							} else {
-								$prazo['legislacao_situacao'] = $prazo['legislacao_situacao_descricao'];
-							}
-							fwrite($fp, "\n----- DEMANDA " . ($i+1) . " -----\n");
-							foreach ($arrOpcSel as $opt) {
-								if (($opt != 'prz-ppa') && ($opt != 'prz-exec_orc')) {
-									if (substr($opt, 0, 3) == 'prz') {
-										/*
-										 if (!isset($arrSaidaPrz[$prazo['sq_prazo']])) {
-										$arrSaidaPrz[$prazo['sq_prazo']] = array();
-										}*/
-										$arrTmp = getOpcao($arrOpcoes, 'id', $opt);
-										//$arrCabecalho[] = $arrTmp[0]['label'];
-										//$arrSaidaPrz[$prazo['sq_prazo']][] = $prazo[$arrTmp[0]['campo']];
-										$prz_label = $arrTmp[0]['label'];
-										$prz_campo = $prazo[$arrTmp[0]['campo']];
-										if($opt == 'prz-id_unid_destino') {
-											$prz_campo = DaoUnidade::getUnidade($prazo[$arrTmp[0]['campo']], 'nome');
-										}
-
-										fwrite($fp, $prz_label . ': ' . $prz_campo . "\n");
-									}
-								}
-							} 
-							if ($buscarPPA || $buscarExecOrc) {
-								$arrPpa = DaoPrazoDemanda::listarObjetivosMetasPpa($prazo['sq_prazo']);
-								if ($arrPpa !== false) {
-									fwrite($fp, "\n----- OBJETIVOS E METAS PPA/LOA -----\n");
-									for ($j=0; $j<count($arrPpa); $j++) {
-										fwrite($fp, 'Programa: ' . $arrPpa[$j]['PROGRAMA'] . "\n");
-										fwrite($fp, 'Exercício: ' . $arrPpa[$j]['EXERCICIO'] . "\n");
-										fwrite($fp, 'Objetivo: ' . $arrPpa[$j]['OBJETIVO'] . "\n");
-										fwrite($fp, 'Meta: ' . $arrPpa[$j]['META'] . "\n\n");
-									}
+							if( $arrDem[$i]['DIGITAL'] != '0000000' ) {
+								$prazo = DaoPrazoDemanda::getPrimeiroPrazo($arrDem[$i]['DIGITAL']);
+								if (is_null($prazo['dt_resposta'])) {
+									$prazo['legislacao_situacao'] = '';
 								} else {
-									fwrite($fp, "SEM OBJETIVOS E METAS PPA/LOA INFORMADOS\n\n");
+									$prazo['legislacao_situacao'] = $prazo['legislacao_situacao_descricao'];
 								}
-
-								$arrPpa = DaoPrazoDemanda::listarAcoesPpa($prazo['sq_prazo']);
-								if ($arrPpa !== false) {
-									fwrite($fp, "\n----- AÇÕES" .($buscarExecOrc ? ' E EXECUÇÕES ORÇAMENTÁRIAS' : ''). " PPA/LOA -----\n");
-									for ($j=0; $j<count($arrPpa); $j++) {
-										fwrite($fp, 'Programa: ' . $arrPpa[$j]['PROGRAMA'] . "\n");
-										fwrite($fp, 'Exercício: ' . $arrPpa[$j]['EXERCICIO'] . "\n");
-										fwrite($fp, 'Ação: ' . $arrPpa[$j]['ACAO'] . "\n");
-										fwrite($fp, 'Localizador: ' . $arrPpa[$j]['LOCALIZADOR'] . "\n");
-										fwrite($fp, 'Plano Orçamentário: ' . $arrPpa[$j]['P_O'] . "\n");
-										if ($buscarExecOrc) {
-											fwrite($fp, "Valores Execução Orçamentária:\n");
-											fwrite($fp, '  Dotação Atual: R$ ' . toReal($arrPpa[$j]['VAL_DOTACAO_ATUAL']) . "\n");
-											fwrite($fp, '  Empenhado: R$ ' . toReal($arrPpa[$j]['VAL_EMPENHADO']) . "\n");
-											fwrite($fp, '  Liquidado: R$ ' . toReal($arrPpa[$j]['VAL_LIQUIDADO']) . "\n");
-											fwrite($fp, '  Liq. / Emp.: ' . toReal($arrPpa[$j]['PER_LIQ_EMP']) . "%\n");
+								fwrite($fp, "\n----- DEMANDA " . ($i+1) . " -----\n");
+								foreach ($arrOpcSel as $opt) {
+									if (($opt != 'prz-ppa') && ($opt != 'prz-exec_orc')) {
+										if (substr($opt, 0, 3) == 'prz') {
+											/*
+											 if (!isset($arrSaidaPrz[$prazo['sq_prazo']])) {
+											$arrSaidaPrz[$prazo['sq_prazo']] = array();
+											}*/
+											$arrTmp = getOpcao($arrOpcoes, 'id', $opt);
+											//$arrCabecalho[] = $arrTmp[0]['label'];
+											//$arrSaidaPrz[$prazo['sq_prazo']][] = $prazo[$arrTmp[0]['campo']];
+											$prz_label = $arrTmp[0]['label'];
+											$prz_campo = $prazo[$arrTmp[0]['campo']];
+											if($opt == 'prz-id_unid_destino') {
+												$prz_campo = DaoUnidade::getUnidade($prazo[$arrTmp[0]['campo']], 'nome');
+											}
+	
+											fwrite($fp, $prz_label . ': ' . $prz_campo . "\n");
 										}
-										fwrite($fp, "\n");
 									}
-								} else {
-									fwrite($fp, "SEM AÇÕES" .($buscarExecOrc ? ' E EXECUÇÕES ORÇAMENTÁRIAS' : ''). " PPA/LOA INFORMADAS\n\n");
+								} 
+								if ($buscarPPA || $buscarExecOrc) {
+									if( $prazo['sq_prazo'] > 0 ) {
+										$arrPpa = DaoPrazoDemanda::listarObjetivosMetasPpa($prazo['sq_prazo']);
+										if ($arrPpa !== false) {
+											fwrite($fp, "\n----- OBJETIVOS E METAS PPA/LOA -----\n");
+											for ($j=0; $j<count($arrPpa); $j++) {
+												fwrite($fp, 'Programa: ' . $arrPpa[$j]['PROGRAMA'] . "\n");
+												fwrite($fp, 'Exercício: ' . $arrPpa[$j]['EXERCICIO'] . "\n");
+												fwrite($fp, 'Objetivo: ' . $arrPpa[$j]['OBJETIVO'] . "\n");
+												fwrite($fp, 'Meta: ' . $arrPpa[$j]['META'] . "\n\n");
+											}
+										} else {
+											fwrite($fp, "SEM OBJETIVOS E METAS PPA/LOA INFORMADOS\n\n");
+										}
+		
+										$arrPpa = DaoPrazoDemanda::listarAcoesPpa($prazo['sq_prazo']);
+										if ($arrPpa !== false) {
+											fwrite($fp, "\n----- AÇÕES" .($buscarExecOrc ? ' E EXECUÇÕES ORÇAMENTÁRIAS' : ''). " PPA/LOA -----\n");
+											for ($j=0; $j<count($arrPpa); $j++) {
+												fwrite($fp, 'Programa: ' . $arrPpa[$j]['PROGRAMA'] . "\n");
+												fwrite($fp, 'Exercício: ' . $arrPpa[$j]['EXERCICIO'] . "\n");
+												fwrite($fp, 'Ação: ' . $arrPpa[$j]['ACAO'] . "\n");
+												fwrite($fp, 'Localizador: ' . $arrPpa[$j]['LOCALIZADOR'] . "\n");
+												fwrite($fp, 'Plano Orçamentário: ' . $arrPpa[$j]['P_O'] . "\n");
+												if ($buscarExecOrc) {
+													fwrite($fp, "Valores Execução Orçamentária:\n");
+													fwrite($fp, '  Dotação Atual: R$ ' . toReal($arrPpa[$j]['VAL_DOTACAO_ATUAL']) . "\n");
+													fwrite($fp, '  Empenhado: R$ ' . toReal($arrPpa[$j]['VAL_EMPENHADO']) . "\n");
+													fwrite($fp, '  Liquidado: R$ ' . toReal($arrPpa[$j]['VAL_LIQUIDADO']) . "\n");
+													fwrite($fp, '  Liq. / Emp.: ' . toReal($arrPpa[$j]['PER_LIQ_EMP']) . "%\n");
+												}
+												fwrite($fp, "\n");
+											}
+										} else {
+											fwrite($fp, "SEM AÇÕES" .($buscarExecOrc ? ' E EXECUÇÕES ORÇAMENTÁRIAS' : ''). " PPA/LOA INFORMADAS\n\n");
+										}
+									}
 								}
 							}
 						}
