@@ -18,6 +18,10 @@ use Respect\Validation\Rules\Length;
  * */
 
 include(__BASE_PATH__ . '/classes/DaoPrazo.php');
+include_once(__BASE_PATH__ . '/extensoes/pr_snas/1.8/classes/CFModelDocumentoDemanda.php');
+include_once(__BASE_PATH__ . '/extensoes/pr_snas/1.8/classes/TPDocumentoDemanda.php');
+include_once(__BASE_PATH__ . '/extensoes/pr_snas/1.8/classes/CFModelDocumentoCamposDemanda.php');
+include_once(__BASE_PATH__ . '/extensoes/pr_snas/1.8/classes/CFModelAgrupamentoDocumentos.php');
 
 /**
  * @author Michael F. Rodrigues <cerberosnash@gmail.com>
@@ -110,10 +114,15 @@ class DaoPrazoDemanda extends DaoPrazo {
 					e.dt_minuta_resposta, 
 					e.id_prazo_pai,
 					d.assunto, 
-					d.assunto_complementar
+					d.assunto_complementar,
+					d.id_assunto,
+					to_char(d.dt_documento::timestamp with time zone, \'dd/mm/yyyy\'::text) AS dt_documento,
+					d.interessado,
+					a.id_grupo 
 				from sgdoc.tb_controle_prazos p
 				  left join sgdoc.ext__snas__tb_controle_prazos e on (e.id=p.sq_prazo)
 				  left join sgdoc.tb_documentos_cadastro d ON d.digital::text = p.nu_proc_dig_ref::text
+				  left join snas.tb_agrupamento_documentos a ON d.digital::text = a.digital::text
 				where p.sq_prazo = :id;';
 			
 			$stmt = Controlador::getInstance()->getConnection()->connection->prepare($sql);
@@ -286,7 +295,7 @@ class DaoPrazoDemanda extends DaoPrazo {
 			$stmt->execute();
 			
 			$lastIdPrazo = Controlador::getInstance()->getConnection()->connection->lastInsertId('TB_CONTROLE_PRAZOS_SQ_PRAZO_SEQ');
-
+			
 			$sttt = Controlador::getInstance()->getConnection()->connection->prepare("INSERT INTO EXT__SNAS__TB_CONTROLE_PRAZOS (ID,NU_PROC_DIG_REF_PAI, ID_PRAZO_PAI) VALUES (:id, :dig_ref_pai, :id_pai);");
 			$sttt->bindParam(id, $lastIdPrazo, PDO::PARAM_INT);
 			$sttt->bindParam(dig_ref_pai, $pai, PDO::PARAM_STR);
@@ -294,6 +303,8 @@ class DaoPrazoDemanda extends DaoPrazo {
 			$sttt->execute();
 
 			new Log('TB_CONTROLE_PRAZOS', $lastIdPrazo, Zend_Auth::getInstance()->getIdentity()->ID, 'inserir');
+			
+			return $lastIdPrazo;
 	}
 
 	/**
@@ -328,18 +339,19 @@ class DaoPrazoDemanda extends DaoPrazo {
 				if (!$prazo) {
 					throw new Exception('Prazo não localizado.');
 				}
+				
 				$novoPrazo = new Prazo();
-				$novoPrazo->nu_proc_dig_ref = $prazo['nu_proc_dig_ref'];
+				$novoPrazo->nu_proc_dig_ref = $prazo['nu_proc_dig_ref']; 
 				$novoPrazo->id_usuario_origem = Controlador::getInstance()->usuario->ID;
 				$novoPrazo->id_usuario_destino = $idUsuarioDestino;
 				$novoPrazo->id_unid_origem = Zend_Auth::getInstance()->getIdentity()->ID_UNIDADE_ORIGINAL;
 				$novoPrazo->id_unid_destino = $idUnidDestino;
 				$novoPrazo->dt_prazo = $dataPrazo;
-				$novoPrazo->tx_solicitacao = $prazo['tx_solicitacao'] . $txtComp;
+				$novoPrazo->tx_solicitacao = $prazo['tx_solicitacao'] . ' ' . $txtComp;
 				$novoPrazo->nu_proc_dig_ref_pai = $prazo['nu_proc_dig_ref_pai'];
 				$novoPrazo->id_prazo_pai = $idPrazoPai;
 				
-				self::inserirPrazo($novoPrazo);
+				$lastIdPrazo = self::inserirPrazo($novoPrazo);
 			}
 		
 			Controlador::getInstance()->getConnection()->connection->commit();
@@ -351,6 +363,100 @@ class DaoPrazoDemanda extends DaoPrazo {
 			return new Output(array('success' => 'false', 'error' => $e->getMessage()));
 		}
 		 
+	}
+
+	/**
+	 * Cria múltiplas demandas para uma unidade de destino
+	 * @param Prazo $prazo
+	 */
+	public static function encaminharPrazosDemandas(Prazo $prazos) {
+
+		$usuario = self::getUsuario();
+		$responses = array();
+		$sucesso = 'true';
+		
+		try {
+			$arrId = explode(',', trim($prazos->prazo->prazos, ','));
+			if (!array_walk($arrId, 'is_numeric')) {
+				throw new Exception('Prazos inválidos.');
+			}
+				
+			$idUnidDestino = $prazos->prazo->id_unid_destino;
+			$idUsuarioDestino = null;
+			if (isset($prazos->prazo->id_usuario_destino) && $prazos->prazo->id_usuario_destino != '') {
+				$idUsuarioDestino = $prazos->prazo->id_usuario_destino;
+			}
+				
+			$dataPrazo = $prazos->prazo->dt_prazo;
+				
+			$txtComp = '';
+			if (isset($prazos->prazo->tx_solicitacao) && $prazos->prazo->tx_solicitacao != '') {
+				$txtComp = "\n\n" . trim($prazos->prazo->tx_solicitacao);
+			}
+			
+			foreach ($arrId as $idPrazoPai) {
+				$prazo = self::getPrazoExtensao($idPrazoPai);
+				if (!$prazo) {
+					throw new Exception('Prazo não localizado.');
+				}
+				
+				$inputData['PROCEDENCIA'] = 'I';
+				$inputData['TIPO'] = 'MONITORAMENTO'; 
+				$inputData['DT_CADASTRO'] = date('Y-m-d');
+				
+				// Dados do usuário
+				$inputData['DIRETORIA'] = $usuario->DIRETORIA;
+				$inputData['ORIGEM'] = $usuario->DIRETORIA;
+				$inputData['ULTIMO_TRAMITE'] = sprintf('Área de Trabalho - %s', $usuario->DIRETORIA);
+				$inputData['ID_UNIDADE'] = $usuario->ID_UNIDADE;
+				$inputData['ID_USUARIO'] = $usuario->ID;
+				$inputData['ID_UNID_CAIXA_SAIDA'] = $usuario->ID_UNIDADE;
+				$inputData['USUARIO'] = $usuario->NOME;
+				
+				$inputData['ASSUNTO'] = $prazo['assunto'];
+				$inputData['ID_ASSUNTO'] = $prazo['id_assunto'];
+				$inputData['ASSUNTO_COMPLEMENTAR'] = $prazo['assunto_complementar'];
+				$inputData['DT_DOCUMENTO'] = Util::formatDate($prazo['dt_documento']);
+				$inputData['INTERESSADO'] = $prazo['interessado'];
+				$inputData['DT_PRAZO'] = Util::formatDate($prazos->prazo->dt_prazo);
+				$inputData['SOLICITACAO'] = $prazo['tx_solicitacao'] . ' ' . $txtComp;
+				$inputData['DIGITAL_REFERENCIA'] = trim( $prazo['nu_proc_dig_ref_pai'] );
+				$inputData['NM_PRIORIDADE'] = null;
+				$inputData['PRIORIDADES'] = CFModelDocumentoCamposDemanda::factory()->getPrioridades( $prazo['nu_proc_dig_ref'] );
+				$inputData['ID_UNID_CAIXA_ENTRADA'] = $prazos->prazo->id_unid_destino;
+				$inputData['DESTINO'] = DaoUnidade::getUnidade( $inputData['ID_UNID_CAIXA_ENTRADA'], 'nome' );
+				$response = self::adicionarDemanda($inputData);
+				
+				$responses[] = $response;
+				
+				$grupo = (int) $prazo['id_grupo'];
+				if( $grupo > 0 ) {
+					if( !$response['success'] ) {
+						$sucesso = 'false';
+					} else {
+						$digitaisOk = array();
+						$digitaisOk[0] = $response['digital'];
+						DaoPrazoDemanda::agrupaDemandas ( $digitaisOk, $grupo );
+						//$responses[] = DaoPrazoDemanda::agrupaDemandas ( $digitaisOk, $grupo );
+						
+						reset( $digitaisOk );
+					}
+				}
+				
+				reset( $inputData );
+			}
+							
+			$resposta = '';
+			foreach( $responses as $response ) {
+				$resposta .= $response['message'] . "\n";
+			}
+			return new Output(array('success' => $sucesso, 'message' => $resposta));
+	
+		} catch (Exception $e) {
+			Controlador::getInstance()->getConnection()->connection->rollBack();
+			return new Output(array('success' => 'false', 'error' => $e->getMessage()));
+		}
+			
 	}
 	
 	public static function removerPrazo($digital) {
@@ -1031,4 +1137,128 @@ class DaoPrazoDemanda extends DaoPrazo {
 			return new Output(array('success' => 'false', 'error' => $e->getMessage()));
 		}
 	}
+	
+	public static function adicionarDemanda( $inputData )
+	{
+
+		$usuario = self::getUsuario();
+		
+		$response = array();
+		try {
+			$persist = CFModelDocumentoDemanda::factory();
+			$persist->beginTransaction();
+	
+			$factory = TPDocumentoDemanda::factory();
+	
+			$digital = CFModelDigital::factory()->next($usuario->ID_UNIDADE);
+
+			if (!$digital) {
+				throw new Exception('Não há mais digitais disponíveis!');
+			}
+			$inputData['NUMERO'] = $digital;
+			$inputData['DIGITAL'] = $digital;
+			
+			$lastId = $factory->create($inputData);
+			$documento = $persist->find($lastId);
+			
+			$idDocumentoPai = current($persist->findByParam(array('DIGITAL' => $inputData['DIGITAL_REFERENCIA'])));
+			$inputData['DIGITAL_PAI'] = $idDocumentoPai->DIGITAL;
+	
+			if (empty($documento)) {
+				throw new Exception('Ocorreu um erro ao tentar registrar o novo monitoramento!');
+			}
+	
+			$inputData['ID'] = $lastId;
+			$factory->generatePDF($inputData)
+					->convertPDFToPng($inputData['DIGITAL'])
+					->garbageCollection()
+					->registerPNGDB($inputData['DIGITAL'], Controlador::getInstance()->getConnection()->connection)
+					->registerDeadlines($inputData);
+	
+			//Cria o histórico do documento para encaminhamento
+			$inputData['ULTIMO_TRAMITE'] = sprintf('Encaminhado por %s - %s para %s em %s', $usuario->NOME, $usuario->DIRETORIA, $inputData['DESTINO'], date('d/m/Y - H:i:s'));
+			$factory->transact($inputData);
+	
+	
+			/**
+			 * @author Bruno Pedreira
+			 * Data: 11/12/2013
+			 * Funcionalidade adicionada para associar documentos.
+			 * Necessidade PG/PR SNAS
+			*/
+			if (!empty($inputData['DIGITAL_REFERENCIA'])) {			
+//				echo $inputData['DIGITAL_REFERENCIA'];
+				
+//				print_r( (array) $idDocumentoPai );
+				$persist->associarDocumentos($idDocumentoPai->ID, $lastId, $usuario->ID, $usuario->ID_UNIDADE, $usuario->NOME, $usuario->DIRETORIA, 'XXXXX', 'XXXXX');
+			}
+	
+			//tratar PRIORIDADES
+			if (isset($inputData['PRIORIDADES'])) {
+	
+				$prioridades = $inputData['PRIORIDADES'];
+	
+				if ( count($prioridades) > 1 ) {
+	
+					//desabilitar todos os vinculos do documento com as campos extras
+					CFModelDocumentoCamposDemanda::factory()->disassociateAllByDigital($inputData['DIGITAL'], "PR");
+	
+					foreach ($prioridades as $prioridade) {
+						if (CFModelDocumentoCamposDemanda::factory()->isExists($inputData['DIGITAL'], $prioridade, "PR")) { //Se existir atualiza
+							CFModelDocumentoCamposDemanda::factory()->updateAssociationWithDigital($inputData['DIGITAL'], $prioridade, 1, "PR");
+						} else { //Se não cria
+							CFModelDocumentoCamposDemanda::factory()->createAssociationWithDigital($inputData['DIGITAL'], $prioridade, "PR");
+						}
+					}
+				}
+			}
+	
+			//Fim da funcionalidade
+			$persist->commit();			
+			$response = array('success' => true, 'message' => sprintf('Monitoramento %s cadastrado com sucesso!', current($documento)->DIGITAL), 'digital' => current($documento)->DIGITAL );
+			
+		} catch (Exception $e) {
+			$factory->garbageCollection();
+			$persist->rollback();
+			$response = array('success' => false, 'message' => $e->getMessage(), 'digital' => current($documento)->DIGITAL );
+		}
+	
+		return $response;
+	}
+		
+	public static function getPriority( $prioridade )
+	{
+		if(is_int($prioridade))
+			return current( CFModelPrioridade::factory()->find( $prioridade ) );
+	}
+	
+	public static function getUsuario()
+	{
+		return Zend_Auth::getInstance()->getStorage()->read();
+	}
+
+	public static function agrupaDemandas( $digitais, $grupo = null ) {
+		try {
+			$persist = CFModelAgrupamentoDocumentos::factory();
+			$persist->beginTransaction();
+	
+			if( is_null( $grupo ) ) 
+				$grupo = CFModelAgrupamentoDocumentos::obtemNovoGrupo();
+	
+			foreach( $digitais as $digital ) {
+				$persist->insert( array(
+						'ID_GRUPO' => $grupo,
+						'DIGITAL' => $digital
+				));
+			}
+	
+			$persist->commit();
+			return array('success' => true, 'message' => sprintf('Documentos agrupado no grupo %s com sucesso!', $grupo) );
+		}catch (Exception $e) {
+			$factory->garbageCollection();
+			$persist->rollback();
+			$response = array('success' => false, 'message' => $e->getMessage() );
+		}
+	}
+
 }

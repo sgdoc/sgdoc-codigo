@@ -163,11 +163,13 @@ include(__BASE_PATH__ . '/interfaces/detalhar_processos.php');
         $('#tipo_ref').change(function() {
             var o = $('#tipo_ref').val();
             if (o == 'D') {
-                $('#nu_proc_dig_ref').removeAttr('disabled');
+                $('#nu_proc_dig_ref').attr('disabled', 'disabled');
                 $('#nu_proc_dig_ref').attr('maxLength', '7');
+                $('#nu_proc_dig_ref').val('');
             } else if (o == 'P') {
                 $('#nu_proc_dig_ref').removeAttr('disabled');
                 $('#nu_proc_dig_ref').attr('maxLength', '20');
+                $('#nu_proc_dig_ref').val('');
             } else if (o == 'N') {
                 $('#nu_proc_dig_ref').attr('disabled', 'disabled');
                 $('#nu_proc_dig_ref').val('');

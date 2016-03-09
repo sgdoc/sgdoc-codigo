@@ -1,4 +1,5 @@
 --CRIACAO TABELA DE AGRUPAMENTO DE DOCUMENTOS
+DROP TABLE IF EXISTS snas.tb_agrupamento_documentos CASCADE; 
 CREATE TABLE snas.tb_agrupamento_documentos
 (
   id serial NOT NULL,
@@ -12,7 +13,7 @@ ALTER TABLE snas.tb_agrupamento_documentos
   OWNER TO usr_pr_sgdoc4;
 
 -- CRIACAO DA VIEW snas.vw_vinculo_documentos_agrupados_filtro, SUBSTITUINDO A snas.vw_vinculo_documentos_filtro
-
+DROP VIEW IF EXISTS snas.vw_vinculo_documentos_agrupados_filtro;
 CREATE OR REPLACE VIEW snas.vw_vinculo_documentos_agrupados_filtro AS 
  SELECT doc.digital, dem.digital AS demanda, prz.sq_prazo, prz.tx_solicitacao, 
         CASE
@@ -36,7 +37,7 @@ CREATE OR REPLACE VIEW snas.vw_vinculo_documentos_agrupados_filtro AS
    LEFT JOIN sgdoc.tb_unidades uorg ON uorg.id = prz.id_unid_origem
    LEFT JOIN sgdoc.tb_unidades udes ON udes.id = prz.id_unid_destino
    LEFT JOIN snas.tb_agrupamento_documentos agr ON dem.digital = agr.digital
-  ORDER BY dem.digital, prz.sq_prazo;
+  ORDER BY doc.assunto, doc.assunto_complementar, dem.digital, prz.sq_prazo;
 
 ALTER TABLE snas.vw_vinculo_documentos_agrupados_filtro
   OWNER TO postgres;

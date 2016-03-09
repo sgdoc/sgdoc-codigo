@@ -70,9 +70,9 @@ if ($_POST) {
                 break;
                 
 			case 'encaminhar':
-				try {
+				try {					
 					$prazo = new Prazo($_POST);
-					$out = DaoPrazoDemanda::encaminharPrazos($prazo)->toArray();
+					$out = DaoPrazoDemanda::encaminharPrazosDemandas($prazo)->toArray();
 				} catch (Exception $e) {
 					$out = array('success' => 'false', 'error' => $e->getMessage());
 				}
@@ -136,10 +136,8 @@ if ($_POST) {
             case 'incluir-anexo-resposta':
             	try {
             		Session::set('_upload', array('digital' => $_POST['hdnUploadDigital']));
-            		//var_dump($_FILES['inpFileUpload']);
             		if ($_FILES['inpFileUpload']['type'] == '') {
             			$arrNome = explode('.', $_FILES['inpFileUpload']['name']);
-            			//var_dump($arrNome); die;
             			$_FILES['inpFileUpload']['type'] = array_pop($arrNome);
             		}
             		$arquivo = new UploaderPdfResposta($_FILES['inpFileUpload']);
