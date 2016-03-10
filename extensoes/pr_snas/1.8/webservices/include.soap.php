@@ -10,7 +10,7 @@ define("TIPO_BOOLEAN", 3);
 function inicializarWebServiceSOF($configuracao) {
 	$proxy = ConfigWs::factory()->getSiopProxyConfig();
 	$client = new nusoap_client($configuracao['wsdl_url'], false, $proxy['server'], $proxy['port'], $proxy['username'], $proxy['password'], 0, 3000 );
-	$client->setDebugLevel(1);
+	$client->setDebugLevel(9);
 	$client->setUseCURL(true);	
 //	$client->setCurlOption(CURLOPT_SSLVERSION, 1);
 	
@@ -698,6 +698,30 @@ function obtemValorVariavel($opcoes, $opcoesVariavel) {
 		print "{$mensagem}\n";
 	}
 	return $valor;
+}
+
+function testarConexaoQualitativo($exercicio) {
+	agora("Testando conexão com o webservice.");
+	$configuracao = ConfigWs::factory()->getSiopConfig('qualitativo');
+	$parametros = array(
+			'credencial'			=> retornaCredenciais($configuracao),
+			'retornarPeriodicidades' => true,
+			'exercicio'				=> $anoExercicio
+	);
+	$orgaosDTO = acessarWebServiceSOF( 'obterTabelasApoio', $parametros, $configuracao );
+	return $orgaosDTO;
+
+}
+
+function testarConexaoQuantitativo($exercicio) {
+	agora("Testando conexão com o webservice.");
+	$configuracao = ConfigWs::factory()->getSiopConfig('quantitativo');	
+	$programaParametros = array(
+		'credencial'		=> retornaCredenciais($configuracao)
+	);
+	$orgaosDTO = acessarWebServiceSOF( 'obterDatasCargaSIAFI', $orgaosParametros, $configuracao );
+	return $orgaosDTO;
+
 }
 
 function agora($mensagem = "", $quebraDeLinha = true) {

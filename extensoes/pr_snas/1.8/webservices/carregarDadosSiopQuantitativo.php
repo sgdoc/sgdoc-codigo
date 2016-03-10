@@ -5,6 +5,17 @@ agora("==================================================================");
 agora("Quantitativo");
 agora("==================================================================");
 
+$testandoConexão = testarConexaoQualitativo($exercicio);
+if(!$testandoConexão['sucesso']) {
+	agora("Houve um problema:");
+	echo "\n";
+	echo str_replace("<br>", "\n", $testandoConexão['mensagensErro']);
+	echo "\n";
+	echo str_replace("<br>", "\n", $testandoConexão['debug']);
+	echo "\n";
+	die();
+}
+
 /**
  * ===================================================================================
  * Obtendo a base de dados de programas para o ano de exercício repassado

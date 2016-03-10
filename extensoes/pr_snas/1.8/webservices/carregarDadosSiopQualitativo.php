@@ -19,11 +19,24 @@ $baixar = array(
 		'localizadores' => TRUE,
 		'planos' => TRUE
 );
+
+$debug = TRUE;
 		
 if(isset($qualitativo) && $qualitativo !== '') {
 	foreach($baixar as $area => $valor) {
 		$baixar[$area] = ($area == $qualitativo);		
 	}
+}
+
+$testandoConexão = testarConexaoQualitativo($exercicio);
+if(!$testandoConexão['sucesso']) {
+	agora("Houve um problema:");
+	echo "\n";
+	echo str_replace("<br>", "\n", $testandoConexão['mensagensErro']);
+	echo "\n";
+	echo str_replace("<br>", "\n", $testandoConexão['debug']);
+	echo "\n";
+	die();
 }
 
 if($baixar['orgaos']) {
@@ -42,6 +55,10 @@ if($baixar['orgaos']) {
 			echo "\n";
 			echo str_replace("<br>", "\n", $orgaosAux['mensagensErro']);
 			echo "\n";
+			if( $debug ) {
+				echo str_replace("<br>", "\n", $orgaosAux['debug']);
+				echo "\n";
+			}
 		} else {
 			$numOrgaosSiop = 0;
 			foreach($orgaosSiop['registros'] as $orgao) {
@@ -51,7 +68,6 @@ if($baixar['orgaos']) {
 			}
 		}
 	} while (!$orgaosSiop['sucesso']);
-	
 	$contadorOrgaosSiop = 0;
 	$totalOrgaosSiop = count($orgaosSiorg);
 	$totalRegistrosOrgaos = 0;
@@ -65,6 +81,10 @@ if($baixar['orgaos']) {
 				echo "\n";
 				echo str_replace("<br>", "\n", $orgaosAux['mensagensErro']);
 				echo "\n";
+				if( $debug ) {
+					echo str_replace("<br>", "\n", $orgaosAux['debug']);
+					echo "\n";
+				}
 			} else {
 				$numRegistrosOrgaos = 0;
 				foreach($orgaosAux['registros'] as $orgao) {
@@ -109,6 +129,10 @@ if($baixar['programas']) {
 				echo "\n";
 				echo str_replace("<br>", "\n", $programasAux['mensagensErro']);
 				echo "\n";
+				if( $debug ) {
+					echo str_replace("<br>", "\n", $programasAux['debug']);
+					echo "\n";
+				}
 			} else {
 				$contadorProgramasPorOrgao = 0;
 				foreach($programasAux['registros'] as $programa) {
@@ -162,6 +186,10 @@ if($baixar['acoes']) {
 			echo "\n";
 			echo str_replace("<br>", "\n", $acoesDoPrograma['mensagensErro']);
 			echo "\n";
+			if( $debug ) {
+				echo str_replace("<br>", "\n", $acoesDoPrograma['debug']);
+				echo "\n";
+			}
 		} else {
 			$numRegistrosAcoes = 0;
 			foreach($acoesDoPrograma['registros'] as $acaoDoPrograma) {
@@ -193,6 +221,10 @@ if($baixar["objetivos"]) {
 		echo "\n";
 		echo str_replace("<br>", "\n", $objetivos['mensagensErro']);
 		echo "\n";
+		if( $debug ) { 
+			echo str_replace("<br>", "\n", $objetivos['debug']);
+			echo "\n";
+		}	
 	} else {
 		$numRegistrosObjetivos = 0;
 		foreach($objetivos['registros'] as $objetivo) {
@@ -222,6 +254,10 @@ if($baixar['metas']) {
 		echo "\n";
 		echo str_replace("<br>", "\n", $metas['mensagensErro']);
 		echo "\n";
+		if( $debug ) { 
+			echo str_replace("<br>", "\n", $metas['debug']);
+			echo "\n";
+		}
 	} else {
 		$numRegistrosMetas = 0;
 		foreach($metas['registros'] as $meta) {
@@ -262,6 +298,10 @@ if($baixar['localizadores']) {
 				echo "\n";
 				echo str_replace("<br>", "\n", $localizadores['mensagensErro']);
 				echo "\n";
+				if( $debug ) {
+					echo str_replace("<br>", "\n", $localizadores['debug']);
+					echo "\n";
+				}
 			} else {
 				$numRegistrosLocalizadores = 0;
 				foreach($localizadores['registros'] as $localizador) {
@@ -298,6 +338,10 @@ if($baixar['planos']) {
 				echo "\n";
 				echo str_replace("<br>", "\n", $planosOrcamentarios['mensagensErro']);
 				echo "\n";
+				if( $debug ) {
+					echo str_replace("<br>", "\n", $planosOrcamentarios['debug']);
+					echo "\n";
+				}
 			} else {
 				$numRegistrosPlanos = 0;
 				foreach($planosOrcamentarios['registros'] as $planoOrcamentario) {
