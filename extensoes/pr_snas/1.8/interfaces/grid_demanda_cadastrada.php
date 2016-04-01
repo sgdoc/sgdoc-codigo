@@ -14,11 +14,10 @@
  * www.softwarepublico.gov.br ou escreva para a Fundação do Software Livre(FSF)
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301, USA
  * */
-
-include(__BASE_PATH__ . '/extensoes/pr_snas/1.8/interfaces/form_novo_prazo.php');
-
 ?>
-
+<?php 
+	include(__BASE_PATH__ . '/extensoes/pr_snas/1.8/interfaces/form_novo_prazo.php');
+?>
 <script type="text/javascript">
 
     var oTableDocumentosDemanda;
@@ -122,7 +121,7 @@ include(__BASE_PATH__ . '/extensoes/pr_snas/1.8/interfaces/form_novo_prazo.php')
             },
             fnRowCallback: function(nRow, aData, iDisplayIndex) {
 
-            	var prazoDaUnidade = (aData[10] == unidadeCorrente);
+            	var prazoDaUnidade = (aData[11] == unidadeCorrente);
             	
                 if ($("#selFiltroOrigemDemanda").val() != 'TD') {
                     /* se não for exibir todos, irá excluir uma coluna, então ajusta-se o índice das colunas abaixo */
